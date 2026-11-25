@@ -1,0 +1,43 @@
+{
+ "note": "Estilo v2 (decidido con Neku): replica simplificada de su imagen. Filas completas (sin espejo), '.' transparente, letras indexan paleta. Sin contorno, fondo negro. Animacion: desplazar 1 px abajo en fotogramas alternos.",
+ "sprites": {
+  "enano": {
+   "palette": {
+    "k": "#0a0a0e",
+    "M": "#777f85",
+    "W": "#abb2ba",
+    "w": "#ffffff",
+    "D": "#4c4f52",
+    "R": "#bf3b05",
+    "S": "#f19766",
+    "s": "#b96d50",
+    "T": "#2f4538",
+    "B": "#744d33",
+    "b": "#462d21",
+    "O": "#f16315"
+   },
+   "rows": [
+    ".......MWWw.......",
+    "......MMMWWW......",
+    "......DDDDDM......",
+    ".....RRRSksM......",
+    ".....RSSSSsSR.....",
+    "....TTRRRRRRR.....",
+    "...DBBTRROOOOO....",
+    "..TTBBTRROOOOO....",
+    "..BsTDTDRROOOR.D..",
+    ".Bsss.DBTRROO.bbM.",
+    ".BsB.TDDWWbRRTSDbM",
+    ".bBBB.TBMMbTTTbSbD",
+    "..bBSBBbbMMbb.BBbD",
+    "...SSBTTTMMWTT.bD.",
+    ".Bb...bbWWWbbb.D..",
+    ".....TTT...TTT....",
+    ".....bb....bb.....",
+    ".....bB....bB....."
+   ],
+   "width": 18,
+   "height": 18
+  }
+ }
+}
