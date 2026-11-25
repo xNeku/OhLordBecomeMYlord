@@ -240,6 +240,72 @@ Nota: el orco es rojo anaranjado y no verde para que no se confunda con el gobli
 - Los números de daño se agrupan: con muchas tropas peleando, un número por golpe es ilegible.
 - Importar las rejillas de `sprites.json` y generar texturas por código o exportar PNGs desde ellas; no redibujar a mano.
 
+## 11b. Arte: Concepto 2 (vigente)
+
+> Neku eligió el **Concepto 2** como estilo del juego. El Concepto 1 (sprites de 18 px con varios tonos) queda archivado en `art/concepto_1/`. Esta sección es el catálogo de todo el arte entregado, para que el código lo use sin preguntar. Todo vive en `assets/concepto_2/` y se lee por `manifest.json`, `structures_manifest.json`, `projectiles_manifest.json` y `terrain_manifest.json`. [Decidido]
+
+### Reglas de estilo
+- Pixel art con piezas de unos 10 px (tropas), 14×10 (bestias), 32×32 (estructuras) y 16×16 (terreno). Fondo negro puro. Sin contornos.
+- Un color por sprite, con un segundo tono como acento solo en bestias, estructuras y montadas. Los detalles (ojos, bocas, ventanas) son huecos negros.
+- Dos fotogramas por criatura y por estructura. Escala siempre entera, filtro `nearest`.
+- Las **estructuras y el terreno ya no son blancos**: llevan color propio y el suelo es tenue para que las tropas destaquen. [Decidido]
+
+### Colores
+| Raza | Tropas (tint) | Estructuras (principal / acento) |
+|---|---|---|
+| Elfo | #5fb7f3 | marfil #e9e4d0 / verde hoja #5cb86a |
+| Enano | #ff880b | pizarra #78808a / oro #e8b923 |
+| Goblin | #4dd464 | chatarra #8d949a / óxido #c0561f |
+| Orco | #ff5036 | madera #a8693a / piedra #8e9399 |
+
+| Bestia | Raza | Colores propios |
+|---|---|---|
+| Oso | Enano | marrón #a8693a |
+| Dientes de sable | Elfo | blanco #f2f2f2 y dorado #e8b923 |
+| Avestruz | Goblin | blanco #f4f4f4 y rosa #ff8fc7 |
+| Warg | Orco | gris #929992 y rojo #e01e37 |
+
+La bestia **nunca** comparte color con las tropas de su raza. Las montadas llevan jinete en color de raza y montura en colores de bestia (atlas ya coloreado, tint blanco).
+
+### Tropas (`units_foot.png`, celda 16×16, tint por raza)
+Ids `<raza>_<clase>`: `base`, `guerrero`, `arquero`, `mago`, `minero`, `lenador`. Cada clase se distingue por la ropa y el arma:
+| Raza | Guerrero | Arquero | Mago |
+|---|---|---|---|
+| Enano | casco con cuernos, hacha y escudo | ballesta | gorro de runas y bastón-martillo |
+| Elfo | cresta en el casco, espada larga | capucha y arco largo | túnica larga y bastón de luna |
+| Goblin | cubo por casco y garrote, tapa de escudo | pluma y tirachinas | máscara de chamán y bastón con calavera |
+| Orco | cleaver enorme y pinchos | arco de hueso con cinta | tótem de hueso y cuernos |
+
+**Aldeanos recolectores** (`<raza>_minero`, `<raza>_lenador`): minero con lámpara y pico, leñador con gorro y hacha, con dos fotogramas de golpe.
+**Montadas** (`units_mounted.png`, celda 20×20, ya coloreado): `<raza>_guerrero_montado`, `<raza>_arquero_montado`, `<raza>_mago_montado`. No son tropas aparte: al desbloquear bestias, las tropas lanzadas pueden salir montadas.
+**Bestias** (`beasts.png`, celda 16×16, ya coloreado): `oso`, `sable`, `warg`, `avestruz`.
+**Proyectiles** (`projectiles.png`, 8×8, blanco): `proj_arrow`, `proj_stone`, `proj_magic`, `proj_bolt`.
+
+### Estructuras (`structures.png`, celda 32×32, ya coloreadas)
+Ids `<raza>_<tipo>` con 16 tipos por raza: `townhall`, `house`, `barracks`, `lumber_center`, `miners_center`, `beast_center`, `engineering_center`, `wall`, `tower_archer`, `tower_cannon`, `mortar`, `ritual_lvl1`, `ritual_lvl2`, `scaffold`, `enemy_hall`, `enemy_tower`, `fortress`. Neutrales: `camp_tent`, `tree_landmark`.
+Cada raza tiene su propio **diseño**, no solo otro color:
+- **Elfos**: elegantes. Mármol marfil, tejados en aguja con aleros curvos y enredaderas.
+- **Enanos**: rudos y pedrosos. Sillares de piedra, tejados planos y filones de mineral dorado.
+- **Orcos**: madera y piedra, torcidas y rotas, con tablones sueltos y huesos.
+- **Goblins**: rotas y de chatarra. Chapa oxidada, remiendos, agujeros y tuberías torcidas.
+El mineral **ya no es una estructura**: se extrae directamente de los muros de montaña (ver mapa).
+
+### Mapa y terreno (`terrain.png`, tiles de 16×16)
+Reglas de generación [Decidido por Neku, a implementar en `MapGenerator`]:
+1. **Las montañas son muros continuos** que dividen el mapa en regiones. No hay triángulos sueltos ni rocas. Solo se cruzan por **pasos** que abre el camino.
+2. **Los bosques son masas densas**, no árboles sueltos. En el borde asoman árboles aislados.
+3. **Río** que nace en la cordillera y baja al mar. Los caminos lo cruzan con **puentes**.
+4. **Caminos** que unen base, campamentos neutrales, avanzada y fortaleza, esquivando bosque y montaña y abriendo pasos donde hace falta.
+5. **Los recursos no desaparecen**: la madera sale de los bosques y el mineral de los muros de montaña. El centro de madera y el de mineros se construyen **pegados** al bosque o al muro, y sus trabajadores van allí.
+6. Cada región tiene su suelo: musgo (inicio), dunas (centro) y ceniza (final).
+Piezas con **máscara de 4 vecinos** (N=1, E=2, S=4, O=8): `mountain_wall_0..15`, `river_0..15`, `road_0..15`. Además: `mountain_ore_1..3` (muro con filones de oro y cristal, donde se mina), `bridge_h`, `bridge_v`, `forest_fill_1..3` (masa de bosque que encaja en mosaico), `forest_tree_1..3` (árbol suelto de borde), `ground_inicio|centro|final_1..4` y `void_star_1..6` (estrellas fuera del mapa).
+
+### Filtros de visión retro
+Cuatro filtros de pantalla completa en `assets/shaders/filters/` (lista y orden en `assets/concepto_2/filtros.json`): **CRT**, **LCD**, **fósforo ámbar** y **Game Boy**, más «sin filtro». Se cambia de uno a otro desde el menú Esc. [Decidido] Los shaders no se han probado en Godot todavía.
+
+### Pendiente de arte
+Héroes (uno por raza), números de daño, iconos de interfaz y los edificios de otras razas como aliados en el mapa.
+
 ## 12. Arquitectura técnica y rendimiento
 
 Godot 4.7.2 con GDScript, optimizando después; por eso la arquitectura debe permitir optimizar sin reescribir. [Decidido]
