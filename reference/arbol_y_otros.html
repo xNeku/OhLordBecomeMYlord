@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estética – Orcos vs. Alianza</title>
+<style>
+  html,body{margin:0;background:#000;color:#8a8f98;font-family:ui-monospace,Menlo,Consolas,monospace}
+  body{padding:20px 14px 40px;max-width:760px;margin:0 auto}
+  h1{font-size:13px;letter-spacing:.2em;font-weight:400;color:#cfd3da;margin:0 0 4px}
+  p.sub{font-size:11px;margin:0 0 18px;color:#6b7078}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .card{background:#050505;border:1px solid #15171b;padding:10px 6px 8px;text-align:center}
+  .card canvas{image-rendering:pixelated;width:100%;height:auto;display:block}
+  .card span{font-size:10px;letter-spacing:.15em;color:#6b7078}
+  .strip{margin-top:14px;border:1px solid #15171b;padding:12px;display:flex;gap:26px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+  .strip canvas{image-rendering:pixelated}
+  .pal{margin-top:14px;display:flex;gap:4px;flex-wrap:wrap}
+  .pal i{width:22px;height:22px;display:block}
+  .note{margin-top:14px;font-size:10px;color:#50545b;line-height:1.5}
+</style>
+</head>
+<body>
+<h1>ORCOS vs. ALIANZA — ESTÉTICA</h1>
+<p class="sub">Sin contornos. Formas simples, colores planos contra negro.</p>
+<div class="grid" id="grid"></div>
+<div class="strip" id="strip"></div>
+<div class="pal" id="pal"></div>
+<div class="note">Fila de abajo: tamaño de juego (x4). Arriba: ampliado para verlos.</div>
+
+<script>
+const C={
+ L:'#93dc5c',G:'#5fb046',D:'#3b7d34',
+ b:'#f3ead2',r:'#ff2e2e',R:'#ff3326',e:'#7a1012',y:'#e6bd3c',
+ i:'#cdd5df',I:'#6d7683',
+ u:'#93603a',U:'#573822',
+ m:'#8993a2',k:'#464d5a',
+ W:'#6c6250',a:'#b6ac96',
+ n:'#7a7062',A:'#b8ae98',K:'#3d372f'
+};
+const mirror=(rows,share)=>rows.map(r=>r+[...(share?r.slice(0,-1):r)].reverse().join(''));
+const blank=(w,h)=>Array.from({length:h},()=>Array(w).fill('.'));
+const toGrid=rows=>rows.map(r=>[...r]);
+const fit=(rows,n,left)=>rows.map(r=>left?r.padEnd(n,'.').slice(0,n):r.padStart(n,'.').slice(-n));
+
+/* ORCO chibi */
+function orc(){
+  const rows=["..LLLLLLLLLL..","..LLLLLLLLLL..",".EGGGGGGGGGG..","..GGGGGrrGrr..","..GGGGGbGGbG..","..DDDDDbDDbD..","...GuuuuuuG...","..GGuuUUuuGG..","...GuuuuuuG...","....UUUUUU....","....GG..GG....","...GGG..GGG..."];
+  const g=toGrid(rows);
+  for(let r=2;r<=6;r++)g[r][12]='i';
+  [3,4,5].forEach(r=>g[r][13]='I');
+  g[7][12]='G';g[8][12]='u';
+  return g;
+}
+/* AGUILA chibi */
+const eagleA=["a......","aW.....","aWW..bb",".aWWWrb","..aWWWy","...aWWW","....WWW",".....Wa","......y"];
+const eagleB=[".......",".......",".....bb","..aWWrb",".aWWWWy","aWWWWWW","aW.aWWW","a...a.W","......y"];
+const eagle=f=>toGrid(mirror(fit(f?eagleB:eagleA,7,true),false));
+/* TORRE chibi */
+function tower(f){
+  const half=["i....I","i..i.I","iiiiII","kkkkkk","kmmmrR","kmmmrR","kmmmmR","kmmmmm","kmmmmm","kmmm..","kmmm..","kkkkkk"];
+  let rows=mirror(half,true);
+  if(f)rows=rows.map(r=>r.replace(/R/g,'e'));
+  return toGrid(rows);
+}
+/* ARBOL muerto con cara */
+function tree(f){
+  const W=24,H=26,g=blank(W,H);
+  const px=(x,y,c)=>{x=Math.round(x);y=Math.round(y);if(x>=0&&x<W&&y>=0&&y<H)g[y][x]=c;};
+  const line=(x0,y0,x1,y1,t,c)=>{const n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0))||1;
+    for(let i=0;i<=n;i++){const x=x0+(x1-x0)*i/n,y=y0+(y1-y0)*i/n;for(let a=0;a<t;a++)for(let b=0;b<t;b++)px(x+a,y+b,c);}};
+  const sw=f?1:0;
+  // raices
+  line(12,22,5,24,2,'n');line(5,24,2,25,1,'n');line(14,22,19,24,2,'n');line(19,24,22,25,1,'n');line(11,23,8,25,1,'n');line(15,23,16,25,1,'n');
+  // tronco
+  for(let y=12;y<=22;y++){const w=3+Math.floor((y-12)/3),x0=12-Math.floor(w/2);
+    for(let x=0;x<w;x++)px(x0+x,y,x==0?'A':(x>=w-1?'K':'n'));}
+  // ramas
+  line(11,12,6,6,2,'n');line(6,6,3+sw,1,1,'n');line(6,6,2,5,1,'n');line(2,5,1+sw,3,1,'n');
+  line(12,12,13,5,2,'n');line(13,5,10+sw,0,1,'n');line(13,5,17+sw,2,1,'n');
+  line(13,12,18,7,2,'n');line(18,7,22+sw,6,1,'n');line(18,7,21+sw,2,1,'n');
+  line(10,13,4,11,1,'n');line(4,11,2,15,1,'n');
+  // cara
+  px(10,15,f?'R':'r');px(11,15,f?'R':'r');px(13,15,f?'R':'r');px(14,15,f?'R':'r');
+  px(11,16,'K');px(13,16,'K');
+  for(let x=10;x<=14;x++)px(x,19,'.');for(let x=10;x<=14;x++)px(x,20,'.');
+  px(11,18,'b');px(13,18,'b');px(12,21,'b');
+  return g;
+}
+
+function draw(cv,grid,s){
+  const h=grid.length,w=grid[0].length;
+  cv.width=w*s;cv.height=h*s;
+  const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);
+  grid.forEach((row,j)=>row.forEach((ch,i)=>{const c=C[ch];if(c){x.fillStyle=c;x.fillRect(i*s,j*s,s,s);}}));
+}
+function pad(grid,W,H,dy){
+  const out=blank(W,H);const h=grid.length,w=grid[0].length;
+  const ox=Math.floor((W-w)/2),oy=H-h-2+(dy||0);
+  grid.forEach((r,j)=>r.forEach((c,i)=>{const y=oy+j,xx=ox+i;if(y>=0&&y<H&&xx>=0&&xx<W)out[y][xx]=c;}));
+  return out;
+}
+const items=[
+ {name:'ORCO', sc:22, frames:[()=>pad(orc(),18,16,0),()=>pad(orc(),18,16,1)], ms:520},
+ {name:'ÁGUILA',sc:22, frames:[()=>pad(eagle(0),18,14,-2),()=>pad(eagle(1),18,14,0)], ms:380},
+ {name:'TORRE', sc:22, frames:[()=>pad(tower(0),18,16,0),()=>pad(tower(1),18,16,0)], ms:600},
+ {name:'ÁRBOL', sc:22, frames:[()=>pad(tree(0),26,28,0),()=>pad(tree(1),26,28,0)], ms:800},
+];
+const grid=document.getElementById('grid'),strip=document.getElementById('strip');
+const pairs=items.map(it=>{
+  const card=document.createElement('div');card.className='card';
+  const cv=document.createElement('canvas');const lb=document.createElement('span');lb.textContent=it.name;
+  card.append(cv,lb);grid.append(card);
+  const sm=document.createElement('canvas');strip.append(sm);
+  return {it,cv,sm,i:0};
+});
+function tick(p){const g=p.it.frames[p.i%2]();draw(p.cv,g,14);draw(p.sm,g,4);p.i++;}
+pairs.forEach(p=>{tick(p);setInterval(()=>tick(p),p.it.ms);});
+const pal=document.getElementById('pal');
+Object.entries(C).forEach(([k,v])=>{const i=document.createElement('i');i.style.background=v;i.title=v;pal.append(i);});
+</script>
+</body>
+</html>

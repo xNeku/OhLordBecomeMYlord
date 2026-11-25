@@ -1,0 +1,167 @@
+{
+ "note": "rows = half_rows mirrored; '.' transparent; letters index palette; 2-frame anim = shift sprite 1px down on alternate frame",
+ "sprites": {
+  "goblin": {
+   "palette": {
+    "m": "#A6FF2E",
+    "l": "#D6FF7A",
+    "d": "#5BB800",
+    "a": "#FF9F1C",
+    "w": "#FFFFFF"
+   },
+   "half_rows": [
+    "...lll",
+    "m.mmmm",
+    "mmmmmm",
+    "..mwwm",
+    "..mw.m",
+    "..mmmm",
+    ".mdwdw",
+    "...mmm",
+    "...aaa",
+    "..maaa",
+    "...mm.",
+    "..mmm."
+   ],
+   "rows": [
+    "...llllll...",
+    "m.mmmmmmmm.m",
+    "mmmmmmmmmmmm",
+    "..mwwmmwwm..",
+    "..mw.mm.wm..",
+    "..mmmmmmmm..",
+    ".mdwdwwdwdm.",
+    "...mmmmmm...",
+    "...aaaaaa...",
+    "..maaaaaam..",
+    "...mm..mm...",
+    "..mmm..mmm.."
+   ],
+   "width": 12,
+   "height": 12
+  },
+  "orc": {
+   "palette": {
+    "m": "#FF5B3A",
+    "l": "#FF9A7A",
+    "d": "#B3200C",
+    "a": "#B8C0D4",
+    "w": "#FFFFFF"
+   },
+   "half_rows": [
+    "..lllll",
+    ".mmmmmm",
+    ".mdddmm",
+    ".mmwmmm",
+    ".mmmmmm",
+    ".mwmmmm",
+    ".mwdddd",
+    "..mmmmm",
+    ".aaaaaa",
+    "maaammm",
+    "mmammmm",
+    ".mmmddd",
+    "...mmm.",
+    "..mmmm."
+   ],
+   "rows": [
+    "..llllllllll..",
+    ".mmmmmmmmmmmm.",
+    ".mdddmmmmdddm.",
+    ".mmwmmmmmmwmm.",
+    ".mmmmmmmmmmmm.",
+    ".mwmmmmmmmmwm.",
+    ".mwddddddddwm.",
+    "..mmmmmmmmmm..",
+    ".aaaaaaaaaaaa.",
+    "maaammmmmmaaam",
+    "mmammmmmmmmamm",
+    ".mmmddddddmmm.",
+    "...mmm..mmm...",
+    "..mmmm..mmmm.."
+   ],
+   "width": 14,
+   "height": 14
+  },
+  "dwarf": {
+   "palette": {
+    "m": "#FF9E1F",
+    "l": "#FFD7A0",
+    "d": "#C25E00",
+    "a": "#9AA3B5",
+    "w": "#FFFFFF"
+   },
+   "half_rows": [
+    "...aaa",
+    "..aaaa",
+    ".aaaaa",
+    "..llll",
+    "..l.ll",
+    ".mmmml",
+    "mmmmmm",
+    "lmmmmm",
+    "mmmdmm",
+    ".mmmmm",
+    "..aaa."
+   ],
+   "rows": [
+    "...aaaaaa...",
+    "..aaaaaaaa..",
+    ".aaaaaaaaaa.",
+    "..llllllll..",
+    "..l.llll.l..",
+    ".mmmmllmmmm.",
+    "mmmmmmmmmmmm",
+    "lmmmmmmmmmml",
+    "mmmdmmmmdmmm",
+    ".mmmmmmmmmm.",
+    "..aaa..aaa.."
+   ],
+   "width": 12,
+   "height": 11
+  },
+  "elf": {
+   "palette": {
+    "m": "#2CE8E0",
+    "l": "#D8FFF8",
+    "d": "#0AA0A8",
+    "a": "#FFE066",
+    "w": "#FFFFFF"
+   },
+   "half_rows": [
+    "..aaa",
+    ".aaaa",
+    "l.all",
+    "lla.l",
+    "..all",
+    "..amm",
+    ".lamm",
+    "..amm",
+    "...dd",
+    "...m.",
+    "...m.",
+    "...m.",
+    "..dd.",
+    "..dd."
+   ],
+   "rows": [
+    "..aaaaaa..",
+    ".aaaaaaaa.",
+    "l.alllla.l",
+    "lla.ll.all",
+    "..alllla..",
+    "..ammmma..",
+    ".lammmmal.",
+    "..ammmma..",
+    "...dddd...",
+    "...m..m...",
+    "...m..m...",
+    "...m..m...",
+    "..dd..dd..",
+    "..dd..dd.."
+   ],
+   "width": 10,
+   "height": 14
+  }
+ }
+}
