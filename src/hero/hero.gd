@@ -34,6 +34,10 @@ func setup(map_data: MapData, battle: Battle) -> void:
 	for a in data["archetypes"]:
 		slot_of[a] = battle.db.slots[battle.db.type_index(battle.db.unit_id(data["faction"], a))]
 	store.configure(data, slot_of)
+	# aspecto: sprite y color del tipo indicado en data/hero.json (provisional hasta que arte entregue héroes)
+	var ht := battle.db.type_index(data.get("sprite_type", "goblin_brute"))
+	sprite.region_rect.position.y = 16.0 * battle.db.sprite_row[ht]
+	sprite.modulate = battle.db.tint[ht]
 	launcher.setup(self, battle, map_data, data, store)
 	var size := map.size_px()
 	camera.limit_left = 0

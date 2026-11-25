@@ -93,6 +93,7 @@ func _process(_delta: float) -> void:
 	else:
 		hud.set_prompt("")
 	hud.set_rates(economy.wood_per_s(), economy.mineral_per_s())
+	hero.launcher.mount_chance = economy.mount_chance()
 	var st := hero.store
 	hud.set_troops("Tropas %d/%d  ·  huecos %d/%d%s" % [st.total(), st.allocated_total(), st.carried_slots(), st.capacity,
 		"  ·  reponiendo..." if st.resting else ("  ·  vuelve a la base para reponer" if st.total() < st.allocated_total() and not st.at_base else "")])

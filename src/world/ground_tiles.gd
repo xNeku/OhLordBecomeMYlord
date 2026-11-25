@@ -2,7 +2,7 @@ class_name GroundTiles
 extends RefCounted
 ## Tramas en blanco y negro puro para el suelo (una baldosa por celda de 16 px) y sellos
 ## para montañas y árboles. Cada terreno se distingue SOLO por su trama, nunca por color.
-## Formato LA8: blanco opaco o transparente (el fondo de la escena es negro).
+## Las baldosas se crean en blanco y se tiñen con `tinted()` al hornear (colores en data/world.json > ground).
 
 const S := 16
 const ON := Color(1, 1, 1, 1)
@@ -54,7 +54,7 @@ func plain_tile(pattern: String, variant: int) -> Image:
 
 
 static func _blank(w: int, h: int) -> Image:
-	var img := Image.create_empty(w, h, false, Image.FORMAT_LA8)
+	var img := Image.create_empty(w, h, false, Image.FORMAT_RGBA8)
 	img.fill(Color(0, 0, 0, 0))
 	return img
 
@@ -103,4 +103,15 @@ func _make_tree() -> Image:
 	for y in range(7, 10):
 		img.set_pixel(3, y, ON)
 		img.set_pixel(4, y, ON)
+	return img
+
+
+## Copia de una baldosa blanca con los píxeles blancos pasados a `col` (el negro se queda negro).
+static func tinted(src: Image, col: Color) -> Image:
+	var img := src.duplicate() as Image
+	for y in img.get_height():
+		for x in img.get_width():
+			var c := img.get_pixel(x, y)
+			if c.a > 0.0:
+				img.set_pixel(x, y, Color(c.r * col.r, c.g * col.g, c.b * col.b, c.a))
 	return img

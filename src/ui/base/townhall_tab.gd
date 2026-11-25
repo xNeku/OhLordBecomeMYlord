@@ -6,7 +6,7 @@ extends VBoxContainer
 @onready var rates_label: Label = $Rates
 @onready var queue_label: Label = $Queue
 @onready var split_rows: Array[SplitRow] = [$SplitBuild, $SplitWood, $SplitMining]
-@onready var build_rows: Array[BuildRow] = [$BuildHouse, $BuildBarracks, $BuildLumber, $BuildMiners]
+@onready var build_rows: Array[BuildRow] = [$BuildHouse, $BuildBarracks, $BuildLumber, $BuildMiners, $BuildBeasts]
 
 var eco: Economy
 

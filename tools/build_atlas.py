@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Genera los atlas PNG a partir de art/sprites.json (+ estructuras dibujadas aqui).
-Uso:  python3 tools/build_atlas.py
-Salida: assets/atlas/units.png (celdas 16x16, 2 fotogramas por fila)
+Uso:  python3 tools/build_atlas.py   (las tropas las entrega arte: ver docs/CONTRATO_ARTE.md)
+Salida: assets/atlas/projectiles.png (+manifest, celdas 8x8)
         assets/atlas/structures.png (celdas 32x32, 2 fotogramas por fila)
 Filas unidades: 0 goblin, 1 orc, 2 dwarf, 3 elf. Columnas: 0-1 fotogramas, 2 proyectil.
 Filas estructuras: 0 tienda, 1 ayuntamiento, 2 casa, 3 cuartel, 4 torre, 5 arbol, 6 mineral, 7 fortaleza,
@@ -12,28 +12,38 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spr = json.load(open(os.path.join(ROOT, "art/sprites.json")))["sprites"]
-order = ["goblin", "orc", "dwarf", "elf"]
-UC = 16
-img = Image.new("RGBA", (UC * 3, UC * len(order)), (0, 0, 0, 0))  # col 0-1 fotogramas, col 2 proyectil
 def hexc(h): h = h.lstrip('#'); return tuple(int(h[i:i+2], 16) for i in (0, 2, 4)) + (255,)
-for row, name in enumerate(order):
-    s = spr[name]; pal = {k: hexc(v) for k, v in s["palette"].items()}
-    w, h = s["width"], s["height"]
-    for frame in range(2):
-        ox = frame * UC + (UC - w) // 2
-        oy = row * UC + (UC - h - 1) + frame  # fotograma 2: 1px más abajo (balanceo)
-        for y, line in enumerate(s["rows"]):
-            for x, ch in enumerate(line):
-                if ch in pal: img.putpixel((ox + x, oy + y), pal[ch])
-    # proyectil: bloque 4x4 del color de la raza con centro claro (se dibuja en la columna 2)
-    for y in range(6, 10):
-        for x in range(6, 10):
-            img.putpixel((2 * UC + x, row * UC + y), pal["l"] if (x in (7, 8) and y in (7, 8)) else pal["m"])
 os.makedirs(os.path.join(ROOT, "assets/atlas"), exist_ok=True)
-img.save(os.path.join(ROOT, "assets/atlas/units.png"))
+# Las TROPAS vienen del director artístico (assets/atlas/units_foot.png, units_mounted.png, beasts.png
+# + art_manifest.json). Aquí solo se generan los PROYECTILES provisionales y las estructuras.
+
+# Proyectiles: celdas 8x8, 2 fotogramas, en blanco (el motor los tiñe con el color de la raza)
+PC = 8
+PROJ = ["proj_stone", "proj_arrow", "proj_magic", "proj_bolt"]
+pj = Image.new("RGBA", (PC * 2, PC * len(PROJ)), (0, 0, 0, 0))
+WH = (255, 255, 255, 255)
+def pp(f, r, x, y):
+    pj.putpixel((f * PC + x, r * PC + y), WH)
+for f in range(2):
+    for x, y in ((3, 3), (4, 3), (3, 4), (4, 4), (3 + f, 2), (2, 3 + f)):  # piedra que gira
+        pp(f, 0, x, y)
+    for x in range(1, 7):  # flecha
+        pp(f, 1, x, 4)
+    pp(f, 1, 6, 3); pp(f, 1, 6, 5); pp(f, 1, 1, 3 + f)
+    for x, y in ((3, 2), (4, 2), (2, 3), (5, 3), (2, 4), (5, 4), (3, 5), (4, 5)):  # orbe mágico que late
+        pp(f, 2, x, y)
+    if f: pp(f, 2, 3, 3); pp(f, 2, 4, 4)
+    else: pp(f, 2, 4, 3); pp(f, 2, 3, 4)
+    for x in range(2, 7):  # virote de ballesta
+        pp(f, 3, x, 4); pp(f, 3, x, 3)
+    pp(f, 3, 7 - f, 4)
+pj.save(os.path.join(ROOT, "assets/atlas/projectiles.png"))
+json.dump({"_nota": "Generado por tools/build_atlas.py (provisional hasta que arte entregue los suyos). celda 8x8, 2 fotogramas.",
+           "celda": [PC, PC], "grid": [2, len(PROJ)], "filas": {k: i for i, k in enumerate(PROJ)}},
+          open(os.path.join(ROOT, "assets/atlas/projectiles_manifest.json"), "w"), indent=1)
 
 SC = 32
-ROWS = 12
+ROWS = 13
 st = Image.new("RGBA", (SC * 2, SC * ROWS), (0, 0, 0, 0))
 # Regla de arte (Neku): estructuras y entorno SOLO en blanco y negro, formas simples.
 # El color queda reservado para tropas, proyectiles y habilidades.
@@ -115,6 +125,12 @@ for f in range(2):
     rect(f, 11, 10, 14, 21, 14, W); rect(f, 11, 22 + f, 21, 29 + f, 25, W); rect(f, 11, 23 + f, 26, 24 + f, 27, W); rect(f, 11, 27 + f, 26, 28 + f, 27, W)
     rect(f, 11, 2, 27, 29, 27, W)
 
+for f in range(2):
+    # 12 centro de bestias: establo con cabeza de bestia asomando
+    rect(f, 12, 4, 14, 27, 27, W); tri(f, 12, 16, 6, 14, 13, W); rect(f, 12, 4, 14, 27, 14, K)
+    rect(f, 12, 11, 18, 20, 27, K); rect(f, 12, 13 + f, 19, 18 + f, 23, W); rect(f, 12, 14 + f, 20, 14 + f, 20, K)
+    rect(f, 12, 13 + f, 17, 13 + f, 18, W); rect(f, 12, 18 + f, 17, 18 + f, 18, W)
+
 # 5 arbol muerto con cara (de reference/arbol_y_otros.html): silueta blanca, ojos huecos negros
 C = {'r': '#000000', 'R': '#000000', 'b': '#ffffff', 'n': '#ffffff', 'A': '#ffffff', 'K': '#ffffff'}
 def tree(f):
@@ -155,4 +171,4 @@ for y in range(st.height):
         if a:
             px_[x, y] = W if (r + g + b) > 60 else K
 st.save(os.path.join(ROOT, "assets/atlas/structures.png"))
-print("atlas ok:", img.size, st.size)
+print("atlas ok: proyectiles", pj.size, "estructuras", st.size)

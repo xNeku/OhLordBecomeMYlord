@@ -65,9 +65,18 @@ Cómo leerlo: con 2.000 unidades la simulación cabe de sobra en su presupuesto.
 - **Estructuras enemigas** en blanco con detalles muy reconocibles: la base tiene cuernos, pinchos y calavera; la torre, pinchos y un ojo que parpadea; la fortaleza, pinchos y calavera.
 - Todos los números están en `data/economy.json`, `data/buildings.json` (`construibles` y `mejoras_cuartel`), `data/hero.json` (`troops`) y `slots` en `data/units.json`.
 
+### Integración del arte del director artístico ✅
+- Las tropas usan los sprites del Concepto 2 (`assets/atlas/units_foot.png`, `units_mounted.png`, `beasts.png`) con los colores de raza nuevos: enano naranja, elfo azul, goblin verde y orco rojo.
+- **Mago** en las 4 razas: ataque a distancia con daño en área y proyectil mágico. Sustituye al bombardero.
+- **Centro de bestias** (construible): +15 % por cada uno de que guerreros, arqueros y magos salgan **montados**. Los montados tienen más vida, velocidad y daño.
+- **Bestias** como unidades propias. Ya aparecen como defensores en los campamentos neutrales: warg en los de nivel 2; oso y dientes de sable en los de nivel 3.
+- Proyectiles de color según la raza: piedra goblin, flecha elfa y orca, virote enano, orbe mágico.
+- Terreno con **color apagado sobre negro**: verde en el inicio, arena en el centro, ceniza en la final, agua azul y montañas grises. Las tropas siguen destacando. Es provisional hasta que llegue el terreno del director de arte; los colores están en `data/world.json > ground.colors`.
+- Las estructuras siguen en blanco hasta que lleguen las del director de arte.
+
 ## Pruebas realizadas (todas sin ventana, en el servidor)
 - `tools/test_world.gd`: 300 semillas sin problemas.
-- `tools/smoke_world.gd`: partida automática con 22 comprobaciones, todas OK en las semillas 123 y 7. Además de lo de antes, cubre: no reponer lejos de la base, reponer descansando en ella, producción de madera, construir el cuartel, desbloquear, mejorar stats y ampliar capacidad. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.
+- `tools/smoke_world.gd`: partida automática con 25 comprobaciones, todas OK en las semillas 123, 7 y 55. Además de lo de antes, cubre: no reponer lejos de la base, reponer descansando en ella, producción de madera, construir el cuartel, desbloquear, mejorar stats y ampliar capacidad. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.
 - Capturas renderizadas del benchmark y del mundo con OpenGL por software.
 - **Sin probar:** mando físico, Mac, Android y el rendimiento con GPU real.
 

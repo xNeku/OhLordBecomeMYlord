@@ -102,6 +102,26 @@ func _run() -> void:
 	check(eco.upgrade_stats("base") and sim.db.hp[t_base] > hp0, "mejora de stats sube la vida (%.0f -> %.0f)" % [hp0, sim.db.hp[t_base]])
 	var cap0: int = st.capacity
 	check(eco.upgrade_capacity() and st.capacity > cap0, "mejora de capacidad (%d -> %d)" % [cap0, st.capacity])
+	# --- centro de bestias: probabilidad de que salgan montadas ---
+	check(eco.order_building("beast_center"), "se encarga un centro de bestias")
+	var t3 := 0
+	while eco.mount_chance() <= 0.0 and t3 < 60 * 60:
+		await frames(30); t3 += 30
+	check(eco.mount_chance() > 0.0, "el centro de bestias da probabilidad de montura (%.0f %%)" % (eco.mount_chance() * 100.0))
+	st.set_allocation("ranged", 10)
+	w.hero.global_position = w.map.spawn + Vector2(0, 28)
+	await frames(60 * 5)
+	w.hero.launcher.selected = 2  # arquero
+	w.hero.launcher._pad_aim = true
+	var old_chance = eco.catalog["beast_center"]["mount_chance"]
+	eco.catalog["beast_center"]["mount_chance"] = 1.0  # forzado para la prueba (World lo copia al lanzador cada frame)
+	await frames(2)
+	var m0 := _alive_of(sim, "goblin_ranged_mounted")
+	Input.action_press("dial_open"); await frames(2)
+	Input.action_press("throw_troops"); await frames(10); Input.action_release("throw_troops")
+	Input.action_release("dial_open"); await frames(2)
+	check(_alive_of(sim, "goblin_ranged_mounted") > m0, "con probabilidad de montura salen arqueros montados")
+	eco.catalog["beast_center"]["mount_chance"] = old_chance
 	eco.set_split("build", 30)
 
 	# --- barrera ---

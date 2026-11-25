@@ -103,7 +103,8 @@
    "defenders": {
     "orc_base": 5,
     "orc_ranged": 2,
-    "orc_brute": 1
+    "orc_brute": 1,
+    "beast_warg": 1
    },
    "reward": {
     "wood": 70,
@@ -115,7 +116,8 @@
     "orc_base": 6,
     "orc_ranged": 3,
     "orc_brute": 2,
-    "orc_special": 1
+    "beast_bear": 1,
+    "beast_sabre": 1
    },
    "reward": {
     "wood": 110,
@@ -157,9 +159,20 @@
   "ore_row": 6
  },
  "ground": {
-  "_nota": "Regla de arte: entorno SOLO en blanco y negro puro. Cada terreno se distingue por su trama. Tamaño de los trozos de textura en px.",
+  "_nota": "Fondo negro y tramas de color apagado (las tropas y proyectiles deben destacar más). Provisional hasta el terreno del director de arte. chunk_px = tamaño de los trozos de textura.",
   "chunk_px": 512,
-  "star_chance": 0.12
+  "star_chance": 0.12,
+  "colors": {
+   "grass": "#2f7a3e",
+   "dunes": "#9a7a3c",
+   "ash": "#7a4256",
+   "water": "#1f5aa0",
+   "coast": "#79b4e8",
+   "road": "#a88c62",
+   "mountain": "#9a9aae",
+   "forest": "#2f8f55",
+   "star": "#c8c8ff"
+  }
  },
  "terrain": {
   "_nota": "Relieve generado con ruido (semilla). Montañas y lagos bloquean el paso; bosque y camino se pueden pisar. Umbrales 0..1: más alto = menos cantidad.",

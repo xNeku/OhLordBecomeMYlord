@@ -23,6 +23,13 @@ Estas decisiones mandan sobre lo que diga el resto del documento si chocan.
 - Estructuras enemigas: **todo en blanco, con detalles visuales notorios** (cuernos, pinchos, calavera).
 - Hito 3 aprobado: ayuntamiento con reparto, cuartel (desbloquear y mejorar), centros de mineros y de madera.
 
+**Arte y tropas (Neku, 25 nov 2026, segunda ronda)**
+- Hay un **director artístico** (otra sesión de Claude, rama `ccr-bbe7ce85-s74iv2`) que entrega los assets; código y datos siguen en esta rama. El contrato técnico está en `docs/CONTRATO_ARTE.md`.
+- Estilo "Concepto 2": piezas de unos 10x10, un color por sprite, huecos negros, 2 fotogramas, fondo negro.
+- Estructuras y mapa: **jugar con el negro y los colores**; Neku retoca después. Lo que más destaca siguen siendo las tropas, los proyectiles y las habilidades.
+- Arquetipos: **guerrero (base), bruto, arquero y mago**. El mago sustituye al bombardero.
+- **Montadas**: no son tropas que se elijan. Al desbloquear bestias (Centro de bestias), las tropas lanzadas tienen una **probabilidad de salir montadas**. Las **bestias** (oso, dientes de sable, warg, avestruz) son unidades aparte.
+
 **Estructuras**
 - Economía y base: ayuntamiento, casas, centro de mineros, centro de madera.
 - Militares: cuartel de tropas, centro de bestias (monturas: animales, voladores, acuáticos), centro de ingeniería (mejoras de estructuras y tecnologías).

@@ -1,0 +1,17 @@
+{
+ "_nota": "Generado por tools/build_atlas.py (provisional hasta que arte entregue los suyos). celda 8x8, 2 fotogramas.",
+ "celda": [
+  8,
+  8
+ ],
+ "grid": [
+  2,
+  4
+ ],
+ "filas": {
+  "proj_stone": 0,
+  "proj_arrow": 1,
+  "proj_magic": 2,
+  "proj_bolt": 3
+ }
+}

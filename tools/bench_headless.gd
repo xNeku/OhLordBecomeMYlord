@@ -11,8 +11,8 @@ func _initialize() -> void:
 	var sim := BattleSim.new()
 	sim.setup(db, 3000.0, 2000.0, 4096)
 	seed(7)
-	var kinds := ["goblin_base", "goblin_base", "goblin_base", "goblin_brute", "goblin_ranged", "goblin_special"]
-	var kinds_b := ["dwarf_base", "dwarf_base", "dwarf_brute", "dwarf_ranged", "dwarf_ranged", "dwarf_special"]
+	var kinds := ["goblin_base", "goblin_base", "goblin_base", "goblin_brute", "goblin_ranged", "goblin_special", "goblin_brute_mounted", "beast_warg"]
+	var kinds_b := ["dwarf_base", "dwarf_base", "dwarf_brute", "dwarf_ranged", "dwarf_ranged", "dwarf_special", "dwarf_ranged_mounted", "beast_bear"]
 	var spread := 60.0 + sqrt(per_side) * 9.0
 	for n in per_side:
 		sim.spawn(kinds[randi() % kinds.size()], 0, 900.0 + randf_range(-spread, spread), 1000.0 + randf_range(-spread, spread), true)

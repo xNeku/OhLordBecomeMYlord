@@ -52,6 +52,10 @@ building_id = "lumber_center"
 layout_mode = 2
 building_id = "miners_center"
 
+[node name="BuildBeasts" parent="." instance=ExtResource("3_build")]
+layout_mode = 2
+building_id = "beast_center"
+
 [node name="Queue" type="Label" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13

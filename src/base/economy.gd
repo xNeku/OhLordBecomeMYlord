@@ -95,6 +95,13 @@ func build_per_s() -> float:
 	return workers() * split["build"] / 100.0 * float(params["build_work_per_worker_s"])
 
 
+## Probabilidad de que guerreros, arqueros y magos lanzados salgan montados.
+func mount_chance() -> float:
+	if not catalog.has("beast_center"):
+		return 0.0
+	return clampf(float(counts.get("beast_center", 0)) * float(catalog["beast_center"].get("mount_chance", 0.0)), 0.0, 1.0)
+
+
 # ------------------------------------------------------------ construcción
 
 func queued_of(id: String) -> int:

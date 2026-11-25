@@ -1,14 +1,14 @@
 class_name WorldView
 extends Node2D
-## Dibuja el suelo. Regla de arte: SOLO blanco y negro puro; el color es para tropas,
-## proyectiles y habilidades. Cada terreno se distingue por su trama (ver GroundTiles).
+## Dibuja el suelo: fondo negro y tramas de color apagado por terreno (ver GroundTiles y
+## data/world.json > ground.colors), para que tropas, proyectiles y habilidades destaquen.
 ## El suelo se "hornea" una vez en texturas por trozos y luego solo se dibujan esas
 ## texturas. Encima se pintan las barreras (cambian al abrirse).
 
 const WHITE := Color(1, 1, 1, 1)
 
 var map: MapData
-var style: Dictionary = {"chunk_px": 512, "star_chance": 0.12}
+var style: Dictionary = {"chunk_px": 512, "star_chance": 0.12, "colors": {}}
 var _chunks: Array[Dictionary] = []  ## {tex: ImageTexture, pos: Vector2}
 var bake_ms := 0.0
 
@@ -42,6 +42,25 @@ func _is_land(cx: int, cy: int) -> bool:
 
 func _bake() -> void:
 	var tiles := GroundTiles.new()
+	var col: Dictionary = style["colors"]
+	var C := func(k: String) -> Color: return Color(col.get(k, "#FFFFFF"))
+	# baldosas teñidas una vez (cacheadas por clase y variante)
+	var plain_t := {}
+	for pname in tiles.plain:
+		var arr: Array[Image] = []
+		for im in tiles.plain[pname]:
+			arr.append(GroundTiles.tinted(im, C.call(pname)))
+		plain_t[pname] = arr
+	var water_t: Image = GroundTiles.tinted(tiles.water, C.call("water"))
+	var road_t: Array[Image] = []
+	for im in tiles.road:
+		road_t.append(GroundTiles.tinted(im, C.call("road")))
+	var stars_t: Array[Image] = []
+	for im in tiles.stars:
+		stars_t.append(GroundTiles.tinted(im, C.call("star")))
+	var peak_t: Image = GroundTiles.tinted(tiles.peak, C.call("mountain"))
+	var tree_t: Image = GroundTiles.tinted(tiles.tree, C.call("forest"))
+	var coast: Color = C.call("coast")
 	var cs := int(map.cell)
 	var img := GroundTiles._blank(map.w * cs, map.h * cs)
 	var full := Rect2i(0, 0, cs, cs)
@@ -56,15 +75,16 @@ func _bake() -> void:
 				MapData.T_PLAIN, MapData.T_FOREST:
 					var z := map.zone_id[i]
 					var pat: String = map.zones[z]["pattern"] if z != MapData.VOID else "grass"
-					img.blit_rect(tiles.plain_tile(pat, hv), full, dst)
+					var vs: Array = plain_t.get(pat, plain_t["grass"])
+					img.blit_rect(vs[hv % vs.size()], full, dst)
 				MapData.T_ROAD:
-					img.blit_rect(tiles.road[hv % 2], full, dst)
+					img.blit_rect(road_t[hv % road_t.size()], full, dst)
 				MapData.T_WATER, MapData.T_LAKE:
-					img.blit_rect(tiles.water, full, dst)
+					img.blit_rect(water_t, full, dst)
 				MapData.T_VOID:
 					if float(hv % 1000) / 1000.0 < star_chance:
-						img.blit_rect(tiles.stars[hv % tiles.stars.size()], full, dst)
-	# 2) costa: línea blanca continua donde la tierra toca agua o vacío
+						img.blit_rect(stars_t[hv % stars_t.size()], full, dst)
+	# 2) costa: línea continua donde la tierra toca agua o vacío
 	for cy in map.h:
 		for cx in map.w:
 			if not _is_land(cx, cy):
@@ -72,13 +92,13 @@ func _bake() -> void:
 			var x := cx * cs
 			var y := cy * cs
 			if not _is_land(cx + 1, cy):
-				img.fill_rect(Rect2i(x + cs - 1, y, 1, cs), WHITE)
+				img.fill_rect(Rect2i(x + cs - 1, y, 1, cs), coast)
 			if not _is_land(cx - 1, cy):
-				img.fill_rect(Rect2i(x, y, 1, cs), WHITE)
+				img.fill_rect(Rect2i(x, y, 1, cs), coast)
 			if not _is_land(cx, cy + 1):
-				img.fill_rect(Rect2i(x, y + cs - 1, cs, 1), WHITE)
+				img.fill_rect(Rect2i(x, y + cs - 1, cs, 1), coast)
 			if not _is_land(cx, cy - 1):
-				img.fill_rect(Rect2i(x, y, cs, 1), WHITE)
+				img.fill_rect(Rect2i(x, y, cs, 1), coast)
 	# 3) sellos de relieve, por filas para que lo de abajo tape a lo de arriba
 	var peak_r := Rect2i(Vector2i.ZERO, tiles.peak.get_size())
 	var tree_r := Rect2i(Vector2i.ZERO, tiles.tree.get_size())
@@ -88,11 +108,11 @@ func _bake() -> void:
 			var hv2 := _h(cx, cy)
 			if t == MapData.T_MOUNTAIN:
 				var off := Vector2i(hv2 % 5 - 2, -4 - (hv2 / 7) % 3)
-				img.blit_rect_mask(tiles.peak, tiles.peak, peak_r, Vector2i(cx * cs, cy * cs) + off)
+				img.blit_rect_mask(peak_t, peak_t, peak_r, Vector2i(cx * cs, cy * cs) + off)
 			elif t == MapData.T_FOREST:
 				for k in (1 if hv2 % 3 != 0 else 0):
 					var o2 := Vector2i((hv2 >> (k * 3)) % 9, (hv2 >> (k * 5 + 2)) % 6)
-					img.blit_rect_mask(tiles.tree, tiles.tree, tree_r, Vector2i(cx * cs, cy * cs) + o2)
+					img.blit_rect_mask(tree_t, tree_t, tree_r, Vector2i(cx * cs, cy * cs) + o2)
 	# 4) trocear en texturas (los móviles no aceptan texturas gigantes)
 	var chunk := int(style["chunk_px"])
 	_chunks.clear()

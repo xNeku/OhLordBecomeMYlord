@@ -102,6 +102,18 @@
    "unit_type": "miners_center",
    "effect": "+75% mineral por cada uno",
    "mineral_bonus": 0.75
+  },
+  "beast_center": {
+   "name": "Centro de bestias",
+   "cost": {
+    "wood": 80,
+    "mineral": 60
+   },
+   "work": 45,
+   "max": 3,
+   "unit_type": "beast_center",
+   "effect": "+15% de que guerreros, arqueros y magos salgan montados",
+   "mount_chance": 0.15
   }
  },
  "mejoras_cuartel": {
@@ -137,5 +149,6 @@
     "mineral": 40
    }
   }
- }
+ },
+ "catalogo_pendiente_nota": "militar.beast_center ya es construible (probabilidad de montura)."
 }

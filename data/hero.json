@@ -5,7 +5,6 @@
  "launch_radius": 110,
  "throw_batch": 4,
  "throw_repeat_s": 0.08,
- "sprite_faction": "goblin",
  "archetypes": [
   "base",
   "brute",
@@ -28,5 +27,6 @@
   "refill_radius_px": 140,
   "rest_delay_s": 2.0,
   "refill_per_second": 8.0
- }
+ },
+ "sprite_type": "goblin_brute"
 }

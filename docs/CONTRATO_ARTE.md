@@ -29,7 +29,13 @@ Lo leo por **manifests**, así que añadir o reordenar filas no rompe nada.
   - `forest_tree`: sello de unos 8x10.
   - `void_star`, con 4 a 6 variantes.
 
-## 4. Arquetipos (pendiente de que decida Neku)
+## 0. Estado actual (integrado en el juego)
+- `assets/atlas/units_foot.png` (16x16, blanco + tinte), `units_mounted.png` (20x20, ya coloreado, tinte blanco), `beasts.png` (16x16, blanco + tinte) y `art_manifest.json`. Copiados de la rama de arte (`assets/concepto_2/`).
+- En `data/units.json`, `"sprite"` es el id del manifest y `"atlas"` vale foot, mounted, beast o structure. La rejilla de cada atlas se lee del manifest, así que se pueden añadir filas sin tocar escenas.
+- Para actualizar, se copian los PNG y el manifest nuevos a `assets/atlas/`. Si cambian los ids, se ajusta `data/units.json`.
+- Los proyectiles (`assets/atlas/projectiles.png` + `projectiles_manifest.json`, celdas de 8x8) son provisionales, generados con `tools/build_atlas.py`.
+
+## 4. Arquetipos (decidido por Neku)
 - Ids internos: `base`, `brute`, `ranged`, `special`. El dial tiene 4 casillas.
-- Propuesta de mapeo: guerrero = base, arquero = ranged, mago = special, bruto = guerrero pesado. Hoy el `special` del goblin es el bombardero kamikaze.
-- Montadas: tipos nuevos en `units.json` con `"mount": "warg"` y sus propios stats, que se desbloquean en el Centro de bestias.
+- Mapeo: base → sprite `base`, brute → `guerrero`, ranged → `arquero`, special → `mago`. El mago sustituye al bombardero.
+- Montadas: tipos `<raza>_<arquetipo>_mounted` en `units.json`. No se eligen: salen por probabilidad al lanzar, y esa probabilidad la da el Centro de bestias. Las bestias son tipos `beast_*`.

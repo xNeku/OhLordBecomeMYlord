@@ -17,6 +17,9 @@ var launch_radius := 110.0
 var batch := 4
 var repeat_s := 0.08
 
+## Probabilidad de que una tropa lanzada salga montada (la sube el Centro de bestias). La pone World.
+var mount_chance := 0.0
+
 var active := false
 var selected := 0
 var aim := Vector2.ZERO
@@ -120,13 +123,17 @@ func _throw() -> void:
 	if n <= 0:
 		return
 	var type_id := battle.db.unit_id(faction, arch)
+	var mounted_id := battle.db.mounted_id(faction, arch)
 	var z := maxi(map.zone_at(hero.global_position), 0)
 	for k in n:
+		var tid := type_id
+		if mounted_id != "" and randf() < mount_chance:
+			tid = mounted_id
 		var jitter := Vector2(randf_range(-9.0, 9.0), randf_range(-9.0, 9.0))
 		var p := aim + jitter
 		if not map.is_walkable(p):
 			p = aim
-		battle.sim.spawn(type_id, UnitDB.PLAYER, p.x, p.y, true, -1, z)
+		battle.sim.spawn(tid, UnitDB.PLAYER, p.x, p.y, true, -1, z)
 	thrown.emit(arch, n)
 
 

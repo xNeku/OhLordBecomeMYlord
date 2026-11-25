@@ -18,7 +18,6 @@ const MAX_SEP_NEIGHBORS := 8
 const MAX_CELL_SCAN := 24  ## máx. unidades revisadas por celda al buscar objetivo
 const DEATH_STRIDE := 5
 const SHOT_STRIDE := 5
-const RANGED_MIN := 24.0  ## a partir de este alcance el ataque genera un proyectil visual
 
 var db: UnitDB
 var grid := SpatialGrid.new()
@@ -54,9 +53,9 @@ var structs_dirty := true
 var team_rep := PackedInt32Array([-1, -1, -1, -1])
 var team_count := PackedInt32Array([0, 0, 0, 0])
 
-## Eventos de muerte para el dibujado: x, y, fila_sprite, escala, es_estructura
+## Eventos de muerte para el dibujado: x, y, fila_fx (-1 = sin partícula), escala, es_estructura
 var death_events := PackedFloat32Array()
-## Disparos para el dibujado: x0, y0, x1, y1, fila_proyectil (el daño ya se aplicó; es solo visual)
+## Disparos para el dibujado: x0, y0, x1, y1, tipo_que_dispara (el daño ya se aplicó; es solo visual)
 var shot_events := PackedFloat32Array()
 
 # --- mapa de celdas caminables (opcional) ---
@@ -216,11 +215,14 @@ func step(dt: float = STEP_DT) -> void:
 					_splash(px[tg], py[tg], db.splash[t], dmg, int(team[i]))
 					_hit(i, 1.0e9)
 				else:
-					_hit(tg, dmg)
-					if db.attack_range[t] >= RANGED_MIN:
+					if db.splash[t] > 0.0:
+						_splash(px[tg], py[tg], db.splash[t], dmg, int(team[i]))  # mago: daño en área
+					else:
+						_hit(tg, dmg)
+					if db.projectile_row[t] >= 0:
 						shot_events.append(px[i]); shot_events.append(py[i])
 						shot_events.append(px[tg]); shot_events.append(py[tg])
-						shot_events.append(float(db.projectile_row[t]))
+						shot_events.append(float(t))
 		elif spd > 0.0 and d > 0.001:
 			var stp := spd * dt
 			var room := d - reach
@@ -243,7 +245,7 @@ func step(dt: float = STEP_DT) -> void:
 		alive_count -= 1
 		team_count[team[j]] -= 1
 		death_events.append(px[j]); death_events.append(py[j])
-		death_events.append(float(db.sprite_row[tj])); death_events.append(db.draw_scale[tj])
+		death_events.append(float(db.fx_row[tj])); death_events.append(db.draw_scale[tj])
 		death_events.append(float(db.is_structure[tj]))
 		if db.is_structure[tj] == 1:
 			structs_dirty = true

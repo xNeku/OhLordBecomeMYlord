@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/hero/hero.gd" id="1_hero"]
 [ext_resource type="Script" path="res://src/hero/troop_store.gd" id="2_store"]
 [ext_resource type="Script" path="res://src/hero/troop_launcher.gd" id="3_launch"]
-[ext_resource type="Texture2D" path="res://assets/atlas/units.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/atlas/units_foot.png" id="4_tex"]
 
 [node name="Hero" type="Node2D"]
 script = ExtResource("1_hero")
@@ -13,7 +13,8 @@ position = Vector2(0, -3)
 texture = ExtResource("4_tex")
 texture_filter = 1
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+region_rect = Rect2(0, 144, 16, 16)
+modulate = Color(0.302, 0.831, 0.392, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)

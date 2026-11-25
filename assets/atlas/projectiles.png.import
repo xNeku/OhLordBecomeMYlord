@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8r4c2swml8da"
-path="res://.godot/imported/units.png-3c8932815d62e6aa19bd9e5e83fc1534.ctex"
+uid="uid://cpt665mg4ddho"
+path="res://.godot/imported/projectiles.png-2ac0ca2155895d7bc3c51a35cb33fd98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/atlas/units.png"
-dest_files=["res://.godot/imported/units.png-3c8932815d62e6aa19bd9e5e83fc1534.ctex"]
+source_file="res://assets/atlas/projectiles.png"
+dest_files=["res://.godot/imported/projectiles.png-2ac0ca2155895d7bc3c51a35cb33fd98.ctex"]
 
 [params]
 
