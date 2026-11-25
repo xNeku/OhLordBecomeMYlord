@@ -1,5 +1,5 @@
 {
- "note": "Enano base (estilo v2): gordito y sin armas, vista frontal simetrica. Filas completas, '.' transparente. Animacion: 1 px abajo en fotogramas alternos.",
+ "note": "Enano base (estilo v2): el enano de Neku sin armas y mas gordo. Mismo sprite de tres cuartos. Filas completas, '.' transparente. Animacion: 1 px abajo en fotogramas alternos.",
  "sprites": {
   "enano_base": {
    "palette": {
@@ -17,24 +17,25 @@
     "O": "#f16315"
    },
    "rows": [
-    "......MWWWWM......",
-    "....MMWWWWWWMM....",
-    "...MMWWWWWWWWMM...",
-    "...DDDDDDDDDDDD...",
-    "..RRSSkSSSSkSSRR..",
-    ".RRRRSSssssSSRRRR.",
-    ".TTROOOOOOOOOORTT.",
-    "TTTROOOOOOOOOORTTT",
-    "TTTRROOOOOOOORRTTT",
-    "SSbBBBBBwwBBBBBbSS",
-    "..RROOOOOOOOOORR..",
-    "...RROOOOOOOORR...",
-    "....ROOOOOOOOR....",
-    "...TTT......TTT...",
-    "..bbBB......BBbb.."
+    ".......MWWw.......",
+    "......MMMWWW......",
+    "......DDDDDM......",
+    ".....RRRSksM......",
+    ".....RSSSSsSR.....",
+    "...TTTRRRRRRRTT...",
+    "..TTTBTRROOOOOTT..",
+    ".TTBBTTRROOOOOOTT.",
+    ".TBBTDTDRROOOORTT.",
+    ".BBTTDDBTRROOORTB.",
+    ".BsBTTDDWWbRROTSB.",
+    ".bBSBTBMMMbTTTbSb.",
+    "..bBBSBbMMMbbBBb..",
+    "...bbTTTMMWTTbb...",
+    "......TTT..TTT....",
+    "......bbB..bbB...."
    ],
    "width": 18,
-   "height": 15
+   "height": 16
   }
  }
 }
