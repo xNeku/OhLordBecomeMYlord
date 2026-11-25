@@ -217,6 +217,17 @@ Pixel art muy simple sobre fondo negro, sin contornos, con colores planos y satu
 | Enano | #FF9E1F | #FFD7A0 | #C25E00 | #9AA3B5 | #FFFFFF |
 | Elfo | #2CE8E0 | #D8FFF8 | #0AA0A8 | #FFE066 | #FFFFFF |
 
+**Bestias neutrales (campamentos del mapa)** — mismo estilo; colores distintos a las razas. Datos en `art/bestias.json` y `art/bestias.png`; muestra en `reference/bestias_oled.html`.
+
+| Bestia | m | l | d | Rasgos |
+|---|---|---|---|---|
+| Lobo | #C9CEDD | #F2F4FF | #6C7388 | Cuadrúpedo (vista lateral), ojos rojos, lomo de pinchos, colmillos. Provisional: hay que hacerlo más sucio/agresivo |
+| Minotauro | #B565FF | #E3C2FF | #6B2BB8 | Cuernos de hueso (#F3EAD2), pezuñas |
+| Troll | #5E8BFF | #B8CCFF | #2B4FB8 | Muy grande y ancho, colmillos, ojos amarillos |
+| Súcubo | #FF3FA4 | #FFC6E0 | #A0186B | Cuernos, alas oscuras |
+
+Las bestias son neutrales: viven en los campamentos del mapa y defienden su zona. El diseñador las ha aprobado como primera versión. [Decidido]
+
 Nota: el orco es rojo anaranjado y no verde para que no se confunda con el goblin en masa. Si el diseñador lo quiere verde, cambiar el color del goblin.
 
 **Sprites.** Están en el paquete: `art/sprites.json` (rejillas de píxeles + paletas), `art/sprites.png` (hoja de referencia) y `reference/tropas_oled.html` (página de muestra con animación y prueba de montón). Cada tropa mide unos 10–12 px de ancho por 12–14 de alto, con 2 fotogramas de animación (balanceo de 1 px).

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bestias neutrales – estilo OLED</title>
+<style>
+  html,body{margin:0;background:#000;color:#8b9099;font-family:ui-monospace,Menlo,Consolas,monospace}
+  body{padding:18px 14px 40px;max-width:780px;margin:0 auto}
+  h1{font-size:13px;letter-spacing:.2em;font-weight:400;color:#d6d9df;margin:0 0 4px}
+  p.sub{font-size:11px;margin:0 0 16px;color:#6b7078}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .card{background:#000;border:1px solid #14161a;padding:14px 4px 8px;text-align:center}
+  .card canvas{image-rendering:pixelated;width:100%;height:auto;display:block}
+  .card b{display:block;font-size:11px;letter-spacing:.15em;margin-top:6px;font-weight:400}
+  .card span{font-size:10px;color:#5d626b}
+  h2{font-size:11px;letter-spacing:.2em;font-weight:400;color:#d6d9df;margin:22px 0 8px}
+  #pile{width:100%;image-rendering:pixelated;display:block;border:1px solid #14161a;background:#000}
+  .ctl{display:flex;gap:10px;align-items:center;margin:8px 0;font-size:11px;flex-wrap:wrap}
+  .ctl input[type=range]{flex:1;min-width:140px;accent-color:#b565ff}
+  button{background:#000;color:#cfd3da;border:1px solid #2a2d33;padding:5px 10px;font:inherit;font-size:11px;cursor:pointer}
+  button.on{border-color:#b565ff;color:#b565ff}
+  @media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<h1>BESTIAS NEUTRALES — ESTILO OLED</h1>
+<p class="sub">Mismas reglas que las tropas: negro puro, sin contorno, un color por criatura. Colores distintos a los de las 4 razas.</p>
+<div class="grid" id="grid"></div>
+
+<h2>CAMPAMENTO (TAMAÑO DE JUEGO)</h2>
+<canvas id="pile" width="260" height="130"></canvas>
+<div class="ctl"><span>unidades</span><input id="n" type="range" min="10" max="1500" value="300" step="10"><span id="nv">300</span></div>
+<div class="ctl" id="mode"></div>
+
+<script>
+const PAL={
+ goblin:{m:'#A6FF2E',l:'#D6FF7A',d:'#5BB800',a:'#FF9F1C',w:'#FFFFFF'},
+ orc:   {m:'#FF5B3A',l:'#FF9A7A',d:'#B3200C',a:'#B8C0D4',w:'#FFFFFF'},
+ dwarf: {m:'#FF9E1F',l:'#FFD7A0',d:'#C25E00',a:'#9AA3B5',w:'#FFFFFF'},
+ elf:   {m:'#2CE8E0',l:'#D8FFF8',d:'#0AA0A8',a:'#FFE066',w:'#FFFFFF'},
+ wolf:    {m:'#C9CEDD',l:'#F2F4FF',d:'#6C7388',r:'#FF2E2E',w:'#FFFFFF'},
+ minotaur:{m:'#B565FF',l:'#E3C2FF',d:'#6B2BB8',a:'#F3EAD2',r:'#FF2E2E',w:'#FFFFFF'},
+ troll:   {m:'#5E8BFF',l:'#B8CCFF',d:'#2B4FB8',r:'#FFE066',w:'#FFFFFF'},
+ succubus:{m:'#FF3FA4',l:'#FFC6E0',d:'#A0186B',a:'#F3EAD2',r:'#FFFFFF'}
+};
+const mirror=r=>r.map(s=>s+[...s].reverse().join(''));
+const HALF={
+ goblin:["...lll","m.mmmm","mmmmmm","..mwwm","..mw.m","..mmmm",".mdwdw","...mmm","...aaa","..maaa","...mm.","..mmm."],
+ orc:["..lllll",".mmmmmm",".mdddmm",".mmwmmm",".mmmmmm",".mwmmmm",".mwdddd","..mmmmm",".aaaaaa","maaammm","mmammmm",".mmmddd","...mmm.","..mmmm."],
+ dwarf:["...aaa","..aaaa",".aaaaa","..llll","..l.ll",".mmmml","mmmmmm","lmmmmm","mmmdmm",".mmmmm","..aaa."],
+ elf:["..aaa",".aaaa","l.all","lla.l","..all","..amm",".lamm","..amm","...dd","...m.","...m.","...m.","..dd.","..dd."],
+ minotaur:["a......","aa.mmmm",".ammmmm","..mrmmm","..mllll","..mldld","..mmmmm",".mmmmmm","mmlmmmm","mmlmmmm","mm.mmmm","mm.mmmm",".a.mmmm","..mmmmm","..mmm..","..ddd.."],
+ troll:["......mmm",".....mmmm",".....mrmm",".....mmmm",".....mwdw","..mmmmmmm",".mmmmmmmm","mmmlmmmmm","mmmlmmmmm","mmmmmmmmm","mmmmmmmmm","mmmmmmmmm",".mmmmmmmm","...mmmm..","...mmmm..","..ddddd.."],
+ succubus:["...a...","...ammm","..mmlll","..mllrl","..mllll","...mlll","..dmmmm",".ddmmmm","dddmlmm","dd.mmmm","d..mmmm","...mmmm","...ll..","...ll..","...dd.."]
+};
+const FULLROWS={
+ wolf:[
+"..d.d.d.d...m.m...",
+".mmmmmmmmmmmmrrmm.",
+"mmdmmmmmdmmmmmmmll",
+"mmmmmmmmmmmmmmmwlw",
+".mmmmmmmmmmmmm.wdw",
+"..mmmmmmmmmmmm.ww.",
+"..mdmmmlmmmm......",
+"..mm.mm...mm.mm...",
+"..mm.mm...mm.mm...",
+"..dd.dd...dd.dd..."]
+};
+const NAMES={goblin:'GOBLIN',orc:'ORCO',dwarf:'ENANO',elf:'ELFO',wolf:'LOBO',minotaur:'MINOTAURO',troll:'TROLL',succubus:'SÚCUBO'};
+const NOTE={wolf:'sucio, colmillos',minotaur:'cuernos, pezuñas',troll:'enorme, bruto',succubus:'alas, cuernos'};
+const BEASTS=['wolf','minotaur','troll','succubus'];
+const RACES=['goblin','orc','dwarf','elf'];
+const KEYS=[...RACES,...BEASTS];
+const SPR={};
+KEYS.forEach(k=>{
+  const rows=FULLROWS[k]||mirror(HALF[k]);
+  const w=Math.max(...rows.map(r=>r.length));
+  rows.forEach(r=>{if(r.length!==w)console.error(k,'fila con ancho distinto',r.length,w);});
+  SPR[k]={rows,w,h:rows.length};
+});
+function bake(k,frame){
+  const s=SPR[k],c=document.createElement('canvas');c.width=s.w;c.height=s.h+1;
+  const x=c.getContext('2d'),p=PAL[k];
+  s.rows.forEach((r,j)=>[...r].forEach((ch,i)=>{const col=p[ch];if(col){x.fillStyle=col;x.fillRect(i,j+(frame?0:1),1,1);}}));
+  return c;
+}
+const IMG={};KEYS.forEach(k=>IMG[k]=[bake(k,0),bake(k,1)]);
+
+const grid=document.getElementById('grid');
+const CW=22,CH=20;
+const cards=BEASTS.map(k=>{
+  const d=document.createElement('div');d.className='card';
+  const cv=document.createElement('canvas');cv.width=CW;cv.height=CH;
+  const b=document.createElement('b');b.textContent=NAMES[k];b.style.color=PAL[k].m;
+  const sp=document.createElement('span');sp.textContent=NOTE[k];
+  d.append(cv,b,sp);grid.append(d);return {k,cv};
+});
+let fr=0;
+function drawCards(){
+  cards.forEach(({k,cv})=>{
+    const x=cv.getContext('2d');x.clearRect(0,0,CW,CH);
+    const im=IMG[k][fr%2];x.drawImage(im,Math.floor((CW-im.width)/2),CH-im.height-1);
+  });
+}
+setInterval(()=>{fr++;drawCards();},450);drawCards();
+
+const cv=document.getElementById('pile'),cx=cv.getContext('2d');
+const W=cv.width,H=cv.height;
+let units=[],mode='beasts';
+function rnd(a,b){return a+Math.random()*(b-a);}
+function pick(){
+  if(mode==='beasts'){const r=Math.random();return r<.5?'wolf':r<.7?'minotaur':r<.8?'troll':'succubus';}
+  if(mode==='all'){const r=Math.random();return r<.6?RACES[(Math.random()*4)|0]:BEASTS[(Math.random()*4)|0];}
+  return mode;
+}
+function spawn(n){
+  units=[];
+  for(let i=0;i<n;i++){
+    const k=pick();
+    units.push({k,x:rnd(0,W),y:rnd(24,H-6),ph:Math.random()*6,sp:rnd(0.1,0.28)});
+  }
+}
+const nI=document.getElementById('n'),nv=document.getElementById('nv');
+nI.oninput=()=>{nv.textContent=nI.value;spawn(+nI.value);};
+const md=document.getElementById('mode');
+[['beasts','bestias'],['all','con razas'],...BEASTS.map(b=>[b,NAMES[b].toLowerCase()])].forEach(([m,l],i)=>{
+  const b=document.createElement('button');b.textContent=l;if(i===0)b.className='on';
+  b.onclick=()=>{mode=m;[...md.children].forEach(c=>c.className='');b.className='on';spawn(+nI.value);};md.append(b);});
+spawn(300);
+let t=0;
+function loop(){
+  t++;
+  cx.fillStyle='#000';cx.fillRect(0,0,W,H);
+  units.sort((a,b)=>a.y-b.y);
+  const f=Math.floor(t/12)%2;
+  for(const u of units){
+    u.x+=u.sp;if(u.x>W+16)u.x=-16;
+    const im=IMG[u.k][(f+(u.ph|0))%2];
+    cx.drawImage(im,u.x|0,(u.y|0)-im.height);
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{
+ "note": "neutral beasts; rows are full (already mirrored where symmetric); wolf is side view facing right",
+ "sprites": {
+  "wolf": {
+   "palette": {
+    "m": "#C9CEDD",
+    "l": "#F2F4FF",
+    "d": "#6C7388",
+    "r": "#FF2E2E",
+    "w": "#FFFFFF"
+   },
+   "rows": [
+    "..d.d.d.d...m.m...",
+    ".mmmmmmmmmmmmrrmm.",
+    "mmdmmmmmdmmmmmmmll",
+    "mmmmmmmmmmmmmmmwlw",
+    ".mmmmmmmmmmmmm.wdw",
+    "..mmmmmmmmmmmm.ww.",
+    "..mdmmmlmmmm......",
+    "..mm.mm...mm.mm...",
+    "..mm.mm...mm.mm...",
+    "..dd.dd...dd.dd..."
+   ],
+   "width": 18,
+   "height": 10
+  },
+  "minotaur": {
+   "palette": {
+    "m": "#B565FF",
+    "l": "#E3C2FF",
+    "d": "#6B2BB8",
+    "a": "#F3EAD2",
+    "r": "#FF2E2E",
+    "w": "#FFFFFF"
+   },
+   "rows": [
+    "a............a",
+    "aa.mmmmmmmm.aa",
+    ".ammmmmmmmmma.",
+    "..mrmmmmmmrm..",
+    "..mllllllllm..",
+    "..mldlddldlm..",
+    "..mmmmmmmmmm..",
+    ".mmmmmmmmmmmm.",
+    "mmlmmmmmmmmlmm",
+    "mmlmmmmmmmmlmm",
+    "mm.mmmmmmmm.mm",
+    "mm.mmmmmmmm.mm",
+    ".a.mmmmmmmm.a.",
+    "..mmmmmmmmmm..",
+    "..mmm....mmm..",
+    "..ddd....ddd.."
+   ],
+   "width": 14,
+   "height": 16
+  },
+  "troll": {
+   "palette": {
+    "m": "#5E8BFF",
+    "l": "#B8CCFF",
+    "d": "#2B4FB8",
+    "r": "#FFE066",
+    "w": "#FFFFFF"
+   },
+   "rows": [
+    "......mmmmmm......",
+    ".....mmmmmmmm.....",
+    ".....mrmmmmrm.....",
+    ".....mmmmmmmm.....",
+    ".....mwdwwdwm.....",
+    "..mmmmmmmmmmmmmm..",
+    ".mmmmmmmmmmmmmmmm.",
+    "mmmlmmmmmmmmmmlmmm",
+    "mmmlmmmmmmmmmmlmmm",
+    "mmmmmmmmmmmmmmmmmm",
+    "mmmmmmmmmmmmmmmmmm",
+    "mmmmmmmmmmmmmmmmmm",
+    ".mmmmmmmmmmmmmmmm.",
+    "...mmmm....mmmm...",
+    "...mmmm....mmmm...",
+    "..ddddd....ddddd.."
+   ],
+   "width": 18,
+   "height": 16
+  },
+  "succubus": {
+   "palette": {
+    "m": "#FF3FA4",
+    "l": "#FFC6E0",
+    "d": "#A0186B",
+    "a": "#F3EAD2",
+    "r": "#FFFFFF"
+   },
+   "rows": [
+    "...a......a...",
+    "...ammmmmma...",
+    "..mmllllllmm..",
+    "..mllrllrllm..",
+    "..mllllllllm..",
+    "...mllllllm...",
+    "..dmmmmmmmmd..",
+    ".ddmmmmmmmmdd.",
+    "dddmlmmmmlmddd",
+    "dd.mmmmmmmm.dd",
+    "d..mmmmmmmm..d",
+    "...mmmmmmmm...",
+    "...ll....ll...",
+    "...ll....ll...",
+    "...dd....dd..."
+   ],
+   "width": 14,
+   "height": 15
+  }
+ }
+}
