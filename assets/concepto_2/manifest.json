@@ -1,27 +1,45 @@
 {
- "_nota": "Concepto 2 (estilo piezas 10x10). units_foot.png esta en BLANCO: el color sale del tint (ver 'colores'). units_mounted.png y beasts.png van YA COLOREADOS (tint = #FFFFFF): en los montados el jinete lleva el color de su raza y la montura los colores propios de su bestia. Columnas = 2 fotogramas, filas = ids.",
- "colores": {
+ "_nota": "Concepto 2. TODOS los atlas van YA COLORIDOS (tint #FFFFFF). Columnas = 2 fotogramas, filas = ids. Tropas: <raza>_<clase>_n<nivel> (guerrero|arquero|mago, niveles 1-3), <raza>_base, <raza>_minero, <raza>_lenador. Montadas: <raza>_<clase>_montado_n<nivel> (jinete color de raza, arma y magia con sus colores, montura con los de su bestia). El color del arma y de la magia es SIEMPRE distinto del de la raza.",
+ "colores_raza": {
   "enano": "#ff880b",
   "elfo": "#5fb7f3",
   "goblin": "#4dd464",
   "orco": "#ff5036"
  },
- "bestias": {
+ "colores_arma": {
+  "enano": {
+   "arma": "#cfd6dd",
+   "magia": "#ffd84a"
+  },
+  "elfo": {
+   "arma": "#f2d16b",
+   "magia": "#bff3ff"
+  },
+  "goblin": {
+   "arma": "#b0602d",
+   "magia": "#c06bff"
+  },
+  "orco": {
+   "arma": "#efe6cf",
+   "magia": "#ff3fa4"
+  }
+ },
+ "colores_bestia": {
   "oso": {
-   "principal": "#a8693a",
-   "acento": "#a8693a"
+   "x": "#a8693a",
+   "a": "#a8693a"
   },
   "sable": {
-   "principal": "#f2f2f2",
-   "acento": "#e8b923"
+   "x": "#f2f2f2",
+   "a": "#e8b923"
   },
   "warg": {
-   "principal": "#929992",
-   "acento": "#e01e37"
+   "x": "#929992",
+   "a": "#e01e37"
   },
   "avestruz": {
-   "principal": "#f4f4f4",
-   "acento": "#ff8fc7"
+   "x": "#f4f4f4",
+   "a": "#ff8fc7"
   }
  },
  "units_foot": {
@@ -30,37 +48,61 @@
    16,
    16
   ],
-  "grid": [
-   2,
-   24
-  ],
-  "tint": "color de la raza",
+  "tint": "#FFFFFF",
   "filas": {
    "enano_base": 0,
-   "enano_guerrero": 1,
-   "enano_arquero": 2,
-   "enano_mago": 3,
-   "enano_minero": 4,
-   "enano_lenador": 5,
-   "elfo_base": 6,
-   "elfo_guerrero": 7,
-   "elfo_arquero": 8,
-   "elfo_mago": 9,
-   "elfo_minero": 10,
-   "elfo_lenador": 11,
-   "goblin_base": 12,
-   "goblin_guerrero": 13,
-   "goblin_arquero": 14,
-   "goblin_mago": 15,
-   "goblin_minero": 16,
-   "goblin_lenador": 17,
-   "orco_base": 18,
-   "orco_guerrero": 19,
-   "orco_arquero": 20,
-   "orco_mago": 21,
-   "orco_minero": 22,
-   "orco_lenador": 23
-  }
+   "enano_minero": 1,
+   "enano_lenador": 2,
+   "enano_guerrero_n1": 3,
+   "enano_guerrero_n2": 4,
+   "enano_guerrero_n3": 5,
+   "enano_arquero_n1": 6,
+   "enano_arquero_n2": 7,
+   "enano_arquero_n3": 8,
+   "enano_mago_n1": 9,
+   "enano_mago_n2": 10,
+   "enano_mago_n3": 11,
+   "elfo_base": 12,
+   "elfo_minero": 13,
+   "elfo_lenador": 14,
+   "elfo_guerrero_n1": 15,
+   "elfo_guerrero_n2": 16,
+   "elfo_guerrero_n3": 17,
+   "elfo_arquero_n1": 18,
+   "elfo_arquero_n2": 19,
+   "elfo_arquero_n3": 20,
+   "elfo_mago_n1": 21,
+   "elfo_mago_n2": 22,
+   "elfo_mago_n3": 23,
+   "goblin_base": 24,
+   "goblin_minero": 25,
+   "goblin_lenador": 26,
+   "goblin_guerrero_n1": 27,
+   "goblin_guerrero_n2": 28,
+   "goblin_guerrero_n3": 29,
+   "goblin_arquero_n1": 30,
+   "goblin_arquero_n2": 31,
+   "goblin_arquero_n3": 32,
+   "goblin_mago_n1": 33,
+   "goblin_mago_n2": 34,
+   "goblin_mago_n3": 35,
+   "orco_base": 36,
+   "orco_minero": 37,
+   "orco_lenador": 38,
+   "orco_guerrero_n1": 39,
+   "orco_guerrero_n2": 40,
+   "orco_guerrero_n3": 41,
+   "orco_arquero_n1": 42,
+   "orco_arquero_n2": 43,
+   "orco_arquero_n3": 44,
+   "orco_mago_n1": 45,
+   "orco_mago_n2": 46,
+   "orco_mago_n3": 47
+  },
+  "grid": [
+   2,
+   48
+  ]
  },
  "units_mounted": {
   "archivo": "units_mounted.png",
@@ -68,25 +110,49 @@
    20,
    20
   ],
+  "tint": "#FFFFFF",
+  "filas": {
+   "enano_guerrero_montado_n1": 0,
+   "enano_guerrero_montado_n2": 1,
+   "enano_guerrero_montado_n3": 2,
+   "enano_arquero_montado_n1": 3,
+   "enano_arquero_montado_n2": 4,
+   "enano_arquero_montado_n3": 5,
+   "enano_mago_montado_n1": 6,
+   "enano_mago_montado_n2": 7,
+   "enano_mago_montado_n3": 8,
+   "elfo_guerrero_montado_n1": 9,
+   "elfo_guerrero_montado_n2": 10,
+   "elfo_guerrero_montado_n3": 11,
+   "elfo_arquero_montado_n1": 12,
+   "elfo_arquero_montado_n2": 13,
+   "elfo_arquero_montado_n3": 14,
+   "elfo_mago_montado_n1": 15,
+   "elfo_mago_montado_n2": 16,
+   "elfo_mago_montado_n3": 17,
+   "goblin_guerrero_montado_n1": 18,
+   "goblin_guerrero_montado_n2": 19,
+   "goblin_guerrero_montado_n3": 20,
+   "goblin_arquero_montado_n1": 21,
+   "goblin_arquero_montado_n2": 22,
+   "goblin_arquero_montado_n3": 23,
+   "goblin_mago_montado_n1": 24,
+   "goblin_mago_montado_n2": 25,
+   "goblin_mago_montado_n3": 26,
+   "orco_guerrero_montado_n1": 27,
+   "orco_guerrero_montado_n2": 28,
+   "orco_guerrero_montado_n3": 29,
+   "orco_arquero_montado_n1": 30,
+   "orco_arquero_montado_n2": 31,
+   "orco_arquero_montado_n3": 32,
+   "orco_mago_montado_n1": 33,
+   "orco_mago_montado_n2": 34,
+   "orco_mago_montado_n3": 35
+  },
   "grid": [
    2,
-   12
-  ],
-  "tint": "#FFFFFF (ya coloreado)",
-  "filas": {
-   "enano_guerrero_montado": 0,
-   "enano_arquero_montado": 1,
-   "enano_mago_montado": 2,
-   "elfo_guerrero_montado": 3,
-   "elfo_arquero_montado": 4,
-   "elfo_mago_montado": 5,
-   "goblin_guerrero_montado": 6,
-   "goblin_arquero_montado": 7,
-   "goblin_mago_montado": 8,
-   "orco_guerrero_montado": 9,
-   "orco_arquero_montado": 10,
-   "orco_mago_montado": 11
-  }
+   36
+  ]
  },
  "beasts": {
   "archivo": "beasts.png",
@@ -94,16 +160,16 @@
    16,
    16
   ],
-  "grid": [
-   2,
-   4
-  ],
-  "tint": "#FFFFFF (ya coloreado)",
+  "tint": "#FFFFFF",
   "filas": {
    "oso": 0,
    "sable": 1,
    "warg": 2,
    "avestruz": 3
-  }
+  },
+  "grid": [
+   2,
+   4
+  ]
  }
 }

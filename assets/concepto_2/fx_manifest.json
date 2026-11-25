@@ -1,0 +1,38 @@
+{
+ "_nota": "Efectos 16x16, 2 fotogramas, ya coloreados (tint blanco). melee_<raza>_n<nivel> = efecto del golpe cuerpo a cuerpo; impact_<raza>_n<nivel> = impacto de la magia.",
+ "celda": [
+  16,
+  16
+ ],
+ "grid": [
+  2,
+  24
+ ],
+ "tint": "#FFFFFF",
+ "filas": {
+  "fx_melee_enano_n1": 0,
+  "fx_melee_enano_n2": 1,
+  "fx_melee_enano_n3": 2,
+  "fx_impact_enano_n1": 3,
+  "fx_impact_enano_n2": 4,
+  "fx_impact_enano_n3": 5,
+  "fx_melee_elfo_n1": 6,
+  "fx_melee_elfo_n2": 7,
+  "fx_melee_elfo_n3": 8,
+  "fx_impact_elfo_n1": 9,
+  "fx_impact_elfo_n2": 10,
+  "fx_impact_elfo_n3": 11,
+  "fx_melee_goblin_n1": 12,
+  "fx_melee_goblin_n2": 13,
+  "fx_melee_goblin_n3": 14,
+  "fx_impact_goblin_n1": 15,
+  "fx_impact_goblin_n2": 16,
+  "fx_impact_goblin_n3": 17,
+  "fx_melee_orco_n1": 18,
+  "fx_melee_orco_n2": 19,
+  "fx_melee_orco_n3": 20,
+  "fx_impact_orco_n1": 21,
+  "fx_impact_orco_n2": 22,
+  "fx_impact_orco_n3": 23
+ }
+}
