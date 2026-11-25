@@ -1,0 +1,17 @@
+{
+ "_nota": "Celda 8x8, 2 columnas, en BLANCO: ti\u00f1elos con el color de la raza.",
+ "celda": [
+  8,
+  8
+ ],
+ "grid": [
+  2,
+  4
+ ],
+ "filas": {
+  "proj_arrow": 0,
+  "proj_stone": 1,
+  "proj_magic": 2,
+  "proj_bolt": 3
+ }
+}
