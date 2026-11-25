@@ -3,14 +3,15 @@
  "sprites": {
   "orco": {
    "palette": {
-    "A": "#737a7d",
+    "A": "#727a7d",
     "C": "#898480",
     "D": "#795335",
-    "E": "#4f3426",
+    "E": "#4e3326",
     "F": "#244135",
-    "G": "#466b3f",
-    "H": "#3a5c3c",
-    "J": "#d6cda7",
+    "G": "#456a3f",
+    "H": "#3a5b3c",
+    "J": "#d7cda8",
+    "N": "#b3b0af",
     "k": "#0a0a0e"
    },
    "rows": [
@@ -21,16 +22,16 @@
     "...FFFGGGkkAkF...",
     "..FGGFGFGGGFGkG..",
     "..HGGGFFFJGGGJkG.",
-    ".FHHGGFFFGHFHHkG.",
-    ".GGFFFHHFFGGGkHF.",
-    "FFGGGFHHHFFFFFHF.",
-    "FGGFFFFFHHHHHFFHF",
+    ".FGGGGFFFGHFHHkG.",
+    ".GGFFFHHFFGGGkGF.",
+    "FFGGGFHGHFFFFFHF.",
+    "FGGFFFFFGHHHHFFHF",
     "FFCDkFHHCGGFkFHGC",
     ".CDCkEEACDFGkkEEC",
     ".ECGGEDEAAECEkFGG",
     "..GGHDEEAAADDkHFG",
-    "AEFFGFFAAACDFG.G.",
-    "A....FGCCCDFGG...",
+    "CCFFGFFAAANDFG.G.",
+    "A....FGCCNDFGG...",
     ".....GGF.D.FGF...",
     ".....FF....FF....",
     ".....FG....FFG..."

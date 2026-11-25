@@ -1,0 +1,38 @@
+{
+ "note": "Warg (estilo v2): simplificado a 24 de cuadricula desde la imagen de Neku. '.' transparente.",
+ "sprites": {
+  "warg": {
+   "palette": {
+    "A": "#543629",
+    "B": "#755338",
+    "C": "#251a1b",
+    "D": "#996b33",
+    "E": "#472b23",
+    "G": "#70604a",
+    "K": "#c82825",
+    "k": "#0a0a0e"
+   },
+   "rows": [
+    "............A.A........",
+    "...........ABDBDA......",
+    "..........ABBCDBBB.....",
+    ".......CAABBCABBCBA.E..",
+    ".....CAAABCGAAAAEDBBE..",
+    "....BAAAAAAABACACEBBD..",
+    "...BCAGABACABACCAAAKAB.",
+    "..AACGGCABCAADADBADEDD.",
+    "..ACCAADAAAAGDACDDACBDC",
+    ".ABCCAGCCCAAAACECAAGCGC",
+    ".ACCCAACCCDAACECEC.CG..",
+    "AC..AACkCCCDB.CCC...C..",
+    "...CAC.CCC.CD..CCA.....",
+    "...AC..CC..CBA..CA.....",
+    "..BB....CC..BB...CA....",
+    "..BBC...CCA.BBC..CAAB..",
+    "..BDCD......CDBB..CACB."
+   ],
+   "width": 23,
+   "height": 17
+  }
+ }
+}

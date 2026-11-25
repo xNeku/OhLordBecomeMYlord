@@ -1,0 +1,44 @@
+{
+ "note": "Avestruz (estilo v2): simplificado a 24 de cuadricula desde la imagen de Neku. '.' transparente.",
+ "sprites": {
+  "avestruz": {
+   "palette": {
+    "A": "#221c20",
+    "B": "#dbb393",
+    "D": "#b87d70",
+    "E": "#4d4b4c",
+    "F": "#b0a29a",
+    "G": "#4e4038",
+    "H": "#3c3737",
+    "Q": "#b68a4f",
+    "R": "#cda678",
+    "S": "#9c704d"
+   },
+   "rows": [
+    ".............AA.",
+    ".............BBB",
+    ".............B..",
+    ".............B..",
+    ".............B..",
+    "......AAA....BB.",
+    "....AEEGEHA..DB.",
+    "..AHEHEHHFEH.DB.",
+    ".FHGHHAAHHHEAAB.",
+    "FAAHAAEGEEHEEEF.",
+    "FAAAAHAEHEAHGHA.",
+    "FGGAFAAHEAAGHA..",
+    "....GFAAAAHAA...",
+    "......QAAAAA....",
+    ".....QRSS.......",
+    ".....R.S........",
+    ".....R.QS.......",
+    ".....R..Q.......",
+    ".....R..QS......",
+    ".....R...Q......",
+    ".....QQ...Q....."
+   ],
+   "width": 16,
+   "height": 21
+  }
+ }
+}
