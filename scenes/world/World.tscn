@@ -1,0 +1,57 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://src/world/world.gd" id="1_world"]
+[ext_resource type="Script" path="res://src/world/world_view.gd" id="2_view"]
+[ext_resource type="Script" path="res://src/world/wave_director.gd" id="3_waves"]
+[ext_resource type="Script" path="res://src/render/sprite_batch.gd" id="4_batch"]
+[ext_resource type="Shader" path="res://assets/shaders/sprite_batch.gdshader" id="5_shader"]
+[ext_resource type="Texture2D" path="res://assets/atlas/structures.png" id="6_struct"]
+[ext_resource type="PackedScene" path="res://scenes/battle/Battle.tscn" id="7_battle"]
+[ext_resource type="PackedScene" path="res://scenes/hero/Hero.tscn" id="8_hero"]
+[ext_resource type="PackedScene" path="res://scenes/ui/Hud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TroopDial.tscn" id="10_dial"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugOverlay.tscn" id="11_dbg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LoadoutPanel.tscn" id="12_loadout"]
+
+[sub_resource type="ShaderMaterial" id="Mat_decor"]
+shader = ExtResource("5_shader")
+shader_parameter/atlas = ExtResource("6_struct")
+shader_parameter/grid = Vector2(2, 8)
+
+[sub_resource type="QuadMesh" id="Quad32"]
+size = Vector2(32, 32)
+
+[sub_resource type="MultiMesh" id="MM_decor"]
+transform_format = 0
+use_colors = true
+use_custom_data = true
+mesh = SubResource("Quad32")
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_world")
+
+[node name="WorldView" type="Node2D" parent="."]
+script = ExtResource("2_view")
+
+[node name="Decor" type="MultiMeshInstance2D" parent="WorldView"]
+material = SubResource("Mat_decor")
+multimesh = SubResource("MM_decor")
+texture_filter = 1
+script = ExtResource("4_batch")
+
+[node name="Battle" parent="." instance=ExtResource("7_battle")]
+
+[node name="Hero" parent="." instance=ExtResource("8_hero")]
+
+[node name="WaveDirector" type="Node" parent="."]
+script = ExtResource("3_waves")
+
+[node name="Ui" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="Ui" instance=ExtResource("9_hud")]
+
+[node name="TroopDial" parent="Ui" instance=ExtResource("10_dial")]
+
+[node name="LoadoutPanel" parent="Ui" instance=ExtResource("12_loadout")]
+
+[node name="DebugOverlay" parent="." instance=ExtResource("11_dbg")]

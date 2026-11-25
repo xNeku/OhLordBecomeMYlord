@@ -51,7 +51,7 @@ func _layout_zones() -> void:
 		var cx := x + reach
 		var cy := _m.h * 0.5 + _rng.randf_range(-1.0, 1.0) * float(zp["jitter_y"])
 		_m.zones.append({
-			"name": zp["name"], "color": Color(zp["color"]), "radius": r,
+			"name": zp["name"], "radius": r,
 			"center": Vector2(cx, cy),
 			"phase": [_rng.randf() * TAU, _rng.randf() * TAU, _rng.randf() * TAU],
 		})
@@ -119,7 +119,7 @@ func _build_barriers() -> void:
 			"kind": bp["kind"], "name": bp["name"], "cost": bp["cost"], "open": false,
 			"cells": cells, "from_zone": bi, "to_zone": bi + 1,
 			"pos": Vector2((xa + xb) * 0.5 + 0.5, row + 0.5) * _m.cell,
-			"color_closed": Color(bp["color_closed"]), "color_open": Color(bp["color_open"]),
+			"rect": Rect2(Vector2(xa - 3, y0) * _m.cell, Vector2(xb - xa + 7, width) * _m.cell),
 		})
 
 

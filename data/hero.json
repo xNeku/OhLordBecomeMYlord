@@ -2,20 +2,10 @@
  "speed": 96,
  "radius": 4,
  "scale": 1.5,
- "troop_capacity": 400,
  "launch_radius": 110,
  "throw_batch": 4,
  "throw_repeat_s": 0.08,
  "sprite_faction": "goblin",
- "passive_generation": {
-  "_nota": "Sustituye al cuartel hasta el Hito 3. Tropas por segundo y tipo.",
-  "per_second": {
-   "base": 3.0,
-   "brute": 0.6,
-   "ranged": 1.2,
-   "special": 0.5
-  }
- },
  "archetypes": [
   "base",
   "brute",
@@ -23,10 +13,21 @@
   "special"
  ],
  "faction": "goblin",
- "start_troops": {
-  "base": 40,
-  "brute": 6,
-  "ranged": 12,
-  "special": 6
+ "troops": {
+  "_nota": "Las tropas son gratis. 'capacity' = cuantas puedes llevar en total (sube con mejoras). 'allocation' = cuantas de cada tipo eliges llevar (menu Tab). El cuartel repone gratis hasta lo elegido a 'refill_per_second' tropas/s. 'unlocked' = arquetipos desbloqueados.",
+  "capacity": 120,
+  "unlocked": [
+   "base",
+   "brute",
+   "ranged",
+   "special"
+  ],
+  "allocation": {
+   "base": 60,
+   "brute": 15,
+   "ranged": 30,
+   "special": 15
+  },
+  "refill_per_second": 6.0
  }
 }

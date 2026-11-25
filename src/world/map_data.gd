@@ -12,8 +12,8 @@ var h := 0
 var zone_id := PackedByteArray()      ## zona de cada celda, VOID = vacío
 var barrier_id := PackedByteArray()   ## barrera de cada celda, VOID = ninguna
 var walk := PackedByteArray()         ## 1 = caminable ahora mismo
-var zones: Array[Dictionary] = []     ## {name,color,center(celdas),radius}
-var barriers: Array[Dictionary] = []  ## {kind,name,cost,open,cells,pos(px),from_zone,to_zone,color_closed,color_open}
+var zones: Array[Dictionary] = []     ## {name,center(celdas),radius}
+var barriers: Array[Dictionary] = []  ## {kind,name,cost,open,cells,pos(px),rect(px),from_zone,to_zone}
 var camps: Array[Dictionary] = []     ## {level,reward,pos,zone}
 var entities: Array[Dictionary] = []  ## {kind:"structure"|"unit"|"decor", ...}
 var spawn := Vector2.ZERO             ## px

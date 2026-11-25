@@ -6,20 +6,17 @@
   {
    "name": "Inicio",
    "radius": 32,
-   "jitter_y": 8,
-   "color": "#0E3A18"
+   "jitter_y": 8
   },
   {
    "name": "Centro",
    "radius": 38,
-   "jitter_y": 10,
-   "color": "#3B2C0C"
+   "jitter_y": 10
   },
   {
    "name": "Base final",
    "radius": 34,
-   "jitter_y": 8,
-   "color": "#3A1010"
+   "jitter_y": 8
   }
  ],
  "barriers": [
@@ -31,9 +28,7 @@
    "cost": {
     "wood": 60,
     "mineral": 0
-   },
-   "color_closed": "#3A2A14",
-   "color_open": "#8A6A3A"
+   }
   },
   {
    "kind": "sea",
@@ -43,9 +38,7 @@
    "cost": {
     "wood": 120,
     "mineral": 60
-   },
-   "color_closed": "#0A2447",
-   "color_open": "#2A6AB0"
+   }
   }
  ],
  "content": [
@@ -159,5 +152,12 @@
  "decor": {
   "tree_row": 5,
   "ore_row": 6
+ },
+ "ground": {
+  "_nota": "Regla de arte: fondo negro; bordes, barreras y estructuras en blanco.",
+  "edge_color": "#FFFFFF",
+  "edge_alpha": 0.45,
+  "dot_alpha": 0.1,
+  "dot_every": 4
  }
 }

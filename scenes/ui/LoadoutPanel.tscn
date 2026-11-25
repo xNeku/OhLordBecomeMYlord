@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/ui/loadout_panel.gd" id="1_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LoadoutRow.tscn" id="2_row"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+bg_color = Color(0.02, 0.02, 0.03, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.6)
+content_margin_left = 22.0
+content_margin_top = 16.0
+content_margin_right = 22.0
+content_margin_bottom = 16.0
+
+[node name="LoadoutPanel" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -130.0
+offset_right = 240.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Style_panel")
+script = ExtResource("1_panel")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "TROPAS QUE LLEVAS (Tab)"
+horizontal_alignment = 1
+
+[node name="RowBase" parent="Box" instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="RowBrute" parent="Box" instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="RowRanged" parent="Box" instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="RowSpecial" parent="Box" instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="Footer" type="Label" parent="Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.72, 0.76, 1)
+theme_override_font_sizes/font_size = 12
+text = "-"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="Box"]
+layout_mode = 2
+text = "Cerrar"
+
+[connection signal="pressed" from="Box/Close" to="." method="_on_close_pressed"]

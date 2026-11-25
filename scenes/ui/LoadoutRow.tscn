@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/ui/loadout_row.gd" id="1_row"]
+
+[node name="LoadoutRow" type="HBoxContainer"]
+custom_minimum_size = Vector2(420, 0)
+theme_override_constants/separation = 8
+script = ExtResource("1_row")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tropa"
+
+[node name="Minus" type="Button" parent="."]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+text = "-5"
+
+[node name="Value" type="Label" parent="."]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Plus" type="Button" parent="."]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+text = "+5"
+
+[connection signal="pressed" from="Minus" to="." method="_on_minus_pressed"]
+[connection signal="pressed" from="Plus" to="." method="_on_plus_pressed"]

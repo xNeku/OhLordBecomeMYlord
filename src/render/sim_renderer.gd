@@ -5,10 +5,13 @@ extends Node2D
 
 const FX_MAX := 2048
 const FX_LIFE := 0.30
+const SHOT_MAX := 4096
+const SHOT_SPEED := 340.0  ## px/s del proyectil visual
 
 @onready var structures: SpriteBatch = $Structures
 @onready var units: SpriteBatch = $Units
 @onready var fx: SpriteBatch = $Fx
+@onready var shots: SpriteBatch = $Projectiles
 
 var sim: BattleSim
 var alpha := 0.0
@@ -17,11 +20,15 @@ var _facing := PackedByteArray()
 # partículas de muerte (x, y, fila, escala, edad)
 var _fx := PackedFloat32Array()
 var _fx_n := 0
+# proyectiles (x0, y0, x1, y1, fila, edad, duración)
+var _shots := PackedFloat32Array()
+var _shot_n := 0
 
 
 func bind(s: BattleSim) -> void:
 	sim = s
 	_fx.resize(FX_MAX * 5)
+	_shots.resize(SHOT_MAX * 7)
 
 
 func _process(delta: float) -> void:
@@ -29,8 +36,10 @@ func _process(delta: float) -> void:
 		return
 	_time += delta
 	_drain_deaths()
+	_drain_shots()
 	_draw_units(delta)
 	_draw_fx(delta)
+	_draw_shots(delta)
 
 
 func _draw_units(_delta: float) -> void:
@@ -104,3 +113,38 @@ func _draw_fx(delta: float) -> void:
 		fx.put(_fx[o], _fx[o + 1] - 2.0, sc, 0.0, _fx[o + 2], 1.0, Color(1, 1, 1, 1.0 - p))
 		i += 1
 	fx.commit()
+
+
+func _drain_shots() -> void:
+	var ev := sim.drain_shot_events()
+	var k := 0
+	while k + BattleSim.SHOT_STRIDE <= ev.size():
+		if _shot_n < SHOT_MAX:
+			var o := _shot_n * 7
+			for q in 5:
+				_shots[o + q] = ev[k + q]
+			var dist := Vector2(ev[k + 2] - ev[k], ev[k + 3] - ev[k + 1]).length()
+			_shots[o + 5] = 0.0
+			_shots[o + 6] = clampf(dist / SHOT_SPEED, 0.06, 0.45)
+			_shot_n += 1
+		k += BattleSim.SHOT_STRIDE
+
+
+func _draw_shots(delta: float) -> void:
+	shots.reserve(_shot_n)
+	var i := 0
+	while i < _shot_n:
+		var o := i * 7
+		_shots[o + 5] += delta
+		var p := _shots[o + 5] / _shots[o + 6]
+		if p >= 1.0:
+			var last := (_shot_n - 1) * 7
+			for q in 7:
+				_shots[o + q] = _shots[last + q]
+			_shot_n -= 1
+			continue
+		var x := lerpf(_shots[o], _shots[o + 2], p)
+		var y := lerpf(_shots[o + 1], _shots[o + 3], p) - 4.0 - sin(p * PI) * 10.0  # pequeño arco
+		shots.put(floorf(x + 0.5), floorf(y + 0.5), 1.0, 2.0, _shots[o + 4], 0.0, Color.WHITE)
+		i += 1
+	shots.commit()

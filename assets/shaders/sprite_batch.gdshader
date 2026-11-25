@@ -12,7 +12,7 @@ void vertex() {
 }
 
 void fragment() {
-	vec2 uv = (UV + custom.xy) / grid;
+	vec2 uv = (vec2(UV.x, 1.0 - UV.y) + custom.xy) / grid; // QuadMesh en 2D llega con la V invertida
 	vec4 c = texture(atlas, uv);
 	vec3 rgb = mix(c.rgb * COLOR.rgb, vec3(1.0), custom.z);
 	COLOR = vec4(rgb, c.a * COLOR.a);

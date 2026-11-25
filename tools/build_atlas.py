@@ -3,9 +3,9 @@
 Uso:  python3 tools/build_atlas.py
 Salida: assets/atlas/units.png (celdas 16x16, 2 fotogramas por fila)
         assets/atlas/structures.png (celdas 32x32, 2 fotogramas por fila)
-Filas unidades: 0 goblin, 1 orc, 2 dwarf, 3 elf.
+Filas unidades: 0 goblin, 1 orc, 2 dwarf, 3 elf. Columnas: 0-1 fotogramas, 2 proyectil.
 Filas estructuras: 0 tienda, 1 ayuntamiento, 2 casa, 3 cuartel, 4 torre, 5 arbol, 6 mineral, 7 fortaleza.
-Las estructuras 0-4 y 7 se dibujan en blanco/grises para que el color de facción lo ponga el tinte."""
+Todas las estructuras y el entorno salen en blanco/grises (regla de arte del diseñador)."""
 import json, os
 from PIL import Image
 
@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spr = json.load(open(os.path.join(ROOT, "art/sprites.json")))["sprites"]
 order = ["goblin", "orc", "dwarf", "elf"]
 UC = 16
-img = Image.new("RGBA", (UC * 2, UC * len(order)), (0, 0, 0, 0))
+img = Image.new("RGBA", (UC * 3, UC * len(order)), (0, 0, 0, 0))  # col 0-1 fotogramas, col 2 proyectil
 def hexc(h): h = h.lstrip('#'); return tuple(int(h[i:i+2], 16) for i in (0, 2, 4)) + (255,)
 for row, name in enumerate(order):
     s = spr[name]; pal = {k: hexc(v) for k, v in s["palette"].items()}
@@ -24,6 +24,10 @@ for row, name in enumerate(order):
         for y, line in enumerate(s["rows"]):
             for x, ch in enumerate(line):
                 if ch in pal: img.putpixel((ox + x, oy + y), pal[ch])
+    # proyectil: bloque 4x4 del color de la raza con centro claro (se dibuja en la columna 2)
+    for y in range(6, 10):
+        for x in range(6, 10):
+            img.putpixel((2 * UC + x, row * UC + y), pal["l"] if (x in (7, 8) and y in (7, 8)) else pal["m"])
 os.makedirs(os.path.join(ROOT, "assets/atlas"), exist_ok=True)
 img.save(os.path.join(ROOT, "assets/atlas/units.png"))
 
@@ -71,7 +75,7 @@ for f in range(2):
     rect(f, 7, 15, 0, 15, 6, D); rect(f, 7, 16, f, 21, 3 + f, (255, 51, 38, 255))
 
 # 5 arbol muerto con cara (portado de reference/arbol_y_otros.html)
-C = {'r': '#ff2e2e', 'R': '#ff3326', 'b': '#f3ead2', 'n': '#7a7062', 'A': '#b8ae98', 'K': '#3d372f'}
+C = {'r': '#000000', 'R': '#000000', 'b': '#f3ead2', 'n': '#7a7062', 'A': '#b8ae98', 'K': '#3d372f'}
 def tree(f):
     Wd, H = 24, 26; g = [['.'] * Wd for _ in range(H)]
     def p(x, y, c):
@@ -102,5 +106,15 @@ for f in range(2):
     for y, line in enumerate(g):
         for x, ch in enumerate(line):
             if ch in C: st.putpixel((ox + x, oy + y), hexc(C[ch]))
+# Regla de arte: estructuras y entorno en blanco/grises (solo las tropas y proyectiles llevan color)
+px_ = st.load()
+for y in range(st.height):
+    for x in range(st.width):
+        r, g, b, a = px_[x, y]
+        if a == 0:
+            continue
+        v = int(0.3 * r + 0.59 * g + 0.11 * b)
+        v = 0 if v < 8 else min(255, int(70 + v * 0.75))  # negro puro se queda negro (huecos)
+        px_[x, y] = (v, v, v, a)
 st.save(os.path.join(ROOT, "assets/atlas/structures.png"))
 print("atlas ok:", img.size, st.size)

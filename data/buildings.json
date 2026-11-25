@@ -1,0 +1,59 @@
+{
+ "_nota": "Catálogo de estructuras (diseño de Neku, 25-11-2026). Todavía NO implementado en juego (Hito 3). Los recursos (madera, mineral) se gastan aquí: construir y mejorar. Las tropas son gratis: estas estructuras las desbloquean y mejoran.",
+ "economia": {
+  "townhall": {
+   "name": "Ayuntamiento",
+   "role": "Reparto de trabajadores (construir / madera / minería). Derrota si cae."
+  },
+  "house": {
+   "name": "Casa",
+   "role": "Añade trabajadores."
+  },
+  "miners_center": {
+   "name": "Centro de mineros",
+   "role": "Producción de mineral y sus mejoras."
+  },
+  "lumber_center": {
+   "name": "Centro de madera",
+   "role": "Producción de madera y sus mejoras."
+  }
+ },
+ "militar": {
+  "barracks": {
+   "name": "Cuartel de tropas",
+   "role": "Desbloquea arquetipos, mejora sus stats y sube cuántas tropas lleva el héroe. Repone gratis."
+  },
+  "beast_center": {
+   "name": "Centro de bestias",
+   "role": "Monturas: animales, voladores y acuáticos."
+  },
+  "engineering_center": {
+   "name": "Centro de ingeniería",
+   "role": "Mejoras de estructuras y tecnologías."
+  }
+ },
+ "defensa": {
+  "wall": {
+   "name": "Muralla",
+   "role": "Bloquea el paso."
+  },
+  "tower_archer": {
+   "name": "Torre de arqueros",
+   "role": "Disparo rápido a un objetivo."
+  },
+  "tower_cannon": {
+   "name": "Torre de cañón",
+   "role": "Daño alto, lento."
+  },
+  "mortar": {
+   "name": "Mortero",
+   "role": "Daño en área a distancia."
+  }
+ },
+ "magia": {
+  "ritual": {
+   "name": "Ritual",
+   "role": "Concepto 1: aura de bufos (curar, +daño, ralentizar enemigos). Concepto 2 (se desbloquea por nivel): además dispara. A nivel alto hace las dos cosas."
+  }
+ }
+}

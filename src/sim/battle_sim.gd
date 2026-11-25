@@ -17,6 +17,8 @@ const STRUCT_BIAS := 48.0  ## las estructuras "parecen" más lejos: se prefieren
 const MAX_SEP_NEIGHBORS := 8
 const MAX_CELL_SCAN := 24  ## máx. unidades revisadas por celda al buscar objetivo
 const DEATH_STRIDE := 5
+const SHOT_STRIDE := 5
+const RANGED_MIN := 24.0  ## a partir de este alcance el ataque genera un proyectil visual
 
 var db: UnitDB
 var grid := SpatialGrid.new()
@@ -54,6 +56,8 @@ var team_count := PackedInt32Array([0, 0, 0, 0])
 
 ## Eventos de muerte para el dibujado: x, y, fila_sprite, escala, es_estructura
 var death_events := PackedFloat32Array()
+## Disparos para el dibujado: x0, y0, x1, y1, fila_proyectil (el daño ya se aplicó; es solo visual)
+var shot_events := PackedFloat32Array()
 
 # --- mapa de celdas caminables (opcional) ---
 var walk := PackedByteArray()
@@ -98,6 +102,7 @@ func clear_all() -> void:
 	free_list.clear()
 	dead_queue.clear()
 	death_events.clear()
+	shot_events.clear()
 	team_count.fill(0)
 	structs_dirty = true
 
@@ -135,6 +140,12 @@ func spawn_t(t: int, team_id: int, x: float, y: float, do_seek: bool = false, ta
 	if db.is_structure[t] == 1:
 		structs_dirty = true
 	return i
+
+
+func drain_shot_events() -> PackedFloat32Array:
+	var out := shot_events
+	shot_events = PackedFloat32Array()
+	return out
 
 
 func drain_death_events() -> PackedFloat32Array:
@@ -206,6 +217,10 @@ func step(dt: float = STEP_DT) -> void:
 					_hit(i, 1.0e9)
 				else:
 					_hit(tg, dmg)
+					if db.attack_range[t] >= RANGED_MIN:
+						shot_events.append(px[i]); shot_events.append(py[i])
+						shot_events.append(px[tg]); shot_events.append(py[tg])
+						shot_events.append(float(db.projectile_row[t]))
 		elif spd > 0.0 and d > 0.001:
 			var stp := spd * dt
 			var room := d - reach

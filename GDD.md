@@ -7,6 +7,26 @@ Leyenda: **[Decidido]** lo ha fijado el diseñador · **[Propuesta]** idea de Cl
 
 ---
 
+## 0. Cambios del diseñador — 25 nov 2026 [Decidido]
+
+Estas decisiones mandan sobre lo que diga el resto del documento si chocan.
+
+**Tropas y progresión**
+- Las tropas **no cuestan recursos**. Unas estructuras desbloquean tipos nuevos y los mejoran.
+- El jugador decide **cuántas de cada tipo lleva** encima el héroe.
+- Las mejoras suben la **cantidad que puedes llevar** y los **stats** de las tropas. Ahí está el peso del factor roguelike.
+- Los **recursos** (madera y mineral) sirven para mejoras, construcciones, etc.
+
+**Estructuras**
+- Economía y base: ayuntamiento, casas, centro de mineros, centro de madera.
+- Militares: cuartel de tropas, centro de bestias (monturas: animales, voladores, acuáticos), centro de ingeniería (mejoras de estructuras y tecnologías).
+- Defensa: murallas, torres (irán variando: arqueros, cañones…) y morteros.
+- **Rituales** (magia). Concepto 1: dan bufos (curar, más daño, ralentizar). Concepto 2: disparan. El segundo concepto se desbloquea por nivel, y a partir de ahí hacen las dos cosas.
+- Catálogo en datos: `data/buildings.json` (pendiente de implementar, Hito 3).
+
+**Arte**
+- El arte es clave. **Fondo negro**. **Estructuras y el resto del entorno en blanco**. **Tropas de colores**, y los **proyectiles también**.
+
 ## 1. Visión y pilares
 
 RTS libre con capa roguelike. Controlas solo a tu héroe, lanzas ejércitos que luchan solos y ves masas enormes de unidades chocando, con feedback constante ("dopamina de la buena").
@@ -97,7 +117,7 @@ Es el único personaje que controla el jugador y el que lleva las tropas dentro.
 Las tropas se generan en la base, se guardan dentro del héroe y el jugador las lanza con un dial; una vez en el mapa luchan solas y no reciben órdenes. [Decidido]
 
 **Flujo**
-1. **Generación.** Los edificios militares producen tropas a cambio de recursos y tiempo. [Propuesta, en el detalle]
+1. **Generación.** ~~A cambio de recursos~~ Gratis: el cuartel repone hasta el reparto elegido por el jugador (ver apartado 0).
 2. **Almacén.** Las tropas generadas quedan dentro del héroe, hasta un límite. [Propuesta]
 3. **Dial.** Una tecla abre un dial radial con los tipos de tropa y cuántas hay de cada uno. Al abrirlo se entra en el modo lanzar.
 4. **Lanzar.** Cada clic coloca tropas en ese punto del mapa. Desde ahí actúan solas.
@@ -136,7 +156,7 @@ Los trabajadores no se controlan: el jugador solo reparte, desde el ayuntamiento
 - Los trabajadores son un número, no unidades individuales con IA. Simplifica y ahorra mucho rendimiento. Se pueden mostrar sprites ambientales como decoración.
 - Al cambiar el reparto el efecto es inmediato o casi, para que sea fácil de probar y se sienta rápido.
 - Edificios de la primera versión: ayuntamiento, casa y cuartel (genera tropas). Defensas como torres quedan como pregunta abierta.
-- Los edificios cuestan madera y mineral; las tropas, sobre todo mineral. La proporción exacta se ajusta en las pruebas.
+- ~~Los edificios cuestan madera y mineral; las tropas, sobre todo mineral.~~ Sustituido (ver apartado 0): las tropas son gratis; los recursos van a construcciones y mejoras.
 - Los cuarteles deben poder construirse y producir muy rápido al principio de la campaña para mantener el ritmo explosivo.
 
 ## 8. Mapa procedural y zonas

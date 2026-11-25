@@ -1,0 +1,128 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/ui/hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="Style_end"]
+bg_color = Color(0.03, 0.03, 0.04, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.65, 1, 0.18, 0.5)
+content_margin_left = 30.0
+content_margin_top = 22.0
+content_margin_right = 30.0
+content_margin_bottom = 22.0
+
+[sub_resource type="StyleBoxFlat" id="Style_top"]
+bg_color = Color(0, 0, 0, 0.55)
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="Top" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 420.0
+offset_bottom = 110.0
+mouse_filter = 2
+
+[node name="Resources" type="Label" parent="Top"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("Style_top")
+text = "Madera 0    Mineral 0"
+
+[node name="Zone" type="Label" parent="Top"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Zona"
+
+[node name="Objective" type="Label" parent="Top"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.72, 0.76, 1)
+theme_override_font_sizes/font_size = 13
+text = "Objetivo"
+
+[node name="Wave" type="Label" parent="Top"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.2, 1)
+theme_override_font_sizes/font_size = 13
+
+[node name="Banner" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 70.0
+offset_right = 300.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 22
+text = "banner"
+horizontal_alignment = 1
+
+[node name="Prompt" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -150.0
+offset_right = 300.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "prompt"
+horizontal_alignment = 1
+
+[node name="EndPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -90.0
+offset_right = 150.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Style_end")
+
+[node name="Box" type="VBoxContainer" parent="EndPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="EndPanel/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "FIN"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="EndPanel/Box"]
+layout_mode = 2
+text = "Reintentar (misma semilla)"
+
+[node name="Menu" type="Button" parent="EndPanel/Box"]
+layout_mode = 2
+text = "Menú principal"
+
+[connection signal="pressed" from="EndPanel/Box/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="EndPanel/Box/Menu" to="." method="_on_menu_pressed"]
