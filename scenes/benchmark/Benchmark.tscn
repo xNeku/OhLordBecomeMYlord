@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/bench/benchmark.gd" id="1_bench"]
+[ext_resource type="PackedScene" path="res://scenes/battle/Battle.tscn" id="2_battle"]
+[ext_resource type="PackedScene" path="res://scenes/ui/DebugOverlay.tscn" id="3_dbg"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+bg_color = Color(0, 0, 0, 0.7)
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[node name="Benchmark" type="Node2D"]
+script = ExtResource("1_bench")
+
+[node name="Battle" parent="." instance=ExtResource("2_battle")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+
+[node name="DebugOverlay" parent="." instance=ExtResource("3_dbg")]
+
+[node name="Ui" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="Ui"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 330.0
+offset_bottom = 150.0
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Box" type="VBoxContainer" parent="Ui/Panel"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Ui/Panel/Box"]
+layout_mode = 2
+text = "HITO 0 · BENCHMARK"
+
+[node name="Info" type="Label" parent="Ui/Panel/Box"]
+layout_mode = 2
+text = "-"
+
+[node name="Row" type="HBoxContainer" parent="Ui/Panel/Box"]
+layout_mode = 2
+
+[node name="Less" type="Button" parent="Ui/Panel/Box/Row"]
+layout_mode = 2
+text = "-500"
+
+[node name="More" type="Button" parent="Ui/Panel/Box/Row"]
+layout_mode = 2
+text = "+500"
+
+[node name="Restart" type="Button" parent="Ui/Panel/Box/Row"]
+layout_mode = 2
+text = "Reiniciar"
+
+[node name="Fast" type="CheckButton" parent="Ui/Panel/Box"]
+layout_mode = 2
+text = "Velocidad x3"
+
+[node name="Back" type="Button" parent="Ui/Panel/Box"]
+layout_mode = 2
+text = "Volver al menú (Esc)"
+
+[connection signal="pressed" from="Ui/Panel/Box/Row/Less" to="." method="_on_less_pressed"]
+[connection signal="pressed" from="Ui/Panel/Box/Row/More" to="." method="_on_more_pressed"]
+[connection signal="pressed" from="Ui/Panel/Box/Row/Restart" to="." method="_on_restart_pressed"]
+[connection signal="toggled" from="Ui/Panel/Box/Fast" to="." method="_on_fast_toggled"]
+[connection signal="pressed" from="Ui/Panel/Box/Back" to="." method="_on_back_pressed"]

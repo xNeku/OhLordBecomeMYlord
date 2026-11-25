@@ -1,0 +1,163 @@
+{
+ "cell_size": 16,
+ "margin_cells": 10,
+ "height_cells": 120,
+ "zones": [
+  {
+   "name": "Inicio",
+   "radius": 32,
+   "jitter_y": 8,
+   "color": "#0E3A18"
+  },
+  {
+   "name": "Centro",
+   "radius": 38,
+   "jitter_y": 10,
+   "color": "#3B2C0C"
+  },
+  {
+   "name": "Base final",
+   "radius": 34,
+   "jitter_y": 8,
+   "color": "#3A1010"
+  }
+ ],
+ "barriers": [
+  {
+   "kind": "bridge",
+   "name": "Puente roto",
+   "gap_cells": 14,
+   "width_cells": 3,
+   "cost": {
+    "wood": 60,
+    "mineral": 0
+   },
+   "color_closed": "#3A2A14",
+   "color_open": "#8A6A3A"
+  },
+  {
+   "kind": "sea",
+   "name": "Mar: muelle y barco",
+   "gap_cells": 20,
+   "width_cells": 5,
+   "cost": {
+    "wood": 120,
+    "mineral": 60
+   },
+   "color_closed": "#0A2447",
+   "color_open": "#2A6AB0"
+  }
+ ],
+ "content": [
+  {
+   "zone": 0,
+   "camps": [
+    {
+     "level": 1
+    },
+    {
+     "level": 1
+    }
+   ],
+   "trees": 30,
+   "ore": 8,
+   "houses": 3,
+   "player_base": true
+  },
+  {
+   "zone": 1,
+   "camps": [
+    {
+     "level": 2
+    },
+    {
+     "level": 2
+    },
+    {
+     "level": 3
+    }
+   ],
+   "trees": 34,
+   "ore": 10,
+   "enemy_outpost": true
+  },
+  {
+   "zone": 2,
+   "camps": [
+    {
+     "level": 3
+    }
+   ],
+   "trees": 18,
+   "ore": 6,
+   "final_base": true
+  }
+ ],
+ "camp_levels": {
+  "1": {
+   "defenders": {
+    "orc_base": 4
+   },
+   "reward": {
+    "wood": 40,
+    "mineral": 30
+   }
+  },
+  "2": {
+   "defenders": {
+    "orc_base": 5,
+    "orc_ranged": 2,
+    "orc_brute": 1
+   },
+   "reward": {
+    "wood": 70,
+    "mineral": 60
+   }
+  },
+  "3": {
+   "defenders": {
+    "orc_base": 6,
+    "orc_ranged": 3,
+    "orc_brute": 2,
+    "orc_special": 1
+   },
+   "reward": {
+    "wood": 110,
+    "mineral": 100
+   }
+  }
+ },
+ "enemy_outpost": {
+  "defenders": {
+   "dwarf_base": 6,
+   "dwarf_ranged": 3
+  },
+  "towers": 2
+ },
+ "final_base": {
+  "defenders": {
+   "dwarf_base": 10,
+   "dwarf_brute": 6,
+   "dwarf_ranged": 6,
+   "dwarf_special": 2
+  },
+  "towers": 4
+ },
+ "waves": {
+  "start_s": 75,
+  "interval_s": 50,
+  "base_size": 6,
+  "growth": 3,
+  "max_size": 120,
+  "mix": {
+   "dwarf_base": 0.55,
+   "dwarf_ranged": 0.25,
+   "dwarf_brute": 0.15,
+   "dwarf_special": 0.05
+  }
+ },
+ "decor": {
+  "tree_row": 5,
+  "ore_row": 6
+ }
+}

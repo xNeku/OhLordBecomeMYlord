@@ -1,0 +1,66 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://src/sim/battle.gd" id="1_battle"]
+[ext_resource type="Script" path="res://src/render/sim_renderer.gd" id="2_rend"]
+[ext_resource type="Script" path="res://src/render/sprite_batch.gd" id="3_batch"]
+[ext_resource type="Shader" path="res://assets/shaders/sprite_batch.gdshader" id="4_shader"]
+[ext_resource type="Texture2D" path="res://assets/atlas/units.png" id="5_units"]
+[ext_resource type="Texture2D" path="res://assets/atlas/structures.png" id="6_struct"]
+
+[sub_resource type="ShaderMaterial" id="Mat_units"]
+shader = ExtResource("4_shader")
+shader_parameter/atlas = ExtResource("5_units")
+shader_parameter/grid = Vector2(2, 4)
+
+[sub_resource type="ShaderMaterial" id="Mat_struct"]
+shader = ExtResource("4_shader")
+shader_parameter/atlas = ExtResource("6_struct")
+shader_parameter/grid = Vector2(2, 8)
+
+[sub_resource type="QuadMesh" id="Quad16"]
+size = Vector2(16, 16)
+
+[sub_resource type="QuadMesh" id="Quad32"]
+size = Vector2(32, 32)
+
+[sub_resource type="MultiMesh" id="MM_units"]
+transform_format = 0
+use_colors = true
+use_custom_data = true
+mesh = SubResource("Quad16")
+
+[sub_resource type="MultiMesh" id="MM_struct"]
+transform_format = 0
+use_colors = true
+use_custom_data = true
+mesh = SubResource("Quad32")
+
+[sub_resource type="MultiMesh" id="MM_fx"]
+transform_format = 0
+use_colors = true
+use_custom_data = true
+mesh = SubResource("Quad16")
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_battle")
+
+[node name="SimRenderer" type="Node2D" parent="."]
+script = ExtResource("2_rend")
+
+[node name="Structures" type="MultiMeshInstance2D" parent="SimRenderer"]
+material = SubResource("Mat_struct")
+multimesh = SubResource("MM_struct")
+texture_filter = 1
+script = ExtResource("3_batch")
+
+[node name="Units" type="MultiMeshInstance2D" parent="SimRenderer"]
+material = SubResource("Mat_units")
+multimesh = SubResource("MM_units")
+texture_filter = 1
+script = ExtResource("3_batch")
+
+[node name="Fx" type="MultiMeshInstance2D" parent="SimRenderer"]
+material = SubResource("Mat_units")
+multimesh = SubResource("MM_fx")
+texture_filter = 1
+script = ExtResource("3_batch")
