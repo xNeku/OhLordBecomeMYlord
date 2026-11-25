@@ -1,0 +1,42 @@
+{
+ "note": "orco (estilo v2): replica simplificada de la imagen de Neku. '.' transparente.",
+ "sprites": {
+  "orco": {
+   "palette": {
+    "A": "#737a7d",
+    "C": "#898480",
+    "D": "#795335",
+    "E": "#4f3426",
+    "F": "#244135",
+    "G": "#466b3f",
+    "H": "#3a5c3c",
+    "J": "#d6cda7",
+    "k": "#0a0a0e"
+   },
+   "rows": [
+    "..........A......",
+    ".........ACD.....",
+    "........AEDCD....",
+    ".....FF.FGGCG....",
+    "...FFFGGGkkAkF...",
+    "..FGGFGFGGGFGkG..",
+    "..HGGGFFFJGGGJkG.",
+    ".FHHGGFFFGHFHHkG.",
+    ".GGFFFHHFFGGGkHF.",
+    "FFGGGFHHHFFFFFHF.",
+    "FGGFFFFFHHHHHFFHF",
+    "FFCDkFHHCGGFkFHGC",
+    ".CDCkEEACDFGkkEEC",
+    ".ECGGEDEAAECEkFGG",
+    "..GGHDEEAAADDkHFG",
+    "AEFFGFFAAACDFG.G.",
+    "A....FGCCCDFGG...",
+    ".....GGF.D.FGF...",
+    ".....FF....FF....",
+    ".....FG....FFG..."
+   ],
+   "width": 17,
+   "height": 20
+  }
+ }
+}

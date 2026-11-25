@@ -1,0 +1,39 @@
+{
+ "note": "goblin base (estilo v2). '.' transparente.",
+ "sprites": {
+  "goblin_base": {
+   "palette": {
+    "A": "#456943",
+    "B": "#658d4c",
+    "C": "#8dad6a",
+    "D": "#254336",
+    "E": "#dad2ab",
+    "G": "#4d3126",
+    "H": "#7f5336",
+    "k": "#0a0a0e"
+   },
+   "rows": [
+    ".......ABCC....",
+    "...BCCABBBBC...",
+    "....ADCBEEBBC..",
+    ".....BABEkBBBC.",
+    "....ADDBBBADBBC",
+    "...ABBDABBBB...",
+    "..BCABBDDDAAB..",
+    ".ACDDBBAA......",
+    "ABDDADAA.......",
+    "ACkDABBB.......",
+    "ACGGGBBAG......",
+    "AAGAGGHHH......",
+    "A.DBAHHHAB.....",
+    "...ABGHGDBC....",
+    "...AB.G..DA....",
+    "..AB....DA.....",
+    "..B.....D......",
+    ".DDAB...DDA...."
+   ],
+   "width": 15,
+   "height": 18
+  }
+ }
+}
