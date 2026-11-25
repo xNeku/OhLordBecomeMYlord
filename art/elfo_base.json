@@ -1,0 +1,42 @@
+{
+ "note": "Elfo base (estilo v2): el elfo de Neku sin arco. Filas completas, '.' transparente.",
+ "sprites": {
+  "elfo_base": {
+   "palette": {
+    "A": "#bdb5a2",
+    "B": "#e1d9c6",
+    "C": "#f0b793",
+    "D": "#d69674",
+    "N": "#9b8068",
+    "G": "#7c5125",
+    "H": "#5e3b28",
+    "I": "#27552b",
+    "K": "#5f883a",
+    "k": "#0a0a0e"
+   },
+   "rows": [
+    "....AABB...",
+    "..CBABDCB..",
+    "...DCBkC...",
+    "BN.ADBCCC..",
+    "NGHANBDCA..",
+    ".HAIHADIA..",
+    "..IKIANKAB.",
+    "..KKKAGKIA.",
+    ".IKIKKHKI..",
+    ".KK.IKKHI..",
+    ".GH.HHGNHN.",
+    ".G..IKKHKH.",
+    ".DCIKKNHKHD",
+    "...KKK.HKK.",
+    "..IKKN.HKK.",
+    "..IIN..HKI.",
+    "...HH..HH..",
+    "...H...H...",
+    "...G...HG.."
+   ],
+   "width": 11,
+   "height": 19
+  }
+ }
+}
