@@ -34,7 +34,7 @@ layout_mode = 0
 offset_left = 10.0
 offset_top = 8.0
 offset_right = 420.0
-offset_bottom = 110.0
+offset_bottom = 140.0
 mouse_filter = 2
 
 [node name="Resources" type="Label" parent="Top"]
@@ -43,6 +43,14 @@ theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("Style_top")
 text = "Madera 0    Mineral 0"
+
+[node name="Troops" type="Label" parent="Top"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_colors/font_color = Color(0.65, 1, 0.18, 1)
+theme_override_font_sizes/font_size = 13
+text = "Tropas"
 
 [node name="Zone" type="Label" parent="Top"]
 layout_mode = 2

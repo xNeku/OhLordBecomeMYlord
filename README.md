@@ -16,20 +16,21 @@ RTS con capa roguelike. Godot **4.7.2**, GDScript. El diseño está en `GDD.md` 
 | Cambiar tipo en el dial | Rueda, E / R | D-pad izquierda/derecha o stick derecho |
 | Lanzar tropas | Clic izquierdo (mantener = ráfaga) | Gatillo derecho (apunta hacia donde caminas) |
 | Salir del modo lanzar | Soltar Q o clic derecho | Soltar LB o B |
-| Elegir qué tropas llevas | Tab | Back / Select |
+| Menú de base: ayuntamiento, cuartel, tropas | Tab (cerrar: Tab o clic derecho) | Back / Select |
 | Reparar puente / abrir paso | F (al lado de la barrera) | A |
 | Panel de depuración | F3 | — |
 | Volver al menú | Esc | — |
 
 ## Estructura
 ```
-data/            números del juego (JSON): units, hero, world, buildings
+data/            números del juego (JSON): units, hero, world, economy, buildings
 scenes/          escenas .tscn reales (main, world, battle, hero, ui, benchmark)
 src/sim/         simulación pura (sin nodos): UnitDB, SpatialGrid, BattleSim + nodo Battle
 src/render/      dibujado por instancias: SpriteBatch (MultiMesh), SimRenderer
 src/world/       MapGenerator, MapData, WorldView, WaveDirector, World
 src/hero/        Hero, TroopStore, TroopLauncher
-src/ui/          menú, HUD, dial, menú de tropas, panel de depuración
+src/base/        Economy (trabajadores, recursos, obras, mejoras), ConstructionView
+src/ui/          menú, HUD, dial, menú de base (src/ui/base), panel de depuración
 assets/atlas/    atlas PNG generados desde art/sprites.json (tools/build_atlas.py)
 tools/           pruebas y medidas sin ventana
 ```

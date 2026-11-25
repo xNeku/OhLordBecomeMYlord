@@ -1,0 +1,22 @@
+{
+ "_nota": "Economia de la base (Hito 3). Los trabajadores son un numero: tu repartes el 100% entre construir, madera y mineria.",
+ "start_resources": {
+  "wood": 90,
+  "mineral": 40
+ },
+ "base_workers": 6,
+ "workers_per_house": 3,
+ "default_split": {
+  "build": 30,
+  "wood": 40,
+  "mining": 30
+ },
+ "wood_per_worker_s": 0.5,
+ "mineral_per_worker_s": 0.35,
+ "build_work_per_worker_s": 1.0,
+ "placement": {
+  "min_radius_cells": 3,
+  "max_radius_cells": 14,
+  "spacing_px": 36
+ }
+}

@@ -55,9 +55,19 @@ Cómo leerlo: con 2.000 unidades la simulación cabe de sobra en su presupuesto.
 - Los números del relieve (cuánta montaña, lago y bosque) están en `data/world.json > terrain`.
 - Pendiente: las tropas aún no rodean montañas, van en línea recta. Toca añadir mapas de flujo, como prevé el GDD.
 
+### Hito 3 · Base (con tus respuestas) ✅ versión prototipo
+- **Tab abre el menú de base**, con 3 pestañas (todas son escenas en `scenes/base/`):
+  - **Ayuntamiento**: tres barras de construir, madera y minería que siempre suman 100 %. Ves los trabajadores y lo que produces por segundo, y construyes casas (+3 trabajadores), cuartel, centro de madera (+75 % madera) y centro de mineros (+75 % mineral). Las obras se levantan solas alrededor del ayuntamiento, con andamio y barra de progreso; cuanta más gente en "construir", más rápido.
+  - **Cuartel**: desbloquear bruto, distancia y especial; mejorar la vida y el daño de cada tipo (+15 % por nivel, hasta 5); ampliar la capacidad del héroe (+30 huecos por nivel). Todo requiere el cuartel construido.
+  - **Tropas**: cuántas llevas de cada tipo. Cada una ocupa sus huecos: base 1, distancia 2, especial 3, bruto 4.
+- **Reposición**: solo en tu base (cerca del ayuntamiento), tras 2 s de descanso y gratis. El HUD avisa con "vuelve a la base para reponer" y "reponiendo...".
+- Empiezas solo con goblins base, 60 huecos y 90 de madera y 40 de mineral para levantar el cuartel enseguida.
+- **Estructuras enemigas** en blanco con detalles muy reconocibles: la base tiene cuernos, pinchos y calavera; la torre, pinchos y un ojo que parpadea; la fortaleza, pinchos y calavera.
+- Todos los números están en `data/economy.json`, `data/buildings.json` (`construibles` y `mejoras_cuartel`), `data/hero.json` (`troops`) y `slots` en `data/units.json`.
+
 ## Pruebas realizadas (todas sin ventana, en el servidor)
 - `tools/test_world.gd`: 300 semillas sin problemas.
-- `tools/smoke_world.gd`: partida automática con 14 comprobaciones, todas OK. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.
+- `tools/smoke_world.gd`: partida automática con 22 comprobaciones, todas OK en las semillas 123 y 7. Además de lo de antes, cubre: no reponer lejos de la base, reponer descansando en ella, producción de madera, construir el cuartel, desbloquear, mejorar stats y ampliar capacidad. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.
 - Capturas renderizadas del benchmark y del mundo con OpenGL por software.
 - **Sin probar:** mando físico, Mac, Android y el rendimiento con GPU real.
 
@@ -71,7 +81,6 @@ Cómo leerlo: con 2.000 unidades la simulación cabe de sobra en su presupuesto.
 - Faltan los números de daño agrupados y la niebla de guerra.
 
 ## Preguntas para Neku
-1. ¿Las tropas se reponen solas con el tiempo, solo al volver a la base o de otra forma?
-2. ¿La capacidad del héroe sube por tipo o es un total que repartes? He hecho un total que repartes.
-3. ¿Las estructuras enemigas van también en blanco (como ahora) o con un detalle de color de su bando para leerlas mejor?
-4. ¿Qué estructura va primero en el Hito 3? Propongo: ayuntamiento con reparto, cuartel (desbloquear y mejorar tropas) y centros de mineros y madera.
+1. Lo que cuesta cada cosa (edificios, mejoras, desbloqueos) es una primera estimación. Pruébalo y dime si va lento o rápido; se cambia en los JSON sin tocar código.
+2. ¿Las obras se colocan solas alrededor del ayuntamiento (como ahora) o prefieres elegir tú el sitio?
+3. Siguiente paso: ¿tropas que rodean montañas y simulación en otro hilo (rendimiento), o defensas y rituales?

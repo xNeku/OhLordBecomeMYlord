@@ -40,4 +40,4 @@ func _refresh_counts() -> void:
 	for i in slots.size():
 		var a: String = launcher.archetypes[i]
 		slots[i].set_count(store.count_of(a), store.max_of(a), store.is_unlocked(a))
-	hint.text = "%d / %d" % [store.total(), store.capacity]
+	hint.text = "huecos %d / %d" % [store.carried_slots(), store.capacity]

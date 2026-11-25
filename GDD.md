@@ -17,6 +17,12 @@ Estas decisiones mandan sobre lo que diga el resto del documento si chocan.
 - Las mejoras suben la **cantidad que puedes llevar** y los **stats** de las tropas. Ahí está el peso del factor roguelike.
 - Los **recursos** (madera y mineral) sirven para mejoras, construcciones, etc.
 
+**Respuestas del diseñador (25 nov 2026)**
+- Las tropas se reponen **al volver a la base, tras un descanso**, y gratis.
+- El héroe tiene una **capacidad**; cada tipo de tropa **ocupa X huecos**. Fin.
+- Estructuras enemigas: **todo en blanco, con detalles visuales notorios** (cuernos, pinchos, calavera).
+- Hito 3 aprobado: ayuntamiento con reparto, cuartel (desbloquear y mejorar), centros de mineros y de madera.
+
 **Estructuras**
 - Economía y base: ayuntamiento, casas, centro de mineros, centro de madera.
 - Militares: cuartel de tropas, centro de bestias (monturas: animales, voladores, acuáticos), centro de ingeniería (mejoras de estructuras y tecnologías).
@@ -300,7 +306,7 @@ Cada una trae una propuesta por defecto para no bloquear el trabajo; el diseñad
 
 - [ ] **Derrota.** Propuesta: pierdes si destruyen el ayuntamiento; si muere el héroe, reaparece en el ayuntamiento tras una espera.
 - [ ] **Dónde se lanzan las tropas.** Propuesta: en un radio alrededor del héroe, nunca sobre edificios enemigos.
-- [ ] **Capacidad del héroe.** Límite de tropas guardadas: número total o por tipo.
+- [x] **Capacidad del héroe.** Capacidad en huecos; cada tipo ocupa X (decidido 25-11).
 - [ ] **Qué se conserva entre campañas.** Reliquias, mejoras, desbloqueos o un arranque más avanzado, para que la historia completa se recorra más rápido con el tiempo.
 - [ ] **Defensas.** Si habrá torres u otras defensas en la base. En las primeras charlas hubo interés en un toque de tower defense.
 - [ ] **Enemigo del mapa 1.** Propuesta: enanos.

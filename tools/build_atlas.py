@@ -4,7 +4,8 @@ Uso:  python3 tools/build_atlas.py
 Salida: assets/atlas/units.png (celdas 16x16, 2 fotogramas por fila)
         assets/atlas/structures.png (celdas 32x32, 2 fotogramas por fila)
 Filas unidades: 0 goblin, 1 orc, 2 dwarf, 3 elf. Columnas: 0-1 fotogramas, 2 proyectil.
-Filas estructuras: 0 tienda, 1 ayuntamiento, 2 casa, 3 cuartel, 4 torre, 5 arbol, 6 mineral, 7 fortaleza.
+Filas estructuras: 0 tienda, 1 ayuntamiento, 2 casa, 3 cuartel, 4 torre, 5 arbol, 6 mineral, 7 fortaleza,
+        8 base enemiga, 9 torre enemiga, 10 centro de madera, 11 centro de mineros.
 Estructuras y entorno: solo blanco y negro puro, formas simples (regla de arte del diseñador)."""
 import json, os
 from PIL import Image
@@ -32,7 +33,8 @@ os.makedirs(os.path.join(ROOT, "assets/atlas"), exist_ok=True)
 img.save(os.path.join(ROOT, "assets/atlas/units.png"))
 
 SC = 32
-st = Image.new("RGBA", (SC * 2, SC * 8), (0, 0, 0, 0))
+ROWS = 12
+st = Image.new("RGBA", (SC * 2, SC * ROWS), (0, 0, 0, 0))
 # Regla de arte (Neku): estructuras y entorno SOLO en blanco y negro, formas simples.
 # El color queda reservado para tropas, proyectiles y habilidades.
 W, K = (255, 255, 255, 255), (0, 0, 0, 255)
@@ -72,6 +74,46 @@ for f in range(2):
     battlements(f, 7, 1, 30, 8); rect(f, 7, 1, 11, 30, 28, W)
     rect(f, 7, 12, 17, 19, 28, K); rect(f, 7, 5, 15, 7, 17, K); rect(f, 7, 24, 15, 26, 17, K)
     rect(f, 7, 15, 0, 15, 8, W); rect(f, 7, 16, flag, 21, 2 + flag, W)
+
+def skull(f, row, cx, y):  # emblema enemigo: calavera (blanco con huecos negros)
+    rect(f, row, cx - 3, y, cx + 3, y + 4, W); rect(f, row, cx - 2, y + 5, cx + 2, y + 6, W)
+    rect(f, row, cx - 2, y + 1, cx - 1, y + 2, K); rect(f, row, cx + 1, y + 1, cx + 2, y + 2, K)
+    rect(f, row, cx - 1, y + 6, cx - 1, y + 6, K); rect(f, row, cx + 1, y + 6, cx + 1, y + 6, K)
+def spikes(f, row, x0, x1, y, h=3, step=3):  # fila de pinchos hacia arriba
+    for x in range(x0, x1 + 1, step):
+        for k in range(h): rect(f, row, x, y - k, x, y - k, W)
+        rect(f, row, x - 1, y, x + 1, y, W)
+
+for f in range(2):
+    # 7 fortaleza (solo enemiga): se le añaden pinchos y calavera
+    spikes(f, 7, 2, 29, 7, 3, 4); skull(f, 7, 16, 18 - 3); rect(f, 7, 12, 23, 19, 28, K)
+    # 8 base enemiga: bloque con cuernos, tejado de pinchos y calavera
+    rect(f, 8, 5, 12, 26, 27, W); spikes(f, 8, 6, 25, 11, 4, 3)
+    for k in range(5):  # cuernos curvados a los lados
+        rect(f, 8, 3 - k // 2, 11 - k, 4 - k // 2, 11 - k, W); rect(f, 8, 27 + k // 2, 11 - k, 28 + k // 2, 11 - k, W)
+    skull(f, 8, 16, 14); rect(f, 8, 8, 22, 8, 27, K); rect(f, 8, 23, 22, 23, 27, K)
+    rect(f, 8, 13, 23, 18, 27, K)
+    # 9 torre enemiga: torre con pinchos y un "ojo" que parpadea
+    rect(f, 9, 10, 8, 21, 27, W); spikes(f, 9, 10, 21, 7, 4, 3)
+    rect(f, 9, 13, 12, 18, 15, K); rect(f, 9, 15 + f, 13, 16 + f, 14, W)
+    rect(f, 9, 14, 22, 17, 27, K); rect(f, 9, 8, 26, 9, 27, W); rect(f, 9, 22, 26, 23, 27, W)
+    # 10 centro de madera: troncos apilados + sierra circular
+    for k, y in enumerate((20, 24)):
+        rect(f, 10, 4 + k * 2, y, 22 - k * 2, y + 3, W); rect(f, 10, 5 + k * 2, y + 1, 5 + k * 2, y + 2, K)
+    for y in range(8, 19):
+        for x in range(17, 30):
+            d = ((x - 23) ** 2 + (y - 13) ** 2) ** 0.5
+            if d <= 5.2: st.putpixel((f * SC + x, 10 * SC + y), W)
+    rect(f, 10, 22, 12, 24, 14, K)
+    for a in range(4):  # dientes de la sierra (giran)
+        import math
+        ang = a * math.pi / 2 + f * math.pi / 4
+        rect(f, 10, int(23 + 6.4 * math.cos(ang)), int(13 + 6.4 * math.sin(ang)), int(23 + 6.4 * math.cos(ang)), int(13 + 6.4 * math.sin(ang)), W)
+    rect(f, 10, 4, 27, 27, 27, W)
+    # 11 centro de mineros: entrada de mina en roca + vagoneta
+    tri(f, 11, 16, 5, 24, 13, W); rect(f, 11, 11, 15, 20, 24, K); rect(f, 11, 11, 15, 11, 24, W); rect(f, 11, 20, 15, 20, 24, W)
+    rect(f, 11, 10, 14, 21, 14, W); rect(f, 11, 22 + f, 21, 29 + f, 25, W); rect(f, 11, 23 + f, 26, 24 + f, 27, W); rect(f, 11, 27 + f, 26, 28 + f, 27, W)
+    rect(f, 11, 2, 27, 29, 27, W)
 
 # 5 arbol muerto con cara (de reference/arbol_y_otros.html): silueta blanca, ojos huecos negros
 C = {'r': '#000000', 'R': '#000000', 'b': '#ffffff', 'n': '#ffffff', 'A': '#ffffff', 'K': '#ffffff'}

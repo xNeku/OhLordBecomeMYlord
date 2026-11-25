@@ -26,11 +26,14 @@ func _ready() -> void:
 	speed = float(data["speed"])
 	radius = float(data["radius"])
 	sprite.scale = Vector2.ONE * float(data["scale"])
-	store.configure(data)
 
 
 func setup(map_data: MapData, battle: Battle) -> void:
 	map = map_data
+	var slot_of := {}
+	for a in data["archetypes"]:
+		slot_of[a] = battle.db.slots[battle.db.type_index(battle.db.unit_id(data["faction"], a))]
+	store.configure(data, slot_of)
 	launcher.setup(self, battle, map_data, data, store)
 	var size := map.size_px()
 	camera.limit_left = 0
@@ -54,6 +57,8 @@ func _physics_process(delta: float) -> void:
 			sprite.flip_h = v.x < 0.0
 	else:
 		sprite.region_rect.position.x = 0.0
+	if map != null:
+		store.at_base = position.distance_to(map.spawn) <= store.refill_radius
 	var z := map.zone_at(position) if map != null else -1
 	if z != zone:
 		zone = z

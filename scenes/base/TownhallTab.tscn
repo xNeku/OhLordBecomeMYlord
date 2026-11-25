@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/ui/base/townhall_tab.gd" id="1_t"]
+[ext_resource type="PackedScene" path="res://scenes/base/SplitRow.tscn" id="2_split"]
+[ext_resource type="PackedScene" path="res://scenes/base/BuildRow.tscn" id="3_build"]
+
+[node name="Ayuntamiento" type="VBoxContainer"]
+theme_override_constants/separation = 8
+script = ExtResource("1_t")
+
+[node name="Workers" type="Label" parent="."]
+layout_mode = 2
+text = "Trabajadores"
+
+[node name="SplitBuild" parent="." instance=ExtResource("2_split")]
+layout_mode = 2
+key = "build"
+title = "Construir"
+
+[node name="SplitWood" parent="." instance=ExtResource("2_split")]
+layout_mode = 2
+key = "wood"
+title = "Madera"
+
+[node name="SplitMining" parent="." instance=ExtResource("2_split")]
+layout_mode = 2
+key = "mining"
+title = "Minería"
+
+[node name="Rates" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "ritmos"
+
+[node name="Sep" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="BuildHouse" parent="." instance=ExtResource("3_build")]
+layout_mode = 2
+building_id = "house"
+
+[node name="BuildBarracks" parent="." instance=ExtResource("3_build")]
+layout_mode = 2
+building_id = "barracks"
+
+[node name="BuildLumber" parent="." instance=ExtResource("3_build")]
+layout_mode = 2
+building_id = "lumber_center"
+
+[node name="BuildMiners" parent="." instance=ExtResource("3_build")]
+layout_mode = 2
+building_id = "miners_center"
+
+[node name="Queue" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "obras"

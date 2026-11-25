@@ -2,30 +2,40 @@ class_name TroopStore
 extends Node
 ## Tropas que lleva el héroe. Diseño (Neku, 25-11-2026):
 ##  - Las tropas NO cuestan recursos.
-##  - Hay una capacidad total (`capacity`) que se sube con mejoras.
-##  - El jugador elige cuántas lleva de cada tipo (`allocation`, suma <= capacity).
-##  - El cuartel repone gratis hasta lo elegido (`refill_per_second` tropas/s en total).
-##  - Solo se pueden llevar arquetipos desbloqueados (`unlocked`).
+##  - El héroe tiene una capacidad en huecos; cada tipo de tropa ocupa X huecos (`slots`).
+##  - El jugador elige cuántas lleva de cada tipo (`allocation`).
+##  - Se reponen SOLO en la base, tras un descanso (`rest_delay_s`), gratis.
+##  - Solo se llevan arquetipos desbloqueados (se desbloquean en el cuartel).
 
 signal changed
+signal resting_changed(resting: bool)
 
 var archetypes: Array = []
 var unlocked: Array = []
 var capacity := 0
+var slots: Dictionary = {}       ## arquetipo -> huecos que ocupa cada tropa
 var allocation: Dictionary = {}
 var counts: Dictionary = {}
-var refill_per_second := 6.0
+var refill_per_second := 8.0
+var refill_radius := 140.0
+var rest_delay := 2.0
+var at_base := false
+var resting := false             ## true mientras se están reponiendo tropas
+var _rest_t := 0.0
 var _acc := 0.0
-var _rr := 0  ## reparto por turnos al reponer
+var _rr := 0
 
 
-func configure(hero_data: Dictionary) -> void:
+func configure(hero_data: Dictionary, slot_of: Dictionary) -> void:
 	var t: Dictionary = hero_data["troops"]
 	archetypes = hero_data["archetypes"]
-	unlocked = t["unlocked"]
+	unlocked = t["unlocked"].duplicate()
 	capacity = int(t["capacity"])
 	refill_per_second = float(t["refill_per_second"])
+	refill_radius = float(t["refill_radius_px"])
+	rest_delay = float(t["rest_delay_s"])
 	for a in archetypes:
+		slots[a] = int(slot_of.get(a, 1))
 		allocation[a] = 0
 		counts[a] = 0
 	for a in archetypes:
@@ -39,10 +49,23 @@ func is_unlocked(arch: String) -> bool:
 	return unlocked.has(arch)
 
 
-func allocated_total() -> int:
+func unlock(arch: String) -> void:
+	if not unlocked.has(arch):
+		unlocked.append(arch)
+		changed.emit()
+
+
+func used_slots() -> int:
 	var s := 0
 	for a in archetypes:
-		s += int(allocation[a])
+		s += int(allocation[a]) * int(slots[a])
+	return s
+
+
+func carried_slots() -> int:
+	var s := 0
+	for a in archetypes:
+		s += int(counts[a]) * int(slots[a])
 	return s
 
 
@@ -50,6 +73,13 @@ func total() -> int:
 	var s := 0
 	for a in archetypes:
 		s += int(counts[a])
+	return s
+
+
+func allocated_total() -> int:
+	var s := 0
+	for a in archetypes:
+		s += int(allocation[a])
 	return s
 
 
@@ -61,12 +91,17 @@ func max_of(arch: String) -> int:
 	return allocation.get(arch, 0)
 
 
-## Cambia cuántas tropas de un tipo quieres llevar. Devuelve el valor aplicado.
+func slots_of(arch: String) -> int:
+	return slots.get(arch, 1)
+
+
+## Cambia cuántas tropas de un tipo quieres llevar (limitado por los huecos libres). Devuelve el valor aplicado.
 func set_allocation(arch: String, n: int) -> int:
 	if not is_unlocked(arch):
 		n = 0
-	var others := allocated_total() - int(allocation[arch])
-	n = clampi(n, 0, capacity - others)
+	var others := used_slots() - int(allocation[arch]) * int(slots[arch])
+	var max_n := (capacity - others) / int(slots[arch])
+	n = clampi(n, 0, maxi(max_n, 0))
 	allocation[arch] = n
 	if counts[arch] > n:
 		counts[arch] = n
@@ -76,15 +111,14 @@ func set_allocation(arch: String, n: int) -> int:
 
 func set_capacity(n: int) -> void:
 	capacity = maxi(n, 0)
-	# si baja la capacidad, se recorta empezando por el último arquetipo
-	var over := allocated_total() - capacity
-	for k in range(archetypes.size() - 1, -1, -1):
-		if over <= 0:
-			break
+	var k := archetypes.size() - 1
+	while used_slots() > capacity and k >= 0:
 		var a: String = archetypes[k]
-		var cut := mini(over, int(allocation[a]))
-		set_allocation(a, int(allocation[a]) - cut)
-		over -= cut
+		if int(allocation[a]) > 0:
+			allocation[a] = int(allocation[a]) - 1
+			counts[a] = mini(int(counts[a]), int(allocation[a]))
+		else:
+			k -= 1
 	changed.emit()
 
 
@@ -97,9 +131,16 @@ func take(arch: String, n: int) -> int:
 
 
 func _process(delta: float) -> void:
-	if archetypes.is_empty() or total() >= allocated_total():
+	var want_rest := at_base and total() < allocated_total()
+	if not want_rest:
+		_rest_t = 0.0
 		_acc = 0.0
+		_set_resting(false)
 		return
+	_rest_t += delta
+	if _rest_t < rest_delay:
+		return
+	_set_resting(true)
 	_acc += refill_per_second * delta
 	var dirty := false
 	var guard := 0
@@ -113,3 +154,9 @@ func _process(delta: float) -> void:
 			dirty = true
 	if dirty:
 		changed.emit()
+
+
+func _set_resting(on: bool) -> void:
+	if on != resting:
+		resting = on
+		resting_changed.emit(on)

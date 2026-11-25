@@ -26,6 +26,9 @@ var draw_scale := PackedFloat32Array()
 var tint := PackedColorArray()
 var is_structure := PackedByteArray()
 var is_suicide := PackedByteArray()
+var slots := PackedInt32Array()          ## huecos de capacidad del héroe que ocupa
+var base_hp := PackedFloat32Array()      ## valores sin mejoras (para recalcular)
+var base_damage := PackedFloat32Array()
 
 ## hostile_mask[team] = bits de equipos a los que ese equipo ataca.
 var hostile_mask := PackedInt32Array([0, 0, 0, 0])
@@ -65,6 +68,9 @@ func _add(id: String, d: Dictionary) -> void:
 	tint.append(Color(d.get("tint", "#FFFFFF")))
 	is_structure.append(1 if d.get("structure", false) else 0)
 	is_suicide.append(1 if d.get("suicide", false) else 0)
+	slots.append(int(d.get("slots", 1)))
+	base_hp.append(d.get("hp", 1))
+	base_damage.append(d.get("damage", 0))
 
 
 func type_index(id: String) -> int:
@@ -78,3 +84,10 @@ func info(id: String) -> Dictionary:
 ## Id del tipo de unidad móvil para (facción, arquetipo), p.ej. ("goblin","brute").
 func unit_id(faction: String, archetype: String) -> String:
 	return "%s_%s" % [faction, archetype]
+
+
+## Aplica multiplicadores de mejora a un tipo (afecta a las unidades que se generen después).
+func set_multipliers(id: String, hp_mult: float, damage_mult: float) -> void:
+	var t: int = index_of[id]
+	hp[t] = base_hp[t] * hp_mult
+	damage[t] = base_damage[t] * damage_mult

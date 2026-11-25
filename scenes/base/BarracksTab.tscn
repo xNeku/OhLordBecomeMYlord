@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/ui/base/barracks_tab.gd" id="1_bt"]
+[ext_resource type="PackedScene" path="res://scenes/base/UpgradeRow.tscn" id="2_up"]
+
+[node name="Cuartel" type="VBoxContainer"]
+theme_override_constants/separation = 8
+script = ExtResource("1_bt")
+
+[node name="Status" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "estado"
+autowrap_mode = 2
+
+[node name="RowBase" parent="." instance=ExtResource("2_up")]
+layout_mode = 2
+archetype = "base"
+
+[node name="RowBrute" parent="." instance=ExtResource("2_up")]
+layout_mode = 2
+archetype = "brute"
+
+[node name="RowRanged" parent="." instance=ExtResource("2_up")]
+layout_mode = 2
+archetype = "ranged"
+
+[node name="RowSpecial" parent="." instance=ExtResource("2_up")]
+layout_mode = 2
+archetype = "special"
+
+[node name="Sep" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="Capacity" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Info" type="Label" parent="Capacity"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "capacidad"
+autowrap_mode = 2
+
+[node name="Cost" type="Label" parent="Capacity"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
+text = "coste"
+horizontal_alignment = 2
+
+[node name="Action" type="Button" parent="Capacity"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+text = "Ampliar"
+
+[connection signal="pressed" from="Capacity/Action" to="." method="_on_capacity_pressed"]

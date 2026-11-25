@@ -10,7 +10,9 @@ extends Node2D
 @onready var waves: WaveDirector = $WaveDirector
 @onready var hud: Hud = $Ui/Hud
 @onready var dial: TroopDial = $Ui/TroopDial
-@onready var loadout: LoadoutPanel = $Ui/LoadoutPanel
+@onready var base_menu: BaseMenu = $Ui/BaseMenu
+@onready var economy: Economy = $Economy
+@onready var construction: ConstructionView = $Construction
 @onready var debug: DebugOverlay = $DebugOverlay
 
 var params: Dictionary
@@ -19,6 +21,7 @@ var ended := false
 
 
 func _ready() -> void:
+	GameState.reset_run()
 	params = MapGenerator.load_params()
 	map = MapGenerator.generate(GameState.seed_value, params)
 	var problems := map.validate()
@@ -36,13 +39,18 @@ func _ready() -> void:
 	hero.setup(map, battle)
 	hero.zone_changed.connect(_on_zone_changed)
 	dial.bind(hero.launcher, hero.store, battle.db, hero.data["faction"])
-	loadout.bind(hero.store, battle.db, hero.data["faction"])
+	economy.setup(battle, map, hero.store, hero.data["faction"])
+	economy.message.connect(func(t: String): hud.show_banner(t, 2.5))
+	construction.bind(economy)
+	base_menu.bind(economy, hero.store, battle.db, hero.data["faction"])
+	hero.store.resting_changed.connect(func(on: bool):
+		if on: hud.show_banner("Descansando en la base: reponiendo tropas", 2.0))
 	waves.setup(battle, map, params)
 	waves.wave_started.connect(_on_wave_started)
 	hud.retry_pressed.connect(func(): get_tree().reload_current_scene())
 	hud.menu_pressed.connect(_to_menu)
 	hud.set_objective("Objetivo: destruye la fortaleza de la última zona")
-	hud.show_banner("Semilla %d · Q + clic lanza tropas · Tab elige cuáles llevas" % map.seed_value, 4.0)
+	hud.show_banner("Semilla %d · Q + clic lanza tropas · Tab abre la base" % map.seed_value, 4.0)
 	_on_zone_changed(hero.zone)
 
 
@@ -84,6 +92,10 @@ func _process(_delta: float) -> void:
 				hud.show_banner("Faltan recursos (consigue más destruyendo campamentos)", 2.5)
 	else:
 		hud.set_prompt("")
+	hud.set_rates(economy.wood_per_s(), economy.mineral_per_s())
+	var st := hero.store
+	hud.set_troops("Tropas %d/%d  ·  huecos %d/%d%s" % [st.total(), st.allocated_total(), st.carried_slots(), st.capacity,
+		"  ·  reponiendo..." if st.resting else ("  ·  vuelve a la base para reponer" if st.total() < st.allocated_total() and not st.at_base else "")])
 	if waves.enabled:
 		hud.set_wave_text("Próxima oleada en %ds (oleada %d)" % [int(waves.seconds_to_next()), waves.wave_number + 1])
 
@@ -109,6 +121,7 @@ func _on_wave_started(number: int, size: int) -> void:
 
 
 func _on_structure_destroyed(type_id: String, team: int, pos: Vector2, tag: int) -> void:
+	economy.on_structure_destroyed(type_id, team)
 	match type_id:
 		"camp_tent":
 			var r: Dictionary = map.camps[tag]["reward"]

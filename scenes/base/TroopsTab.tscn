@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/ui/base/troops_tab.gd" id="1_tt"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LoadoutRow.tscn" id="2_row"]
+
+[node name="Tropas" type="VBoxContainer"]
+theme_override_constants/separation = 8
+script = ExtResource("1_tt")
+
+[node name="RowBase" parent="." instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="RowBrute" parent="." instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="RowRanged" parent="." instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="RowSpecial" parent="." instance=ExtResource("2_row")]
+layout_mode = 2
+
+[node name="Footer" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.72, 0.76, 1)
+theme_override_font_sizes/font_size = 12
+text = "-"
+autowrap_mode = 2

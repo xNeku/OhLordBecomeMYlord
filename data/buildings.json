@@ -1,5 +1,5 @@
 {
- "_nota": "Catálogo de estructuras (diseño de Neku, 25-11-2026). Todavía NO implementado en juego (Hito 3). Los recursos (madera, mineral) se gastan aquí: construir y mejorar. Las tropas son gratis: estas estructuras las desbloquean y mejoran.",
+ "_nota": "Catalogo de estructuras (diseno de Neku). Las de 'construibles' ya funcionan (Hito 3): 'cost' recursos, 'work' = trabajo en trabajador-segundos (mas trabajadores en 'construir' = mas rapido), 'max' = cuantas puedes tener, 'unit_type' = tipo en data/units.json. El resto del catalogo esta pendiente.",
  "economia": {
   "townhall": {
    "name": "Ayuntamiento",
@@ -54,6 +54,88 @@
   "ritual": {
    "name": "Ritual",
    "role": "Concepto 1: aura de bufos (curar, +daño, ralentizar enemigos). Concepto 2 (se desbloquea por nivel): además dispara. A nivel alto hace las dos cosas."
+  }
+ },
+ "construibles": {
+  "house": {
+   "name": "Casa",
+   "cost": {
+    "wood": 30,
+    "mineral": 0
+   },
+   "work": 24,
+   "max": 12,
+   "unit_type": "house",
+   "effect": "+3 trabajadores"
+  },
+  "barracks": {
+   "name": "Cuartel de tropas",
+   "cost": {
+    "wood": 40,
+    "mineral": 10
+   },
+   "work": 18,
+   "max": 1,
+   "unit_type": "barracks",
+   "effect": "Desbloquea y mejora tropas y la capacidad del heroe"
+  },
+  "lumber_center": {
+   "name": "Centro de madera",
+   "cost": {
+    "wood": 30,
+    "mineral": 20
+   },
+   "work": 36,
+   "max": 3,
+   "unit_type": "lumber_center",
+   "effect": "+75% madera por cada uno",
+   "wood_bonus": 0.75
+  },
+  "miners_center": {
+   "name": "Centro de mineros",
+   "cost": {
+    "wood": 45,
+    "mineral": 0
+   },
+   "work": 36,
+   "max": 3,
+   "unit_type": "miners_center",
+   "effect": "+75% mineral por cada uno",
+   "mineral_bonus": 0.75
+  }
+ },
+ "mejoras_cuartel": {
+  "_nota": "Requieren el cuartel construido. Coste de los niveles: cost_base * nivel.",
+  "unlock": {
+   "brute": {
+    "wood": 60,
+    "mineral": 60
+   },
+   "ranged": {
+    "wood": 40,
+    "mineral": 30
+   },
+   "special": {
+    "wood": 80,
+    "mineral": 80
+   }
+  },
+  "stats": {
+   "max_level": 5,
+   "hp_per_level": 0.15,
+   "damage_per_level": 0.15,
+   "cost_base": {
+    "wood": 40,
+    "mineral": 50
+   }
+  },
+  "capacity": {
+   "max_level": 8,
+   "per_level": 30,
+   "cost_base": {
+    "wood": 50,
+    "mineral": 40
+   }
   }
  }
 }

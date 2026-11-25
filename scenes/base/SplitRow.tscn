@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/ui/base/split_row.gd" id="1_s"]
+
+[node name="SplitRow" type="HBoxContainer"]
+theme_override_constants/separation = 10
+script = ExtResource("1_s")
+
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+text = "Tarea"
+
+[node name="Slider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+step = 5.0
+
+[node name="Value" type="Label" parent="."]
+custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
+text = "0 %"
+horizontal_alignment = 2
+
+[connection signal="value_changed" from="Slider" to="." method="_on_slider_value_changed"]

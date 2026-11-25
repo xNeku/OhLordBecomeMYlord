@@ -14,20 +14,19 @@
  ],
  "faction": "goblin",
  "troops": {
-  "_nota": "Las tropas son gratis. 'capacity' = cuantas puedes llevar en total (sube con mejoras). 'allocation' = cuantas de cada tipo eliges llevar (menu Tab). El cuartel repone gratis hasta lo elegido a 'refill_per_second' tropas/s. 'unlocked' = arquetipos desbloqueados.",
-  "capacity": 120,
+  "_nota": "Las tropas son gratis. 'capacity' = huecos totales (sube con mejoras del cuartel); cada tropa ocupa sus 'slots' (data/units.json). 'allocation' = cuantas de cada tipo eliges llevar (Tab > Tropas). Se reponen SOLO en tu base: a menos de 'refill_radius_px' del ayuntamiento, tras 'rest_delay_s' de descanso, a 'refill_per_second' tropas/s. 'unlocked' = arquetipos desbloqueados al empezar (el resto en el cuartel).",
+  "capacity": 60,
   "unlocked": [
-   "base",
-   "brute",
-   "ranged",
-   "special"
+   "base"
   ],
   "allocation": {
-   "base": 60,
-   "brute": 15,
-   "ranged": 30,
-   "special": 15
+   "base": 40,
+   "brute": 0,
+   "ranged": 0,
+   "special": 0
   },
-  "refill_per_second": 6.0
+  "refill_radius_px": 140,
+  "rest_delay_s": 2.0,
+  "refill_per_second": 8.0
  }
 }

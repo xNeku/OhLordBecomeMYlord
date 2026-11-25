@@ -13,6 +13,7 @@ signal menu_pressed
 @onready var end_panel: PanelContainer = $EndPanel
 @onready var end_title: Label = $EndPanel/Box/Title
 @onready var wave_label: Label = $Top/Wave
+@onready var troops_label: Label = $Top/Troops
 
 var _banner_t := 0.0
 
@@ -25,8 +26,20 @@ func _ready() -> void:
 	_refresh_resources()
 
 
+var _rates := ""
+
+
 func _refresh_resources() -> void:
-	res_label.text = "Madera %d    Mineral %d" % [GameState.wood, GameState.mineral]
+	res_label.text = "Madera %d    Mineral %d%s" % [GameState.wood, GameState.mineral, _rates]
+
+
+func set_rates(wood_s: float, mineral_s: float) -> void:
+	_rates = "    (+%.1f / +%.1f por s)" % [wood_s, mineral_s]
+	_refresh_resources()
+
+
+func set_troops(text: String) -> void:
+	troops_label.text = text
 
 
 func set_zone(text: String) -> void:

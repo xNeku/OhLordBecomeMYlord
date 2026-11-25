@@ -11,12 +11,14 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/Hud.tscn" id="9_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/TroopDial.tscn" id="10_dial"]
 [ext_resource type="PackedScene" path="res://scenes/ui/DebugOverlay.tscn" id="11_dbg"]
-[ext_resource type="PackedScene" path="res://scenes/ui/LoadoutPanel.tscn" id="12_loadout"]
+[ext_resource type="PackedScene" path="res://scenes/base/BaseMenu.tscn" id="12_base"]
+[ext_resource type="Script" path="res://src/base/economy.gd" id="13_eco"]
+[ext_resource type="Script" path="res://src/base/construction_view.gd" id="14_cons"]
 
 [sub_resource type="ShaderMaterial" id="Mat_decor"]
 shader = ExtResource("5_shader")
 shader_parameter/atlas = ExtResource("6_struct")
-shader_parameter/grid = Vector2(2, 8)
+shader_parameter/grid = Vector2(2, 12)
 
 [sub_resource type="QuadMesh" id="Quad32"]
 size = Vector2(32, 32)
@@ -39,9 +41,15 @@ multimesh = SubResource("MM_decor")
 texture_filter = 1
 script = ExtResource("4_batch")
 
+[node name="Construction" type="Node2D" parent="."]
+script = ExtResource("14_cons")
+
 [node name="Battle" parent="." instance=ExtResource("7_battle")]
 
 [node name="Hero" parent="." instance=ExtResource("8_hero")]
+
+[node name="Economy" type="Node" parent="."]
+script = ExtResource("13_eco")
 
 [node name="WaveDirector" type="Node" parent="."]
 script = ExtResource("3_waves")
@@ -52,6 +60,6 @@ script = ExtResource("3_waves")
 
 [node name="TroopDial" parent="Ui" instance=ExtResource("10_dial")]
 
-[node name="LoadoutPanel" parent="Ui" instance=ExtResource("12_loadout")]
+[node name="BaseMenu" parent="Ui" instance=ExtResource("12_base")]
 
 [node name="DebugOverlay" parent="." instance=ExtResource("11_dbg")]
