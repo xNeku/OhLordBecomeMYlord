@@ -1,0 +1,38 @@
+{
+ "note": "Concepto 2 (estilo Bountiful Bits): un solo color, 'x' = pixel, '.' = vacio. Dos fotogramas.",
+ "sprites": {
+  "elfo": {
+   "palette": {
+    "x": "#5fb7f3"
+   },
+   "frames": [
+    [
+     "...xxxx...",
+     "..xxxxxx..",
+     "..x.xx.x..",
+     "...xxxx...",
+     "..xxxxxx..",
+     ".xx.xx.xx.",
+     "...xxxx...",
+     "...xxxx...",
+     "...x..x...",
+     "...x..x..."
+    ],
+    [
+     "...xxxx...",
+     "..xxxxxx..",
+     "..x.xx.x..",
+     "...xxxx...",
+     "..xxxxxx..",
+     ".xx.xx.xx.",
+     "...xxxx...",
+     "...xxxx...",
+     "..xx..xx..",
+     ".xx....xx."
+    ]
+   ],
+   "width": 10,
+   "height": 10
+  }
+ }
+}

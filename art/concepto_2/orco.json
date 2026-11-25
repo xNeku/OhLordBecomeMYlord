@@ -1,0 +1,38 @@
+{
+ "note": "Concepto 2 (estilo Bountiful Bits): un solo color, 'x' = pixel, '.' = vacio. Dos fotogramas.",
+ "sprites": {
+  "orco": {
+   "palette": {
+    "x": "#ff5036"
+   },
+   "frames": [
+    [
+     "..x....x..",
+     "..xxxxxx..",
+     "..x.xx.x..",
+     "..xxxxxx..",
+     "..x.xx.x..",
+     "xxxxxxxxxx",
+     "x.xxxxxx.x",
+     "x.xxxxxx.x",
+     "..xx..xx..",
+     "..xx..xx.."
+    ],
+    [
+     "..x....x..",
+     "..xxxxxx..",
+     "..x.xx.x..",
+     "..xxxxxx..",
+     "..x.xx.x..",
+     "xxxxxxxxxx",
+     "x.xxxxxx.x",
+     "x.xxxxxx.x",
+     "..xx..xx..",
+     ".xx....xx."
+    ]
+   ],
+   "width": 10,
+   "height": 10
+  }
+ }
+}

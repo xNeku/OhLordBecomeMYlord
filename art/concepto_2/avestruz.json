@@ -1,0 +1,38 @@
+{
+ "note": "Concepto 2 (estilo Bountiful Bits): un solo color, 'x' = pixel, '.' = vacio. Dos fotogramas.",
+ "sprites": {
+  "avestruz": {
+   "palette": {
+    "x": "#f7c439"
+   },
+   "frames": [
+    [
+     "........xx",
+     "........x.",
+     "........x.",
+     "........x.",
+     ".xxxxxxxx.",
+     "xxxxxxxxx.",
+     "xxxxxxxx..",
+     ".xxxxxx...",
+     "...x.x....",
+     "...x.xx..."
+    ],
+    [
+     "........xx",
+     "........x.",
+     "........x.",
+     "........x.",
+     ".xxxxxxxx.",
+     "xxxxxxxxx.",
+     "xxxxxxxx..",
+     ".xxxxxx...",
+     "..xx..x...",
+     ".xx...xx.."
+    ]
+   ],
+   "width": 10,
+   "height": 10
+  }
+ }
+}
