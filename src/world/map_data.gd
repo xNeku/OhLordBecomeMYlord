@@ -5,6 +5,15 @@ extends RefCounted
 
 const VOID := 255
 
+## Terreno por celda
+const T_VOID := 0      ## fuera del mundo (estrellas)
+const T_WATER := 1     ## mar / río entre zonas (bloquea; las barreras van encima)
+const T_PLAIN := 2
+const T_FOREST := 3    ## se puede pisar
+const T_MOUNTAIN := 4  ## bloquea
+const T_ROAD := 5
+const T_LAKE := 6      ## agua dentro de una zona (bloquea)
+
 var seed_value := 0
 var cell := 16.0           ## píxeles por celda
 var w := 0                 ## celdas
@@ -12,6 +21,7 @@ var h := 0
 var zone_id := PackedByteArray()      ## zona de cada celda, VOID = vacío
 var barrier_id := PackedByteArray()   ## barrera de cada celda, VOID = ninguna
 var walk := PackedByteArray()         ## 1 = caminable ahora mismo
+var terrain := PackedByteArray()      ## T_* por celda
 var zones: Array[Dictionary] = []     ## {name,center(celdas),radius}
 var barriers: Array[Dictionary] = []  ## {kind,name,cost,open,cells,pos(px),rect(px),from_zone,to_zone}
 var camps: Array[Dictionary] = []     ## {level,reward,pos,zone}
@@ -76,6 +86,7 @@ func fingerprint() -> int:
 	var parts := PackedStringArray()
 	parts.append(str(hash(zone_id)))
 	parts.append(str(hash(barrier_id)))
+	parts.append(str(hash(terrain)))
 	for e in entities:
 		parts.append("%s|%s|%s|%d" % [e.get("kind"), e.get("type", e.get("sprite", "")), e.get("pos"), e.get("team", -1)])
 	return "|".join(parts).hash()
@@ -100,7 +111,7 @@ func validate() -> PackedStringArray:
 			if not in_bounds(nx, ny):
 				continue
 			var n := idx(nx, ny)
-			if reach[n] == 0 and (zone_id[n] != VOID or barrier_id[n] != VOID):
+			if reach[n] == 0 and (walk[n] != 0 or barrier_id[n] != VOID):
 				reach[n] = 1
 				stack.append(n)
 	for e in entities:
@@ -109,8 +120,8 @@ func validate() -> PackedStringArray:
 		var cc := cell_of(e["pos"])
 		if not in_bounds(cc.x, cc.y) or reach[idx(cc.x, cc.y)] == 0:
 			problems.append("inalcanzable: %s en %s" % [e.get("type"), e["pos"]])
-		elif zone_id[idx(cc.x, cc.y)] == VOID:
-			problems.append("sobre vacío: %s en %s" % [e.get("type"), e["pos"]])
+		elif walk[idx(cc.x, cc.y)] == 0:
+			problems.append("sobre terreno bloqueado: %s en %s" % [e.get("type"), e["pos"]])
 	var has_final := false
 	for e in entities:
 		if e.get("type", "") == "fortress":

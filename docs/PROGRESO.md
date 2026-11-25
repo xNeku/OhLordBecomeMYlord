@@ -40,6 +40,21 @@ Cómo leerlo: con 2.000 unidades la simulación cabe de sobra en su presupuesto.
 - Oleadas enemigas crecientes (`WaveDirector`, datos en `world.json > waves`) que entran por el borde de tu zona y atacan tu base.
 - Victoria al destruir la fortaleza y derrota si cae el ayuntamiento, con pantalla final para reintentar o volver al menú.
 
+### Arte del mundo (segunda pasada, según tus referencias)
+- Mundo continuo: 3 regiones de tierra rodeadas de mar, con estrellas fuera del mapa. El puente y el paso de barco cruzan el mar.
+- Cada terreno se reconoce por su trama, sin color:
+  - Agua: rayado diagonal con olas.
+  - Cordilleras: picos con una cara maciza y otra rayada.
+  - Bosques: arbolitos.
+  - Caminos: punteado.
+  - Costa: línea blanca continua.
+- Cada región tiene su textura de suelo: matojos (inicio), dunas (centro) y ceniza (base final).
+- Las montañas y los lagos bloquean el paso, y los caminos (A*) unen tu base, los puentes, la avanzada y la fortaleza. Siempre hay camino; comprobado con 200 semillas.
+- Las estructuras están redibujadas más simples, solo en blanco y negro puro. Al recibir un golpe invierten blanco↔negro, porque un destello blanco no se vería.
+- El suelo se hornea una vez al cargar (unos 160 ms) en texturas de 512 px, para que valga en móvil.
+- Los números del relieve (cuánta montaña, lago y bosque) están en `data/world.json > terrain`.
+- Pendiente: las tropas aún no rodean montañas, van en línea recta. Toca añadir mapas de flujo, como prevé el GDD.
+
 ## Pruebas realizadas (todas sin ventana, en el servidor)
 - `tools/test_world.gd`: 300 semillas sin problemas.
 - `tools/smoke_world.gd`: partida automática con 14 comprobaciones, todas OK. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.

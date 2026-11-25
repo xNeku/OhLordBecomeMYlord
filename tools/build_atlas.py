@@ -5,7 +5,7 @@ Salida: assets/atlas/units.png (celdas 16x16, 2 fotogramas por fila)
         assets/atlas/structures.png (celdas 32x32, 2 fotogramas por fila)
 Filas unidades: 0 goblin, 1 orc, 2 dwarf, 3 elf. Columnas: 0-1 fotogramas, 2 proyectil.
 Filas estructuras: 0 tienda, 1 ayuntamiento, 2 casa, 3 cuartel, 4 torre, 5 arbol, 6 mineral, 7 fortaleza.
-Todas las estructuras y el entorno salen en blanco/grises (regla de arte del diseñador)."""
+Estructuras y entorno: solo blanco y negro puro, formas simples (regla de arte del diseñador)."""
 import json, os
 from PIL import Image
 
@@ -33,7 +33,9 @@ img.save(os.path.join(ROOT, "assets/atlas/units.png"))
 
 SC = 32
 st = Image.new("RGBA", (SC * 2, SC * 8), (0, 0, 0, 0))
-W, G, D, K = (255, 255, 255, 255), (200, 200, 200, 255), (130, 130, 130, 255), (0, 0, 0, 255)
+# Regla de arte (Neku): estructuras y entorno SOLO en blanco y negro, formas simples.
+# El color queda reservado para tropas, proyectiles y habilidades.
+W, K = (255, 255, 255, 255), (0, 0, 0, 255)
 def rect(f, row, x0, y0, x1, y1, c):  # inclusive
     for y in range(y0, y1 + 1):
         for x in range(x0, x1 + 1):
@@ -42,40 +44,37 @@ def tri(f, row, cx, top, base, half, c):  # triangulo isosceles relleno
     for y in range(top, base + 1):
         w = int(half * (y - top) / max(1, base - top))
         rect(f, row, cx - w, y, cx + w, y, c)
-def px(f, row, x, y, c): rect(f, row, x, y, x, y, c)
+def battlements(f, row, x0, x1, y, step=4):
+    for x in range(x0, x1 + 1, step): rect(f, row, x, y, min(x + 1, x1), y + 2, W)
 
 for f in range(2):
-    # 0 tienda de campaña
-    tri(f, 0, 16, 8 + f * 0, 27, 12, W); tri(f, 0, 16, 14, 27, 6, G)
-    rect(f, 0, 14, 20, 18, 27, K); px(f, 0, 16, 5 + f, D); rect(f, 0, 16, 6 + f, 16, 8, D)
-    # 1 ayuntamiento
-    rect(f, 1, 4, 14, 27, 27, W); rect(f, 1, 4, 22, 27, 27, G)
-    tri(f, 1, 16, 4, 14, 14, D); rect(f, 1, 13, 18, 18, 27, K)
-    rect(f, 1, 7, 17, 10, 20, K); rect(f, 1, 21, 17, 24, 20, K)
-    rect(f, 1, 15, 2, 15, 4 + f, W); rect(f, 1, 16, 2 + f, 19, 4 + f, G)
+    flag = f  # fotograma 2: la bandera ondea 1px
+    # 0 tienda: triangulo blanco con puerta negra
+    tri(f, 0, 16, 8, 27, 11, W); tri(f, 0, 16, 18, 27, 4, K)
+    rect(f, 0, 16, 4, 16, 8, W); rect(f, 0, 17, 4 + flag, 19, 5 + flag, W)
+    # 1 ayuntamiento: bloque + tejado separado por linea negra
+    tri(f, 1, 16, 4, 12, 13, W); rect(f, 1, 5, 14, 26, 27, W)
+    rect(f, 1, 14, 20, 17, 27, K); rect(f, 1, 8, 17, 9, 19, K); rect(f, 1, 22, 17, 23, 19, K)
+    rect(f, 1, 16, 0, 16, 4, W); rect(f, 1, 17, flag, 20, 1 + flag, W)
     # 2 casa
-    rect(f, 2, 8, 16, 23, 27, W); tri(f, 2, 16, 8, 16, 10, D)
-    rect(f, 2, 14, 21, 17, 27, K); rect(f, 2, 10, 18, 12, 20, K)
-    # 3 cuartel
-    rect(f, 3, 3, 12, 28, 27, W); rect(f, 3, 3, 12, 28, 15, D); rect(f, 3, 3, 24, 28, 27, G)
-    for x in (4, 10, 16, 22): rect(f, 3, x, 9, x + 2, 11, W)
-    rect(f, 3, 13, 18, 18, 27, K); px(f, 3, 8, 19, K); px(f, 3, 23, 19, K)
-    # 4 torre
-    rect(f, 4, 11, 8, 21, 27, W); rect(f, 4, 11, 8, 12, 27, G); rect(f, 4, 20, 8, 21, 27, D)
-    for x in (9, 13, 17, 21): rect(f, 4, x, 4, x + 2, 8, W)
-    rect(f, 4, 14, 12, 18, 15, K); rect(f, 4, 14, 22, 18, 27, K)
-    rect(f, 4, 15, 1 + f, 15, 4, D); rect(f, 4, 16, 1 + f, 18, 2 + f, (255, 51, 38, 255))
-    # 6 mineral
-    tri(f, 6, 16, 12, 27, 11, (137, 147, 162, 255)); tri(f, 6, 12, 8, 20, 5, (210, 220, 235, 255))
-    rect(f, 6, 18, 18, 22, 21, (255, 214, 90, 255)); px(f, 6, 14, 22, (255, 214, 90, 255))
-    # 7 fortaleza
-    rect(f, 7, 1, 12, 30, 28, W); rect(f, 7, 1, 22, 30, 28, G)
-    for x in (1, 7, 13, 19, 25): rect(f, 7, x, 7, x + 4, 12, W)
-    rect(f, 7, 12, 16, 19, 28, K); rect(f, 7, 5, 16, 8, 19, K); rect(f, 7, 23, 16, 26, 19, K)
-    rect(f, 7, 15, 0, 15, 6, D); rect(f, 7, 16, f, 21, 3 + f, (255, 51, 38, 255))
+    tri(f, 2, 16, 9, 15, 9, W); rect(f, 2, 9, 17, 22, 27, W); rect(f, 2, 15, 22, 17, 27, K)
+    # 3 cuartel: bloque almenado con puerta grande
+    battlements(f, 3, 4, 27, 10); rect(f, 3, 4, 13, 27, 27, W); rect(f, 3, 13, 19, 18, 27, K)
+    rect(f, 3, 7, 17, 8, 18, K); rect(f, 3, 23, 17, 24, 18, K)
+    # 4 torre: alta y almenada, aspillera negra
+    battlements(f, 4, 10, 21, 4, 4); rect(f, 4, 10, 7, 21, 27, W)
+    rect(f, 4, 15, 11, 16, 15, K); rect(f, 4, 14, 22, 17, 27, K)
+    # 6 mineral: roca blanca con grietas negras
+    tri(f, 6, 16, 12, 27, 11, W); tri(f, 6, 11, 16, 27, 6, W)
+    for y in range(18, 25): st.putpixel((f * SC + 14 + (y - 18) // 3, 6 * SC + y), K)
+    rect(f, 6, 19, 20, 21, 20, K)
+    # 7 fortaleza: gran muro almenado, puerta y ventanas negras
+    battlements(f, 7, 1, 30, 8); rect(f, 7, 1, 11, 30, 28, W)
+    rect(f, 7, 12, 17, 19, 28, K); rect(f, 7, 5, 15, 7, 17, K); rect(f, 7, 24, 15, 26, 17, K)
+    rect(f, 7, 15, 0, 15, 8, W); rect(f, 7, 16, flag, 21, 2 + flag, W)
 
-# 5 arbol muerto con cara (portado de reference/arbol_y_otros.html)
-C = {'r': '#000000', 'R': '#000000', 'b': '#f3ead2', 'n': '#7a7062', 'A': '#b8ae98', 'K': '#3d372f'}
+# 5 arbol muerto con cara (de reference/arbol_y_otros.html): silueta blanca, ojos huecos negros
+C = {'r': '#000000', 'R': '#000000', 'b': '#ffffff', 'n': '#ffffff', 'A': '#ffffff', 'K': '#ffffff'}
 def tree(f):
     Wd, H = 24, 26; g = [['.'] * Wd for _ in range(H)]
     def p(x, y, c):
@@ -106,15 +105,12 @@ for f in range(2):
     for y, line in enumerate(g):
         for x, ch in enumerate(line):
             if ch in C: st.putpixel((ox + x, oy + y), hexc(C[ch]))
-# Regla de arte: estructuras y entorno en blanco/grises (solo las tropas y proyectiles llevan color)
+# seguridad: cualquier pixel queda en blanco o negro puro
 px_ = st.load()
 for y in range(st.height):
     for x in range(st.width):
         r, g, b, a = px_[x, y]
-        if a == 0:
-            continue
-        v = int(0.3 * r + 0.59 * g + 0.11 * b)
-        v = 0 if v < 8 else min(255, int(70 + v * 0.75))  # negro puro se queda negro (huecos)
-        px_[x, y] = (v, v, v, a)
+        if a:
+            px_[x, y] = W if (r + g + b) > 60 else K
 st.save(os.path.join(ROOT, "assets/atlas/structures.png"))
 print("atlas ok:", img.size, st.size)

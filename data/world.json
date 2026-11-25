@@ -6,17 +6,20 @@
   {
    "name": "Inicio",
    "radius": 32,
-   "jitter_y": 8
+   "jitter_y": 8,
+   "ground_pattern": "grass"
   },
   {
    "name": "Centro",
    "radius": 38,
-   "jitter_y": 10
+   "jitter_y": 10,
+   "ground_pattern": "dunes"
   },
   {
    "name": "Base final",
    "radius": 34,
-   "jitter_y": 8
+   "jitter_y": 8,
+   "ground_pattern": "ash"
   }
  ],
  "barriers": [
@@ -154,10 +157,19 @@
   "ore_row": 6
  },
  "ground": {
-  "_nota": "Regla de arte: fondo negro; bordes, barreras y estructuras en blanco.",
-  "edge_color": "#FFFFFF",
-  "edge_alpha": 0.45,
-  "dot_alpha": 0.1,
-  "dot_every": 4
+  "_nota": "Regla de arte: entorno SOLO en blanco y negro puro. Cada terreno se distingue por su trama. Tamaño de los trozos de textura en px.",
+  "chunk_px": 512,
+  "star_chance": 0.12
+ },
+ "terrain": {
+  "_nota": "Relieve generado con ruido (semilla). Montañas y lagos bloquean el paso; bosque y camino se pueden pisar. Umbrales 0..1: más alto = menos cantidad.",
+  "noise_frequency": 0.06,
+  "mountain_threshold": 0.7,
+  "lake_threshold": 0.82,
+  "forest_threshold": 0.68,
+  "clear_radius_key": 8,
+  "road_clearance": 2,
+  "sea_margin_cells": 4,
+  "road_wiggle": 3.0
  }
 }

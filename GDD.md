@@ -26,6 +26,8 @@ Estas decisiones mandan sobre lo que diga el resto del documento si chocan.
 
 **Arte**
 - El arte es clave. **Fondo negro**. **Estructuras y el resto del entorno en blanco**. **Tropas de colores**, y los **proyectiles también**.
+- Estructuras y entorno **más simples y sin grises**: solo juegan con el blanco y el negro. Lo que destaca (en color) son **proyectiles, habilidades y tropas**.
+- El mundo se imagina como un mapa continuo y lleno, por regiones, con cordilleras, bosques, caminos, costa y agua, y estrellas en el borde. Todo eso en blanco y negro, distinguiendo cada terreno por su trama.
 
 ## 1. Visión y pilares
 

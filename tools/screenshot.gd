@@ -1,6 +1,6 @@
 extends SceneTree
 ## Captura de pantalla automática para verificar visualmente (requiere ventana: usar xvfb-run).
-## godot --path . -s tools/screenshot.gd -- res://scenes/benchmark/Benchmark.tscn /tmp/out.png 120 [seed]
+## godot --path . -s tools/screenshot.gd -- res://scenes/benchmark/Benchmark.tscn /tmp/out.png 120 [seed] [zoom]
 var _n := 0
 var _frames := 0
 var _out := ""
@@ -12,7 +12,12 @@ func _initialize() -> void:
 		root.get_node("GameState").seed_value = int(a[3])
 	_out = a[1]
 	_frames = int(a[2])
-	root.add_child(scene.instantiate())
+	var inst := scene.instantiate()
+	root.add_child(inst)
+	if a.size() > 4:
+		var cam: Camera2D = inst.find_child("Camera2D", true, false)
+		if cam:
+			cam.zoom = Vector2.ONE * float(a[4])
 
 func _process(_d: float) -> bool:
 	_n += 1
