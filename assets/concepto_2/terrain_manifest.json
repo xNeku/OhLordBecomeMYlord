@@ -1,163 +1,469 @@
 {
- "_nota": "Piezas [x,y,w,h] ya coloreadas (tint blanco). Los suelos son tenues a proposito para que las tropas destaquen. water encaja en mosaico (periodo 8). mountain_* son sellos que sobresalen hacia arriba. Nombres: ground_<region>_N, road_N, mountain_N, forest_tree_N, void_star_N.",
+ "_nota": "Piezas [x,y,w,h], coloreadas (tint blanco). Mascara de vecinos: N=1,E=2,S=4,O=8 (suma de los lados que SI tienen vecino de la misma clase). mountain_wall_<m>, river_<m> (agua, rio y mar) y road_<m>. mountain_ore_1..3 son muro con filones (zona de mineria). bridge_h/bridge_v sobre el agua. forest_fill_1..3 encajan en mosaico (masa de bosque); forest_tree_1..3 son arboles sueltos de borde (8x10). ground_<region>_N suelos tenues (16x16). void_star_N estrellas (5x5). SUSTITUYE al terrain.png anterior: ya no existen mountain_1/2 ni road_1/2.",
  "tamano": [
-  160,
-  41
+  256,
+  80
  ],
  "piezas": {
-  "ground_inicio_1": [
+  "mountain_wall_0": [
    0,
    0,
    16,
    16
   ],
-  "ground_inicio_2": [
+  "mountain_wall_1": [
    16,
    0,
    16,
    16
   ],
-  "ground_inicio_3": [
+  "mountain_wall_2": [
    32,
    0,
    16,
    16
   ],
-  "ground_inicio_4": [
+  "mountain_wall_3": [
    48,
    0,
    16,
    16
   ],
-  "ground_centro_1": [
+  "mountain_wall_4": [
    64,
    0,
    16,
    16
   ],
-  "ground_centro_2": [
+  "mountain_wall_5": [
    80,
    0,
    16,
    16
   ],
-  "ground_centro_3": [
+  "mountain_wall_6": [
    96,
    0,
    16,
    16
   ],
-  "ground_centro_4": [
+  "mountain_wall_7": [
    112,
    0,
    16,
    16
   ],
-  "ground_final_1": [
+  "mountain_wall_8": [
    128,
    0,
    16,
    16
   ],
-  "ground_final_2": [
+  "mountain_wall_9": [
    144,
    0,
    16,
    16
   ],
-  "ground_final_3": [
+  "mountain_wall_10": [
+   160,
+   0,
+   16,
+   16
+  ],
+  "mountain_wall_11": [
+   176,
+   0,
+   16,
+   16
+  ],
+  "mountain_wall_12": [
+   192,
+   0,
+   16,
+   16
+  ],
+  "mountain_wall_13": [
+   208,
+   0,
+   16,
+   16
+  ],
+  "mountain_wall_14": [
+   224,
+   0,
+   16,
+   16
+  ],
+  "mountain_wall_15": [
+   240,
+   0,
+   16,
+   16
+  ],
+  "mountain_ore_1": [
    0,
    16,
    16,
    16
   ],
-  "ground_final_4": [
+  "mountain_ore_2": [
    16,
    16,
    16,
    16
   ],
-  "water": [
+  "mountain_ore_3": [
    32,
    16,
    16,
    16
   ],
-  "road_1": [
+  "river_0": [
    48,
    16,
    16,
    16
   ],
-  "road_2": [
+  "river_1": [
    64,
    16,
    16,
    16
   ],
-  "mountain_1": [
+  "river_2": [
    80,
    16,
    16,
-   20
+   16
   ],
-  "mountain_2": [
+  "river_3": [
    96,
    16,
    16,
    16
   ],
-  "forest_tree_1": [
+  "river_4": [
    112,
    16,
+   16,
+   16
+  ],
+  "river_5": [
+   128,
+   16,
+   16,
+   16
+  ],
+  "river_6": [
+   144,
+   16,
+   16,
+   16
+  ],
+  "river_7": [
+   160,
+   16,
+   16,
+   16
+  ],
+  "river_8": [
+   176,
+   16,
+   16,
+   16
+  ],
+  "river_9": [
+   192,
+   16,
+   16,
+   16
+  ],
+  "river_10": [
+   208,
+   16,
+   16,
+   16
+  ],
+  "river_11": [
+   224,
+   16,
+   16,
+   16
+  ],
+  "river_12": [
+   240,
+   16,
+   16,
+   16
+  ],
+  "river_13": [
+   0,
+   32,
+   16,
+   16
+  ],
+  "river_14": [
+   16,
+   32,
+   16,
+   16
+  ],
+  "river_15": [
+   32,
+   32,
+   16,
+   16
+  ],
+  "bridge_h": [
+   48,
+   32,
+   16,
+   16
+  ],
+  "bridge_v": [
+   64,
+   32,
+   16,
+   16
+  ],
+  "road_0": [
+   80,
+   32,
+   16,
+   16
+  ],
+  "road_1": [
+   96,
+   32,
+   16,
+   16
+  ],
+  "road_2": [
+   112,
+   32,
+   16,
+   16
+  ],
+  "road_3": [
+   128,
+   32,
+   16,
+   16
+  ],
+  "road_4": [
+   144,
+   32,
+   16,
+   16
+  ],
+  "road_5": [
+   160,
+   32,
+   16,
+   16
+  ],
+  "road_6": [
+   176,
+   32,
+   16,
+   16
+  ],
+  "road_7": [
+   192,
+   32,
+   16,
+   16
+  ],
+  "road_8": [
+   208,
+   32,
+   16,
+   16
+  ],
+  "road_9": [
+   224,
+   32,
+   16,
+   16
+  ],
+  "road_10": [
+   240,
+   32,
+   16,
+   16
+  ],
+  "road_11": [
+   0,
+   48,
+   16,
+   16
+  ],
+  "road_12": [
+   16,
+   48,
+   16,
+   16
+  ],
+  "road_13": [
+   32,
+   48,
+   16,
+   16
+  ],
+  "road_14": [
+   48,
+   48,
+   16,
+   16
+  ],
+  "road_15": [
+   64,
+   48,
+   16,
+   16
+  ],
+  "forest_fill_1": [
+   80,
+   48,
+   16,
+   16
+  ],
+  "forest_fill_2": [
+   96,
+   48,
+   16,
+   16
+  ],
+  "forest_fill_3": [
+   112,
+   48,
+   16,
+   16
+  ],
+  "ground_inicio_1": [
+   128,
+   48,
+   16,
+   16
+  ],
+  "ground_inicio_2": [
+   144,
+   48,
+   16,
+   16
+  ],
+  "ground_inicio_3": [
+   160,
+   48,
+   16,
+   16
+  ],
+  "ground_inicio_4": [
+   176,
+   48,
+   16,
+   16
+  ],
+  "ground_centro_1": [
+   192,
+   48,
+   16,
+   16
+  ],
+  "ground_centro_2": [
+   208,
+   48,
+   16,
+   16
+  ],
+  "ground_centro_3": [
+   224,
+   48,
+   16,
+   16
+  ],
+  "ground_centro_4": [
+   240,
+   48,
+   16,
+   16
+  ],
+  "ground_final_1": [
+   0,
+   64,
+   16,
+   16
+  ],
+  "ground_final_2": [
+   16,
+   64,
+   16,
+   16
+  ],
+  "ground_final_3": [
+   32,
+   64,
+   16,
+   16
+  ],
+  "ground_final_4": [
+   48,
+   64,
+   16,
+   16
+  ],
+  "forest_tree_1": [
+   64,
+   64,
    8,
    10
   ],
   "forest_tree_2": [
-   120,
-   16,
+   72,
+   64,
    8,
    10
   ],
   "forest_tree_3": [
-   128,
-   16,
+   80,
+   64,
    8,
    10
   ],
   "void_star_1": [
-   136,
-   16,
+   88,
+   64,
    5,
    5
   ],
   "void_star_2": [
-   141,
-   16,
+   93,
+   64,
    5,
    5
   ],
   "void_star_3": [
-   146,
-   16,
+   98,
+   64,
    5,
    5
   ],
   "void_star_4": [
-   151,
-   16,
+   103,
+   64,
    5,
    5
   ],
   "void_star_5": [
-   0,
-   36,
+   108,
+   64,
    5,
    5
   ],
   "void_star_6": [
-   5,
-   36,
+   113,
+   64,
    5,
    5
   ]
