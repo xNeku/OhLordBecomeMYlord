@@ -1,34 +1,35 @@
 {
- "note": "Concepto 2 (estilo Bountiful Bits): un solo color, 'x' = pixel, '.' = vacio. Dos fotogramas.",
+ "note": "Concepto 2: 'x' = color principal, 'a' = acento (si lo hay), '.' = vacio. Dos fotogramas.",
  "sprites": {
   "sable": {
    "palette": {
-    "x": "#f3e2b1"
+    "x": "#f2f2f2",
+    "a": "#e8b923"
    },
    "frames": [
     [
      "..............",
-     ".....xxx...x.x",
-     "...xxxxxxxxxxx",
+     ".....aaa...a.a",
+     "...aaaaaaaaaaa",
      ".xxxxxxxxxx.xx",
      ".xxxxxxxxxxxxx",
      "..xxxxxxxxxxxx",
      "..xxxxxxxx.x.x",
      "...xxxxxxx.x.x",
-     "...x.x..x.x...",
-     "...x.x..x.x..."
+     "...a.a..a.a...",
+     "...a.a..a.a..."
     ],
     [
      "..............",
-     ".....xxx...x.x",
-     "...xxxxxxxxxxx",
+     ".....aaa...a.a",
+     "...aaaaaaaaaaa",
      ".xxxxxxxxxx.xx",
      ".xxxxxxxxxxxxx",
      "..xxxxxxxxxxxx",
      "..xxxxxxxx.x.x",
      "...xxxxxxx.x.x",
-     "..x...x..x.x..",
-     "..x...x..x.x.."
+     "..a...a..a.a..",
+     "..a...a..a.a.."
     ]
    ],
    "width": 14,
