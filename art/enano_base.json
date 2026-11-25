@@ -1,0 +1,40 @@
+{
+ "note": "Enano base (estilo v2): gordito y sin armas, vista frontal simetrica. Filas completas, '.' transparente. Animacion: 1 px abajo en fotogramas alternos.",
+ "sprites": {
+  "enano_base": {
+   "palette": {
+    "k": "#0a0a0e",
+    "M": "#777f85",
+    "W": "#abb2ba",
+    "w": "#ffffff",
+    "D": "#4c4f52",
+    "R": "#bf3b05",
+    "S": "#f19766",
+    "s": "#b96d50",
+    "T": "#2f4538",
+    "B": "#744d33",
+    "b": "#462d21",
+    "O": "#f16315"
+   },
+   "rows": [
+    "......MWWWWM......",
+    "....MMWWWWWWMM....",
+    "...MMWWWWWWWWMM...",
+    "...DDDDDDDDDDDD...",
+    "..RRSSkSSSSkSSRR..",
+    ".RRRRSSssssSSRRRR.",
+    ".TTROOOOOOOOOORTT.",
+    "TTTROOOOOOOOOORTTT",
+    "TTTRROOOOOOOORRTTT",
+    "SSbBBBBBwwBBBBBbSS",
+    "..RROOOOOOOOOORR..",
+    "...RROOOOOOOORR...",
+    "....ROOOOOOOOR....",
+    "...TTT......TTT...",
+    "..bbBB......BBbb.."
+   ],
+   "width": 18,
+   "height": 15
+  }
+ }
+}
