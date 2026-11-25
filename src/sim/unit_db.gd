@@ -47,6 +47,7 @@ var hostile_mask := PackedInt32Array([0, 0, 0, 0])
 
 var _art: Dictionary = {}
 var _proj: Dictionary = {}
+var _structs: Dictionary = {}
 
 
 static func _json(path: String) -> Dictionary:
@@ -59,6 +60,7 @@ static func load_from(path: String = "res://data/units.json") -> UnitDB:
 	var db := UnitDB.new()
 	db._art = _json("res://assets/atlas/art_manifest.json")
 	db._proj = _json("res://assets/atlas/projectiles_manifest.json")["filas"]
+	db._structs = _json("res://assets/atlas/structures_manifest.json")
 	var f := FileAccess.open(path, FileAccess.READ)
 	assert(f != null, "No se pudo abrir " + path)
 	var data: Dictionary = JSON.parse_string(f.get_as_text())
@@ -129,7 +131,7 @@ func set_multipliers(id: String, hp_mult: float, damage_mult: float) -> void:
 func _resolve(at: int, sprite, id: String) -> int:
 	if typeof(sprite) != TYPE_STRING:
 		return int(sprite)
-	var filas: Dictionary = _art[MANIFEST_SECTION[at]]["filas"]
+	var filas: Dictionary = _structs["filas"] if at == ATLAS_STRUCTURE else _art[MANIFEST_SECTION[at]]["filas"]
 	if not filas.has(sprite):
 		push_warning("Sprite '%s' (tipo %s) no está en art_manifest.json" % [sprite, id])
 		return 0
@@ -140,3 +142,8 @@ func _resolve(at: int, sprite, id: String) -> int:
 func mounted_id(faction: String, archetype: String) -> String:
 	var k := "%s_%s_mounted" % [faction, archetype]
 	return k if index_of.has(k) else ""
+
+
+## Fila en structures.png de un id del manifest de estructuras (decoración, andamio...).
+func structure_row(sprite_id: String) -> int:
+	return _resolve(ATLAS_STRUCTURE, sprite_id, sprite_id)

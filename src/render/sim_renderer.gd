@@ -39,6 +39,7 @@ func bind(s: BattleSim) -> void:
 	_set_grid(units, art["units_foot"]["grid"])
 	_set_grid(mounted, art["units_mounted"]["grid"])
 	_set_grid(beasts, art["beasts"]["grid"])
+	_set_grid(structures, sim.db._structs["grid"])
 	var pm := UnitDB._json("res://assets/atlas/projectiles_manifest.json")
 	_set_grid(shots, pm["grid"])
 

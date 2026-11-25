@@ -65,12 +65,13 @@ func _populate() -> void:
 		match e["kind"]:
 			"decor":
 				var p: Vector2 = e["pos"]
-				decor.put(p.x, p.y - 4.0, 1.0, 0.0, float(e["sprite"]), 0.0, Color.WHITE)
+				decor.put(p.x, p.y - 4.0, 1.0, float(int(p.x) & 1), float(battle.db.structure_row(e["sprite"])), 0.0, Color.WHITE)
 			"structure":
 				sim.spawn(e["type"], e["team"], e["pos"].x, e["pos"].y, false, e["tag"], e["zone"])
 			"unit":
 				sim.spawn(e["type"], e["team"], e["pos"].x, e["pos"].y, e.get("seek", false), e["tag"], e["zone"])
 	decor.commit()
+	SimRenderer._set_grid(decor, battle.db._structs["grid"])
 
 
 func _process(_delta: float) -> void:

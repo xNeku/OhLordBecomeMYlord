@@ -1,0 +1,165 @@
+{
+ "_nota": "Piezas [x,y,w,h] ya coloreadas (tint blanco). Los suelos son tenues a proposito para que las tropas destaquen. water encaja en mosaico (periodo 8). mountain_* son sellos que sobresalen hacia arriba. Nombres: ground_<region>_N, road_N, mountain_N, forest_tree_N, void_star_N.",
+ "tamano": [
+  160,
+  41
+ ],
+ "piezas": {
+  "ground_inicio_1": [
+   0,
+   0,
+   16,
+   16
+  ],
+  "ground_inicio_2": [
+   16,
+   0,
+   16,
+   16
+  ],
+  "ground_inicio_3": [
+   32,
+   0,
+   16,
+   16
+  ],
+  "ground_inicio_4": [
+   48,
+   0,
+   16,
+   16
+  ],
+  "ground_centro_1": [
+   64,
+   0,
+   16,
+   16
+  ],
+  "ground_centro_2": [
+   80,
+   0,
+   16,
+   16
+  ],
+  "ground_centro_3": [
+   96,
+   0,
+   16,
+   16
+  ],
+  "ground_centro_4": [
+   112,
+   0,
+   16,
+   16
+  ],
+  "ground_final_1": [
+   128,
+   0,
+   16,
+   16
+  ],
+  "ground_final_2": [
+   144,
+   0,
+   16,
+   16
+  ],
+  "ground_final_3": [
+   0,
+   16,
+   16,
+   16
+  ],
+  "ground_final_4": [
+   16,
+   16,
+   16,
+   16
+  ],
+  "water": [
+   32,
+   16,
+   16,
+   16
+  ],
+  "road_1": [
+   48,
+   16,
+   16,
+   16
+  ],
+  "road_2": [
+   64,
+   16,
+   16,
+   16
+  ],
+  "mountain_1": [
+   80,
+   16,
+   16,
+   20
+  ],
+  "mountain_2": [
+   96,
+   16,
+   16,
+   16
+  ],
+  "forest_tree_1": [
+   112,
+   16,
+   8,
+   10
+  ],
+  "forest_tree_2": [
+   120,
+   16,
+   8,
+   10
+  ],
+  "forest_tree_3": [
+   128,
+   16,
+   8,
+   10
+  ],
+  "void_star_1": [
+   136,
+   16,
+   5,
+   5
+  ],
+  "void_star_2": [
+   141,
+   16,
+   5,
+   5
+  ],
+  "void_star_3": [
+   146,
+   16,
+   5,
+   5
+  ],
+  "void_star_4": [
+   151,
+   16,
+   5,
+   5
+  ],
+  "void_star_5": [
+   0,
+   36,
+   5,
+   5
+  ],
+  "void_star_6": [
+   5,
+   36,
+   5,
+   5
+  ]
+ }
+}

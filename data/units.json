@@ -1,5 +1,5 @@
 {
- "_nota": "Todos los numeros de balance viven aqui. Las TROPAS NO CUESTAN RECURSOS. 'atlas': foot (assets/atlas/units_foot.png), mounted (units_mounted.png, ya coloreado), beast (beasts.png), structure (structures.png). 'sprite' = id del manifest de arte (assets/atlas/art_manifest.json) o fila numerica en structures.png. 'tint' = color (los sprites vienen en blanco). 'projectile' = id en assets/atlas/projectiles_manifest.json, tenido con 'projectile_tint' (por defecto 'tint'). 'slots' = huecos de capacidad del heroe. Las variantes *_mounted salen por probabilidad al lanzar (Centro de bestias). Equipos: 0 jugador, 1 enemigo, 2 neutral.",
+ "_nota": "Todos los numeros de balance viven aqui. Las TROPAS NO CUESTAN RECURSOS. 'atlas': foot (assets/atlas/units_foot.png), mounted (units_mounted.png, ya coloreado), beast (beasts.png), structure (structures.png). 'sprite' = id del manifest de arte (art_manifest.json para tropas/bestias, structures_manifest.json para estructuras). 'tint' = color (los sprites vienen en blanco). 'projectile' = id en assets/atlas/projectiles_manifest.json, tenido con 'projectile_tint' (por defecto 'tint'). 'slots' = huecos de capacidad del heroe. Las variantes *_mounted salen por probabilidad al lanzar (Centro de bestias). Equipos: 0 jugador, 1 enemigo, 2 neutral.",
  "teams": {
   "player": 0,
   "enemy": 1,
@@ -305,7 +305,7 @@
   "townhall": {
    "structure": true,
    "name": "Ayuntamiento",
-   "sprite": 1,
+   "sprite": "townhall",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 900,
@@ -320,7 +320,7 @@
   "house": {
    "structure": true,
    "name": "Casa",
-   "sprite": 2,
+   "sprite": "house",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 150,
@@ -335,7 +335,7 @@
   "barracks": {
    "structure": true,
    "name": "Cuartel",
-   "sprite": 3,
+   "sprite": "barracks",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 300,
@@ -350,7 +350,7 @@
   "camp_tent": {
    "structure": true,
    "name": "Campamento neutral",
-   "sprite": 0,
+   "sprite": "camp_tent",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 220,
@@ -365,7 +365,7 @@
   "enemy_hall": {
    "structure": true,
    "name": "Base enemiga",
-   "sprite": 8,
+   "sprite": "enemy_hall",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 600,
@@ -380,7 +380,7 @@
   "enemy_tower": {
    "structure": true,
    "name": "Torre enana",
-   "sprite": 9,
+   "sprite": "enemy_tower",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 260,
@@ -397,7 +397,7 @@
   "fortress": {
    "structure": true,
    "name": "Fortaleza final",
-   "sprite": 7,
+   "sprite": "fortress",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 2400,
@@ -412,7 +412,7 @@
   "lumber_center": {
    "structure": true,
    "name": "Centro de madera",
-   "sprite": 10,
+   "sprite": "lumber_center",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 250,
@@ -427,7 +427,7 @@
   "miners_center": {
    "structure": true,
    "name": "Centro de mineros",
-   "sprite": 11,
+   "sprite": "miners_center",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 250,
@@ -683,7 +683,7 @@
    "name": "Oso",
    "atlas": "beast",
    "sprite": "oso",
-   "tint": "#a8693a",
+   "tint": "#FFFFFF",
    "scale": 1.0,
    "hp": 220,
    "damage": 16,
@@ -698,7 +698,7 @@
    "name": "Dientes de sable",
    "atlas": "beast",
    "sprite": "sable",
-   "tint": "#f3e2b1",
+   "tint": "#FFFFFF",
    "scale": 1.0,
    "hp": 120,
    "damage": 18,
@@ -713,7 +713,7 @@
    "name": "Warg",
    "atlas": "beast",
    "sprite": "warg",
-   "tint": "#929992",
+   "tint": "#FFFFFF",
    "scale": 1.0,
    "hp": 90,
    "damage": 11,
@@ -728,7 +728,7 @@
    "name": "Avestruz",
    "atlas": "beast",
    "sprite": "avestruz",
-   "tint": "#f7c439",
+   "tint": "#FFFFFF",
    "scale": 1.0,
    "hp": 60,
    "damage": 7,
@@ -743,7 +743,7 @@
    "structure": true,
    "atlas": "structure",
    "name": "Centro de bestias",
-   "sprite": 12,
+   "sprite": "beast_center",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 300,

@@ -1,5 +1,5 @@
 {
- "_nota": "Generado por tools/build_atlas.py (provisional hasta que arte entregue los suyos). celda 8x8, 2 fotogramas.",
+ "_nota": "Celda 8x8, 2 columnas, en BLANCO: ti\u00f1elos con el color de la raza.",
  "celda": [
   8,
   8
@@ -9,8 +9,8 @@
   4
  ],
  "filas": {
-  "proj_stone": 0,
-  "proj_arrow": 1,
+  "proj_arrow": 0,
+  "proj_stone": 1,
   "proj_magic": 2,
   "proj_bolt": 3
  }

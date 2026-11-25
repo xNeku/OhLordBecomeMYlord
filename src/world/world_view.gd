@@ -1,14 +1,13 @@
 class_name WorldView
 extends Node2D
-## Dibuja el suelo: fondo negro y tramas de color apagado por terreno (ver GroundTiles y
-## data/world.json > ground.colors), para que tropas, proyectiles y habilidades destaquen.
-## El suelo se "hornea" una vez en texturas por trozos y luego solo se dibujan esas
-## texturas. Encima se pintan las barreras (cambian al abrirse).
+## Dibuja el suelo con las piezas del director de arte (TerrainAtlas). El suelo se "hornea"
+## una vez en texturas por trozos y luego solo se dibujan esas texturas. Encima se pintan las
+## barreras (cambian al abrirse). Solo lee MapData.
 
 const WHITE := Color(1, 1, 1, 1)
 
 var map: MapData
-var style: Dictionary = {"chunk_px": 512, "star_chance": 0.12, "colors": {}}
+var style: Dictionary = {"chunk_px": 512, "star_chance": 0.12, "coast_color": "#5fb7f3"}
 var _chunks: Array[Dictionary] = []  ## {tex: ImageTexture, pos: Vector2}
 var bake_ms := 0.0
 
@@ -40,50 +39,36 @@ func _is_land(cx: int, cy: int) -> bool:
 	return t == MapData.T_PLAIN or t == MapData.T_FOREST or t == MapData.T_ROAD or t == MapData.T_MOUNTAIN
 
 
+static func _stamp(dst: Image, src: Image, at: Vector2i) -> void:
+	if src != null:
+		dst.blit_rect_mask(src, src, Rect2i(Vector2i.ZERO, src.get_size()), at)
+
+
 func _bake() -> void:
-	var tiles := GroundTiles.new()
-	var col: Dictionary = style["colors"]
-	var C := func(k: String) -> Color: return Color(col.get(k, "#FFFFFF"))
-	# baldosas teñidas una vez (cacheadas por clase y variante)
-	var plain_t := {}
-	for pname in tiles.plain:
-		var arr: Array[Image] = []
-		for im in tiles.plain[pname]:
-			arr.append(GroundTiles.tinted(im, C.call(pname)))
-		plain_t[pname] = arr
-	var water_t: Image = GroundTiles.tinted(tiles.water, C.call("water"))
-	var road_t: Array[Image] = []
-	for im in tiles.road:
-		road_t.append(GroundTiles.tinted(im, C.call("road")))
-	var stars_t: Array[Image] = []
-	for im in tiles.stars:
-		stars_t.append(GroundTiles.tinted(im, C.call("star")))
-	var peak_t: Image = GroundTiles.tinted(tiles.peak, C.call("mountain"))
-	var tree_t: Image = GroundTiles.tinted(tiles.tree, C.call("forest"))
-	var coast: Color = C.call("coast")
+	var ta := TerrainAtlas.new()
 	var cs := int(map.cell)
-	var img := GroundTiles._blank(map.w * cs, map.h * cs)
-	var full := Rect2i(0, 0, cs, cs)
+	var img := Image.create_empty(map.w * cs, map.h * cs, false, Image.FORMAT_RGBA8)
+	img.fill(Color(0, 0, 0, 0))
 	var star_chance: float = style["star_chance"]
-	# 1) tramas por celda
+	var coast := Color(style["coast_color"])
+	# 1) suelo por celda
 	for cy in map.h:
 		for cx in map.w:
 			var i := map.idx(cx, cy)
 			var dst := Vector2i(cx * cs, cy * cs)
 			var hv := _h(cx, cy)
 			match map.terrain[i]:
-				MapData.T_PLAIN, MapData.T_FOREST:
+				MapData.T_PLAIN, MapData.T_FOREST, MapData.T_MOUNTAIN:
 					var z := map.zone_id[i]
-					var pat: String = map.zones[z]["pattern"] if z != MapData.VOID else "grass"
-					var vs: Array = plain_t.get(pat, plain_t["grass"])
-					img.blit_rect(vs[hv % vs.size()], full, dst)
+					var pat: String = map.zones[z]["pattern"] if z != MapData.VOID else "inicio"
+					_stamp(img, ta.pick("ground_" + pat, hv), dst)
 				MapData.T_ROAD:
-					img.blit_rect(road_t[hv % road_t.size()], full, dst)
+					_stamp(img, ta.pick("road", hv), dst)
 				MapData.T_WATER, MapData.T_LAKE:
-					img.blit_rect(water_t, full, dst)
+					_stamp(img, ta.pick("water", 0), dst)
 				MapData.T_VOID:
 					if float(hv % 1000) / 1000.0 < star_chance:
-						img.blit_rect(stars_t[hv % stars_t.size()], full, dst)
+						_stamp(img, ta.pick("void_star", hv / 7), dst + Vector2i(hv % 10, (hv / 13) % 10))
 	# 2) costa: línea continua donde la tierra toca agua o vacío
 	for cy in map.h:
 		for cx in map.w:
@@ -100,19 +85,19 @@ func _bake() -> void:
 			if not _is_land(cx, cy - 1):
 				img.fill_rect(Rect2i(x, y, cs, 1), coast)
 	# 3) sellos de relieve, por filas para que lo de abajo tape a lo de arriba
-	var peak_r := Rect2i(Vector2i.ZERO, tiles.peak.get_size())
-	var tree_r := Rect2i(Vector2i.ZERO, tiles.tree.get_size())
 	for cy in map.h:
 		for cx in map.w:
 			var t := map.terrain[map.idx(cx, cy)]
 			var hv2 := _h(cx, cy)
+			var base := Vector2i(cx * cs, cy * cs)
 			if t == MapData.T_MOUNTAIN:
-				var off := Vector2i(hv2 % 5 - 2, -4 - (hv2 / 7) % 3)
-				img.blit_rect_mask(peak_t, peak_t, peak_r, Vector2i(cx * cs, cy * cs) + off)
-			elif t == MapData.T_FOREST:
-				for k in (1 if hv2 % 3 != 0 else 0):
-					var o2 := Vector2i((hv2 >> (k * 3)) % 9, (hv2 >> (k * 5 + 2)) % 6)
-					img.blit_rect_mask(tree_t, tree_t, tree_r, Vector2i(cx * cs, cy * cs) + o2)
+				var m := ta.pick("mountain", hv2)
+				if m != null:
+					_stamp(img, m, base + Vector2i((cs - m.get_width()) / 2 + hv2 % 5 - 2, cs - m.get_height() - 2 - (hv2 / 7) % 3))
+			elif t == MapData.T_FOREST and hv2 % 3 != 0:
+				var tr := ta.pick("forest_tree", hv2 / 3)
+				if tr != null:
+					_stamp(img, tr, base + Vector2i((hv2 >> 3) % 9, (hv2 >> 7) % 6))
 	# 4) trocear en texturas (los móviles no aceptan texturas gigantes)
 	var chunk := int(style["chunk_px"])
 	_chunks.clear()
@@ -135,11 +120,11 @@ func _draw() -> void:
 	for b in map.barriers:
 		var r: Rect2 = b["rect"]
 		if b["open"]:
-			# paso abierto: tablones blancos con juntas negras sobre el agua
+			# paso abierto: tablones con juntas negras sobre el agua
 			for c in b["cells"]:
 				var bx: float = (int(c) % map.w) * cs
 				var by: float = (int(c) / map.w) * cs
-				draw_rect(Rect2(bx, by + 2, cs - 2, cs - 4), WHITE)
+				draw_rect(Rect2(bx, by + 2, cs - 2, cs - 4), Color("#cc8e4c"))
 		else:
 			_dashed_rect(r)
 		var label := "%s%s" % [b["name"], " (abierto)" if b["open"] else ""]

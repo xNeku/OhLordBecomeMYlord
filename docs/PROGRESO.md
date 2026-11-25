@@ -72,7 +72,12 @@ Cómo leerlo: con 2.000 unidades la simulación cabe de sobra en su presupuesto.
 - **Bestias** como unidades propias. Ya aparecen como defensores en los campamentos neutrales: warg en los de nivel 2; oso y dientes de sable en los de nivel 3.
 - Proyectiles de color según la raza: piedra goblin, flecha elfa y orca, virote enano, orbe mágico.
 - Terreno con **color apagado sobre negro**: verde en el inicio, arena en el centro, ceniza en la final, agua azul y montañas grises. Las tropas siguen destacando. Es provisional hasta que llegue el terreno del director de arte; los colores están en `data/world.json > ground.colors`.
-- Las estructuras siguen en blanco hasta que lleguen las del director de arte.
+- **Tanda 2 del director de arte integrada**:
+  - Estructuras coloreadas: las tuyas en gris y madera; las enemigas en carmesí y hueso; el campamento tostado con banderín magenta.
+  - Proyectiles nuevos.
+  - Terreno completo del atlas de arte: suelos por región, agua, caminos, montañas, árboles y estrellas.
+  - Las bestias llevan sus colores de dos tonos.
+  - El golpe en estructuras vuelve a ser un destello blanco.
 
 ## Pruebas realizadas (todas sin ventana, en el servidor)
 - `tools/test_world.gd`: 300 semillas sin problemas.

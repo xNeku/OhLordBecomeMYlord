@@ -7,19 +7,19 @@
    "name": "Inicio",
    "radius": 32,
    "jitter_y": 8,
-   "ground_pattern": "grass"
+   "ground_pattern": "inicio"
   },
   {
    "name": "Centro",
    "radius": 38,
    "jitter_y": 10,
-   "ground_pattern": "dunes"
+   "ground_pattern": "centro"
   },
   {
    "name": "Base final",
    "radius": 34,
    "jitter_y": 8,
-   "ground_pattern": "ash"
+   "ground_pattern": "final"
   }
  ],
  "barriers": [
@@ -155,24 +155,14 @@
   }
  },
  "decor": {
-  "tree_row": 5,
-  "ore_row": 6
+  "tree": "tree_landmark",
+  "ore": "ore"
  },
  "ground": {
-  "_nota": "Fondo negro y tramas de color apagado (las tropas y proyectiles deben destacar más). Provisional hasta el terreno del director de arte. chunk_px = tamaño de los trozos de textura.",
+  "_nota": "Las piezas de terreno las entrega el director de arte (assets/atlas/terrain.png + terrain_manifest.json). Aqui solo: tamano de los trozos horneados, probabilidad de estrella y color de la linea de costa.",
   "chunk_px": 512,
   "star_chance": 0.12,
-  "colors": {
-   "grass": "#2f7a3e",
-   "dunes": "#9a7a3c",
-   "ash": "#7a4256",
-   "water": "#1f5aa0",
-   "coast": "#79b4e8",
-   "road": "#a88c62",
-   "mountain": "#9a9aae",
-   "forest": "#2f8f55",
-   "star": "#c8c8ff"
-  }
+  "coast_color": "#5fb7f3"
  },
  "terrain": {
   "_nota": "Relieve generado con ruido (semilla). Montañas y lagos bloquean el paso; bosque y camino se pueden pisar. Umbrales 0..1: más alto = menos cantidad.",

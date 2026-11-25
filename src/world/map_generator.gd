@@ -418,9 +418,9 @@ func _place_content() -> void:
 			var t := _free_spot(zone, 1, 4.0)
 			if t != Vector2.INF:
 				_claim(t)
-				_m.entities.append({"kind": "decor", "sprite": int(_params["decor"]["tree_row"]), "pos": _px(t), "zone": zone})
+				_m.entities.append({"kind": "decor", "sprite": str(_params["decor"]["tree"]), "pos": _px(t), "zone": zone})
 		for n in int(cp.get("ore", 0)):
 			var o := _free_spot(zone, 1, 3.0)
 			if o != Vector2.INF:
 				_claim(o)
-				_m.entities.append({"kind": "decor", "sprite": int(_params["decor"]["ore_row"]), "pos": _px(o), "zone": zone})
+				_m.entities.append({"kind": "decor", "sprite": str(_params["decor"]["ore"]), "pos": _px(o), "zone": zone})

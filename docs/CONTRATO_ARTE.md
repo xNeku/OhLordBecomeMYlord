@@ -33,7 +33,9 @@ Lo leo por **manifests**, así que añadir o reordenar filas no rompe nada.
 - `assets/atlas/units_foot.png` (16x16, blanco + tinte), `units_mounted.png` (20x20, ya coloreado, tinte blanco), `beasts.png` (16x16, blanco + tinte) y `art_manifest.json`. Copiados de la rama de arte (`assets/concepto_2/`).
 - En `data/units.json`, `"sprite"` es el id del manifest y `"atlas"` vale foot, mounted, beast o structure. La rejilla de cada atlas se lee del manifest, así que se pueden añadir filas sin tocar escenas.
 - Para actualizar, se copian los PNG y el manifest nuevos a `assets/atlas/`. Si cambian los ids, se ajusta `data/units.json`.
-- Los proyectiles (`assets/atlas/projectiles.png` + `projectiles_manifest.json`, celdas de 8x8) son provisionales, generados con `tools/build_atlas.py`.
+- Tanda 2 integrada: `structures.png` + `structures_manifest.json` (32x32, ya coloreadas; el golpe es un destello blanco), `projectiles.png` + manifest (8x8, en blanco y tintados con el color de la raza) y `terrain.png` + `terrain_manifest.json`. Las piezas del terreno se agrupan por prefijo (`ground_inicio_N` → grupo `ground_inicio`).
+- Tintes: `units_foot` lleva tinte de raza; `units_mounted`, `beasts` y `structures` van ya coloreadas (tinte blanco).
+- Todo el arte procede de la rama de arte. El código ya no genera atlas (se ha retirado `tools/build_atlas.py`).
 
 ## 4. Arquetipos (decidido por Neku)
 - Ids internos: `base`, `brute`, `ranged`, `special`. El dial tiene 4 casillas.

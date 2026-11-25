@@ -1,20 +1,28 @@
 {
- "_nota": "Concepto 2 (estilo piezas 10x10). units_foot.png y beasts.png estan en BLANCO: el color sale del tint (ver 'colores'). units_mounted.png va YA COLOREADO (jinete = color de raza, montura = color de su bestia) y su tint debe ser blanco. Columnas = 2 fotogramas, filas = ids.",
+ "_nota": "Concepto 2 (estilo piezas 10x10). units_foot.png esta en BLANCO: el color sale del tint (ver 'colores'). units_mounted.png y beasts.png van YA COLOREADOS (tint = #FFFFFF): en los montados el jinete lleva el color de su raza y la montura los colores propios de su bestia. Columnas = 2 fotogramas, filas = ids.",
  "colores": {
   "enano": "#ff880b",
   "elfo": "#5fb7f3",
   "goblin": "#4dd464",
-  "orco": "#ff5036",
-  "oso": "#a8693a",
-  "sable": "#f3e2b1",
-  "warg": "#929992",
-  "avestruz": "#f7c439"
+  "orco": "#ff5036"
  },
- "colores_montura": {
-  "enano": "#a8693a",
-  "elfo": "#f3e2b1",
-  "goblin": "#f7c439",
-  "orco": "#929992"
+ "bestias": {
+  "oso": {
+   "principal": "#a8693a",
+   "acento": "#a8693a"
+  },
+  "sable": {
+   "principal": "#f2f2f2",
+   "acento": "#e8b923"
+  },
+  "warg": {
+   "principal": "#929992",
+   "acento": "#e01e37"
+  },
+  "avestruz": {
+   "principal": "#f4f4f4",
+   "acento": "#ff8fc7"
+  }
  },
  "units_foot": {
   "archivo": "units_foot.png",
@@ -82,7 +90,7 @@
    2,
    4
   ],
-  "tint": "color de la bestia (ver colores)",
+  "tint": "#FFFFFF (ya coloreado)",
   "filas": {
    "oso": 0,
    "sable": 1,

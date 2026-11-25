@@ -33,8 +33,7 @@ shader_parameter/grid = Vector2(2, 4)
 [sub_resource type="ShaderMaterial" id="Mat_struct"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("6_struct")
-shader_parameter/grid = Vector2(2, 13)
-shader_parameter/flash_invert = true
+shader_parameter/grid = Vector2(2, 20)
 
 [sub_resource type="QuadMesh" id="Quad8"]
 size = Vector2(8, 8)
