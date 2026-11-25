@@ -33,6 +33,9 @@ var projectile_row := PackedInt32Array()  ## fila en projectiles.png, -1 = sin p
 var projectile_tint := PackedColorArray()
 var atlas := PackedByteArray()            ## ATLAS_*
 var fx_row := PackedInt32Array()          ## fila en units_foot.png para la partícula de muerte, -1 = ninguna
+var fx_melee_row := PackedInt32Array()    ## fila en fx.png del golpe cuerpo a cuerpo, -1 = ninguno
+var fx_impact_row := PackedInt32Array()   ## fila en fx.png del impacto de la magia, -1 = ninguno
+var level := PackedInt32Array()           ## nivel visual 1..3 (sufijo _nN de los sprites)
 var draw_scale := PackedFloat32Array()
 var tint := PackedColorArray()
 var is_structure := PackedByteArray()
@@ -48,6 +51,7 @@ var hostile_mask := PackedInt32Array([0, 0, 0, 0])
 var _art: Dictionary = {}
 var _proj: Dictionary = {}
 var _structs: Dictionary = {}
+var _fx: Dictionary = {}
 
 
 static func _json(path: String) -> Dictionary:
@@ -61,6 +65,7 @@ static func load_from(path: String = "res://data/units.json") -> UnitDB:
 	db._art = _json("res://assets/atlas/art_manifest.json")
 	db._proj = _json("res://assets/atlas/projectiles_manifest.json")["filas"]
 	db._structs = _json("res://assets/atlas/structures_manifest.json")
+	db._fx = _json("res://assets/atlas/fx_manifest.json")
 	var f := FileAccess.open(path, FileAccess.READ)
 	assert(f != null, "No se pudo abrir " + path)
 	var data: Dictionary = JSON.parse_string(f.get_as_text())
@@ -89,15 +94,14 @@ func _add(id: String, d: Dictionary) -> void:
 	splash.append(d.get("splash", 0))
 	var at: int = ATLAS_NAMES.get(d.get("atlas", "structure" if d.get("structure", false) else "foot"), ATLAS_FOOT)
 	atlas.append(at)
-	sprite_row.append(_resolve(at, d.get("sprite", 0), id))
-	projectile_row.append(int(_proj.get(d.get("projectile", ""), -1)))
-	projectile_tint.append(Color(d.get("projectile_tint", d.get("tint", "#FFFFFF"))))
-	if d.has("fx_sprite"):
-		fx_row.append(_resolve(ATLAS_FOOT, d["fx_sprite"], id))
-	elif at == ATLAS_FOOT:
-		fx_row.append(sprite_row[sprite_row.size() - 1])
-	else:
-		fx_row.append(-1)
+	sprite_row.append(0)
+	projectile_row.append(-1)
+	fx_row.append(-1)
+	fx_melee_row.append(-1)
+	fx_impact_row.append(-1)
+	level.append(1)
+	projectile_tint.append(Color(d.get("projectile_tint", "#FFFFFF")))
+	_resolve_visuals(ids.size() - 1)
 	draw_scale.append(d.get("scale", 1.0))
 	tint.append(Color(d.get("tint", "#FFFFFF")))
 	is_structure.append(1 if d.get("structure", false) else 0)
@@ -147,3 +151,34 @@ func mounted_id(faction: String, archetype: String) -> String:
 ## Fila en structures.png de un id del manifest de estructuras (decoración, andamio...).
 func structure_row(sprite_id: String) -> int:
 	return _resolve(ATLAS_STRUCTURE, sprite_id, sprite_id)
+
+
+static func _lv(sprite_id: String, lvl: int) -> String:
+	var re := RegEx.create_from_string("_n[0-9]+$")
+	return re.sub(sprite_id, "_n%d" % lvl) if re.search(sprite_id) != null else sprite_id
+
+
+## Recalcula las filas de sprite, proyectil y efectos de un tipo según su nivel visual.
+func _resolve_visuals(t: int) -> void:
+	var d: Dictionary = raw[t]
+	var at: int = atlas[t]
+	var lv := level[t]
+	var id := ids[t]
+	var spr = d.get("sprite", 0)
+	sprite_row[t] = _resolve(at, _lv(spr, lv) if typeof(spr) == TYPE_STRING else spr, id)
+	projectile_row[t] = int(_proj.get(_lv(d.get("projectile", ""), lv), -1))
+	fx_melee_row[t] = int(_fx["filas"].get(_lv(d.get("fx_melee", ""), lv), -1))
+	fx_impact_row[t] = int(_fx["filas"].get(_lv(d.get("fx_impact", ""), lv), -1))
+	if d.has("fx_sprite"):
+		fx_row[t] = _resolve(ATLAS_FOOT, _lv(d["fx_sprite"], lv), id)
+	elif at == ATLAS_FOOT:
+		fx_row[t] = sprite_row[t]
+	else:
+		fx_row[t] = -1
+
+
+## Cambia el nivel visual (1..3) de un tipo: sprite, proyectil y efectos pasan a los _nN.
+func set_level(id: String, lvl: int) -> void:
+	var t: int = index_of[id]
+	level[t] = clampi(lvl, 1, 3)
+	_resolve_visuals(t)

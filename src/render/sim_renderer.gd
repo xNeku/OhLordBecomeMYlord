@@ -18,6 +18,12 @@ const Y_OFFSET := {UnitDB.ATLAS_FOOT: -2.0, UnitDB.ATLAS_MOUNTED: -5.0, UnitDB.A
 @onready var mounted: SpriteBatch = $Mounted
 @onready var fx: SpriteBatch = $Fx
 @onready var shots: SpriteBatch = $Projectiles
+@onready var effects: SpriteBatch = $Effects
+
+const EFFECT_MAX := 2048
+const EFFECT_LIFE := 0.28
+var _eff := PackedFloat32Array()  # x, y, fila, edad
+var _eff_n := 0
 
 var sim: BattleSim
 var alpha := 0.0
@@ -42,6 +48,8 @@ func bind(s: BattleSim) -> void:
 	_set_grid(structures, sim.db._structs["grid"])
 	var pm := UnitDB._json("res://assets/atlas/projectiles_manifest.json")
 	_set_grid(shots, pm["grid"])
+	_set_grid(effects, sim.db._fx["grid"])
+	_eff.resize(EFFECT_MAX * 4)
 
 
 static func _set_grid(b: SpriteBatch, grid: Array) -> void:
@@ -57,6 +65,7 @@ func _process(delta: float) -> void:
 	_draw_units()
 	_draw_fx(delta)
 	_draw_shots(delta)
+	_draw_effects(delta)
 
 
 func _draw_units() -> void:
@@ -148,6 +157,9 @@ func _draw_shots(delta: float) -> void:
 		_shots[o + 5] += delta
 		var p := _shots[o + 5] / _shots[o + 6]
 		if p >= 1.0:
+			var tt := int(_shots[o + 4])
+			if sim.db.fx_impact_row[tt] >= 0:
+				_add_effect(_shots[o + 2], _shots[o + 3] - 3.0, float(sim.db.fx_impact_row[tt]))
 			var last := (_shot_n - 1) * 7
 			for q in 7:
 				_shots[o + q] = _shots[last + q]
@@ -160,3 +172,37 @@ func _draw_shots(delta: float) -> void:
 		shots.put(floorf(x + 0.5), floorf(y + 0.5), sc, float((anim + i) & 1), float(db.projectile_row[t]), 0.0, db.projectile_tint[t])
 		i += 1
 	shots.commit()
+
+
+func _add_effect(x: float, y: float, row: float) -> void:
+	if _eff_n >= EFFECT_MAX:
+		return
+	var o := _eff_n * 4
+	_eff[o] = x
+	_eff[o + 1] = y
+	_eff[o + 2] = row
+	_eff[o + 3] = 0.0
+	_eff_n += 1
+
+
+func _draw_effects(delta: float) -> void:
+	var ev := sim.drain_hit_events()
+	var k := 0
+	while k + BattleSim.HIT_STRIDE <= ev.size():
+		_add_effect(ev[k] + randf_range(-3, 3), ev[k + 1] - 4.0 + randf_range(-3, 3), ev[k + 2])
+		k += BattleSim.HIT_STRIDE
+	effects.reserve(_eff_n)
+	var i := 0
+	while i < _eff_n:
+		var o := i * 4
+		_eff[o + 3] += delta
+		var age := _eff[o + 3]
+		if age >= EFFECT_LIFE:
+			var last := (_eff_n - 1) * 4
+			for q in 4:
+				_eff[o + q] = _eff[last + q]
+			_eff_n -= 1
+			continue
+		effects.put(floorf(_eff[o] + 0.5), floorf(_eff[o + 1] + 0.5), 1.0, 0.0 if age < EFFECT_LIFE * 0.5 else 1.0, _eff[o + 2], 0.0, Color.WHITE)
+		i += 1
+	effects.commit()

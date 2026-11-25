@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/sim/battle.gd" id="1_battle"]
 [ext_resource type="Script" path="res://src/render/sim_renderer.gd" id="2_rend"]
@@ -9,16 +9,17 @@
 [ext_resource type="Texture2D" path="res://assets/atlas/units_mounted.png" id="7_mounted"]
 [ext_resource type="Texture2D" path="res://assets/atlas/beasts.png" id="8_beasts"]
 [ext_resource type="Texture2D" path="res://assets/atlas/projectiles.png" id="9_proj"]
+[ext_resource type="Texture2D" path="res://assets/atlas/fx.png" id="10_fx"]
 
 [sub_resource type="ShaderMaterial" id="Mat_foot"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("5_foot")
-shader_parameter/grid = Vector2(2, 24)
+shader_parameter/grid = Vector2(2, 48)
 
 [sub_resource type="ShaderMaterial" id="Mat_mounted"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("7_mounted")
-shader_parameter/grid = Vector2(2, 12)
+shader_parameter/grid = Vector2(2, 36)
 
 [sub_resource type="ShaderMaterial" id="Mat_beasts"]
 shader = ExtResource("4_shader")
@@ -28,12 +29,17 @@ shader_parameter/grid = Vector2(2, 4)
 [sub_resource type="ShaderMaterial" id="Mat_proj"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("9_proj")
-shader_parameter/grid = Vector2(2, 4)
+shader_parameter/grid = Vector2(2, 24)
 
 [sub_resource type="ShaderMaterial" id="Mat_struct"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("6_struct")
-shader_parameter/grid = Vector2(2, 70)
+shader_parameter/grid = Vector2(2, 174)
+
+[sub_resource type="ShaderMaterial" id="Mat_fx"]
+shader = ExtResource("4_shader")
+shader_parameter/atlas = ExtResource("10_fx")
+shader_parameter/grid = Vector2(2, 24)
 
 [sub_resource type="QuadMesh" id="Quad8"]
 size = Vector2(8, 8)
@@ -83,6 +89,12 @@ use_colors = true
 use_custom_data = true
 mesh = SubResource("Quad8")
 
+[sub_resource type="MultiMesh" id="MM_effects"]
+transform_format = 0
+use_colors = true
+use_custom_data = true
+mesh = SubResource("Quad16")
+
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_battle")
 
@@ -122,5 +134,11 @@ script = ExtResource("3_batch")
 [node name="Projectiles" type="MultiMeshInstance2D" parent="SimRenderer"]
 material = SubResource("Mat_proj")
 multimesh = SubResource("MM_proj")
+texture_filter = 1
+script = ExtResource("3_batch")
+
+[node name="Effects" type="MultiMeshInstance2D" parent="SimRenderer"]
+material = SubResource("Mat_fx")
+multimesh = SubResource("MM_effects")
 texture_filter = 1
 script = ExtResource("3_batch")

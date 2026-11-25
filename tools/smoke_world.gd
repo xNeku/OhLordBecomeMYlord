@@ -103,6 +103,13 @@ func _run() -> void:
 	var t_base: int = sim.db.type_index("goblin_base")
 	var hp0: float = sim.db.hp[t_base]
 	check(eco.upgrade_stats("base") and sim.db.hp[t_base] > hp0, "mejora de stats sube la vida (%.0f -> %.0f)" % [hp0, sim.db.hp[t_base]])
+	var row0: int = sim.db.sprite_row[t_base]
+	var tb := sim.db.type_index("goblin_brute")
+	var brow0: int = sim.db.sprite_row[tb]
+	eco.unlock_archetype("brute")
+	for k in 4:
+		eco.upgrade_stats("brute")
+	check(sim.db.level[tb] > 1 and sim.db.sprite_row[tb] != brow0, "mejorar el guerrero sube su nivel visual (n%d)" % sim.db.level[tb])
 	var cap0: int = st.capacity
 	check(eco.upgrade_capacity() and st.capacity > cap0, "mejora de capacidad (%d -> %d)" % [cap0, st.capacity])
 	# --- centros de recurso pegados al bosque / muro ---

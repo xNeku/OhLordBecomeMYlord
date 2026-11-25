@@ -1,5 +1,5 @@
 {
- "_nota": "Todos los numeros de balance viven aqui. Las TROPAS NO CUESTAN RECURSOS. 'atlas': foot (assets/atlas/units_foot.png), mounted (units_mounted.png, ya coloreado), beast (beasts.png), structure (structures.png). 'sprite' = id del manifest de arte (art_manifest.json para tropas/bestias, structures_manifest.json para estructuras). 'tint' = color (los sprites vienen en blanco). 'projectile' = id en assets/atlas/projectiles_manifest.json, tenido con 'projectile_tint' (por defecto 'tint'). 'slots' = huecos de capacidad del heroe. Las variantes *_mounted salen por probabilidad al lanzar (Centro de bestias). Equipos: 0 jugador, 1 enemigo, 2 neutral. Estructuras por raza: '<raza>_<tipo>' (jugador goblin_*, enemigo del mapa 1 enano_*).",
+ "_nota": "Numeros de balance. Las TROPAS NO CUESTAN RECURSOS. 'atlas': foot/mounted/beast/structure. 'sprite' = id del manifest de arte (art_manifest.json, structures_manifest.json); el sufijo _n1.._n3 es el NIVEL visual y lo cambian las mejoras del cuartel. Todo el arte viene ya coloreado: 'tint' blanco. 'projectile' (projectiles_manifest), 'fx_melee' y 'fx_impact' (fx_manifest) = efectos por raza y nivel. 'slots' = huecos de capacidad del heroe. *_mounted salen por probabilidad (Centro de bestias). Equipos: 0 jugador, 1 enemigo, 2 neutral.",
  "teams": {
   "player": 0,
   "enemy": 1,
@@ -33,13 +33,14 @@
    "aggro": 80,
    "slots": 1,
    "atlas": "foot",
-   "tint": "#4dd464"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_goblin_n1"
   },
   "goblin_brute": {
    "faction": "goblin",
    "archetype": "brute",
    "name": "Goblin guerrero",
-   "sprite": "goblin_guerrero",
+   "sprite": "goblin_guerrero_n1",
    "scale": 1.0,
    "hp": 80,
    "damage": 6,
@@ -50,13 +51,14 @@
    "aggro": 80,
    "slots": 4,
    "atlas": "foot",
-   "tint": "#4dd464"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_goblin_n1"
   },
   "goblin_ranged": {
    "faction": "goblin",
    "archetype": "ranged",
    "name": "Goblin arquero",
-   "sprite": "goblin_arquero",
+   "sprite": "goblin_arquero_n1",
    "scale": 1.0,
    "hp": 16,
    "damage": 5,
@@ -67,14 +69,14 @@
    "aggro": 110,
    "slots": 2,
    "atlas": "foot",
-   "tint": "#4dd464",
-   "projectile": "proj_stone"
+   "tint": "#FFFFFF",
+   "projectile": "proj_arrow_goblin_n1"
   },
   "goblin_special": {
    "faction": "goblin",
    "archetype": "special",
    "name": "Goblin mago",
-   "sprite": "goblin_mago",
+   "sprite": "goblin_mago_n1",
    "scale": 1.0,
    "hp": 19,
    "damage": 8,
@@ -86,8 +88,9 @@
    "splash": 16,
    "slots": 3,
    "atlas": "foot",
-   "tint": "#4dd464",
-   "projectile": "proj_magic"
+   "tint": "#FFFFFF",
+   "projectile": "proj_magic_goblin_n1",
+   "fx_impact": "fx_impact_goblin_n1"
   },
   "orc_base": {
    "faction": "orc",
@@ -104,13 +107,14 @@
    "aggro": 80,
    "slots": 1,
    "atlas": "foot",
-   "tint": "#ff5036"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_orco_n1"
   },
   "orc_brute": {
    "faction": "orc",
    "archetype": "brute",
    "name": "Orco guerrero",
-   "sprite": "orco_guerrero",
+   "sprite": "orco_guerrero_n1",
    "scale": 1.0,
    "hp": 160,
    "damage": 14,
@@ -121,13 +125,14 @@
    "aggro": 80,
    "slots": 4,
    "atlas": "foot",
-   "tint": "#ff5036"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_orco_n1"
   },
   "orc_ranged": {
    "faction": "orc",
    "archetype": "ranged",
    "name": "Orco arquero",
-   "sprite": "orco_arquero",
+   "sprite": "orco_arquero_n1",
    "scale": 1.0,
    "hp": 40,
    "damage": 10,
@@ -138,14 +143,14 @@
    "aggro": 110,
    "slots": 2,
    "atlas": "foot",
-   "tint": "#ff5036",
-   "projectile": "proj_arrow"
+   "tint": "#FFFFFF",
+   "projectile": "proj_arrow_orco_n1"
   },
   "orc_special": {
    "faction": "orc",
    "archetype": "special",
    "name": "Orco mago",
-   "sprite": "orco_mago",
+   "sprite": "orco_mago_n1",
    "scale": 1.0,
    "hp": 48,
    "damage": 16,
@@ -157,8 +162,9 @@
    "slots": 3,
    "splash": 16,
    "atlas": "foot",
-   "tint": "#ff5036",
-   "projectile": "proj_magic"
+   "tint": "#FFFFFF",
+   "projectile": "proj_magic_orco_n1",
+   "fx_impact": "fx_impact_orco_n1"
   },
   "dwarf_base": {
    "faction": "dwarf",
@@ -175,13 +181,14 @@
    "aggro": 80,
    "slots": 1,
    "atlas": "foot",
-   "tint": "#ff880b"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_enano_n1"
   },
   "dwarf_brute": {
    "faction": "dwarf",
    "archetype": "brute",
    "name": "Enano guerrero",
-   "sprite": "enano_guerrero",
+   "sprite": "enano_guerrero_n1",
    "scale": 1.0,
    "hp": 180,
    "damage": 10,
@@ -192,13 +199,14 @@
    "aggro": 80,
    "slots": 4,
    "atlas": "foot",
-   "tint": "#ff880b"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_enano_n1"
   },
   "dwarf_ranged": {
    "faction": "dwarf",
    "archetype": "ranged",
    "name": "Enano arquero",
-   "sprite": "enano_arquero",
+   "sprite": "enano_arquero_n1",
    "scale": 1.0,
    "hp": 40,
    "damage": 12,
@@ -209,14 +217,14 @@
    "aggro": 120,
    "slots": 2,
    "atlas": "foot",
-   "tint": "#ff880b",
-   "projectile": "proj_bolt"
+   "tint": "#FFFFFF",
+   "projectile": "proj_arrow_enano_n1"
   },
   "dwarf_special": {
    "faction": "dwarf",
    "archetype": "special",
    "name": "Enano mago",
-   "sprite": "enano_mago",
+   "sprite": "enano_mago_n1",
    "scale": 1.0,
    "hp": 48,
    "damage": 19,
@@ -228,8 +236,9 @@
    "splash": 16,
    "slots": 3,
    "atlas": "foot",
-   "tint": "#ff880b",
-   "projectile": "proj_magic"
+   "tint": "#FFFFFF",
+   "projectile": "proj_magic_enano_n1",
+   "fx_impact": "fx_impact_enano_n1"
   },
   "elf_base": {
    "faction": "elf",
@@ -246,13 +255,14 @@
    "aggro": 90,
    "slots": 1,
    "atlas": "foot",
-   "tint": "#5fb7f3"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_elfo_n1"
   },
   "elf_brute": {
    "faction": "elf",
    "archetype": "brute",
    "name": "Elfo guerrero",
-   "sprite": "elfo_guerrero",
+   "sprite": "elfo_guerrero_n1",
    "scale": 1.0,
    "hp": 90,
    "damage": 9,
@@ -263,13 +273,14 @@
    "aggro": 90,
    "slots": 4,
    "atlas": "foot",
-   "tint": "#5fb7f3"
+   "tint": "#FFFFFF",
+   "fx_melee": "fx_melee_elfo_n1"
   },
   "elf_ranged": {
    "faction": "elf",
    "archetype": "ranged",
    "name": "Elfo arquero",
-   "sprite": "elfo_arquero",
+   "sprite": "elfo_arquero_n1",
    "scale": 1.0,
    "hp": 28,
    "damage": 9,
@@ -280,14 +291,14 @@
    "aggro": 140,
    "slots": 2,
    "atlas": "foot",
-   "tint": "#5fb7f3",
-   "projectile": "proj_arrow"
+   "tint": "#FFFFFF",
+   "projectile": "proj_arrow_elfo_n1"
   },
   "elf_special": {
    "faction": "elf",
    "archetype": "special",
    "name": "Elfo mago",
-   "sprite": "elfo_mago",
+   "sprite": "elfo_mago_n1",
    "scale": 1.0,
    "hp": 34,
    "damage": 14,
@@ -299,13 +310,14 @@
    "slots": 3,
    "splash": 16,
    "atlas": "foot",
-   "tint": "#5fb7f3",
-   "projectile": "proj_magic"
+   "tint": "#FFFFFF",
+   "projectile": "proj_magic_elfo_n1",
+   "fx_impact": "fx_impact_elfo_n1"
   },
   "townhall": {
    "structure": true,
    "name": "Ayuntamiento",
-   "sprite": "goblin_townhall",
+   "sprite": "goblin_townhall_n1",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 900,
@@ -320,7 +332,7 @@
   "house": {
    "structure": true,
    "name": "Casa",
-   "sprite": "goblin_house",
+   "sprite": "goblin_house_n1",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 150,
@@ -335,7 +347,7 @@
   "barracks": {
    "structure": true,
    "name": "Cuartel",
-   "sprite": "goblin_barracks",
+   "sprite": "goblin_barracks_n1",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 300,
@@ -391,8 +403,7 @@
    "radius": 8,
    "aggro": 100,
    "atlas": "structure",
-   "projectile": "proj_bolt",
-   "projectile_tint": "#ff880b"
+   "projectile": "proj_arrow_enano_n1"
   },
   "fortress": {
    "structure": true,
@@ -412,7 +423,7 @@
   "lumber_center": {
    "structure": true,
    "name": "Centro de madera",
-   "sprite": "goblin_lumber_center",
+   "sprite": "goblin_lumber_center_n1",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 250,
@@ -427,7 +438,7 @@
   "miners_center": {
    "structure": true,
    "name": "Centro de mineros",
-   "sprite": "goblin_miners_center",
+   "sprite": "goblin_miners_center_n1",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 250,
@@ -443,7 +454,7 @@
    "faction": "goblin",
    "archetype": "brute",
    "name": "Goblin guerrero montado",
-   "sprite": "goblin_guerrero_montado",
+   "sprite": "goblin_guerrero_montado_n1",
    "scale": 1.0,
    "hp": 128,
    "damage": 8,
@@ -455,14 +466,14 @@
    "slots": 4,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "fx_sprite": "goblin_guerrero",
-   "projectile_tint": "#4dd464"
+   "fx_sprite": "goblin_guerrero_n1",
+   "fx_melee": "fx_melee_goblin_n1"
   },
   "goblin_ranged_mounted": {
    "faction": "goblin",
    "archetype": "ranged",
    "name": "Goblin arquero montado",
-   "sprite": "goblin_arquero_montado",
+   "sprite": "goblin_arquero_montado_n1",
    "scale": 1.0,
    "hp": 26,
    "damage": 6,
@@ -474,15 +485,14 @@
    "slots": 2,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_stone",
-   "fx_sprite": "goblin_arquero",
-   "projectile_tint": "#4dd464"
+   "projectile": "proj_arrow_goblin_n1",
+   "fx_sprite": "goblin_arquero_n1"
   },
   "goblin_special_mounted": {
    "faction": "goblin",
    "archetype": "special",
    "name": "Goblin mago montado",
-   "sprite": "goblin_mago_montado",
+   "sprite": "goblin_mago_montado_n1",
    "scale": 1.0,
    "hp": 30,
    "damage": 10,
@@ -495,15 +505,15 @@
    "slots": 3,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_magic",
-   "fx_sprite": "goblin_mago",
-   "projectile_tint": "#4dd464"
+   "projectile": "proj_magic_goblin_n1",
+   "fx_sprite": "goblin_mago_n1",
+   "fx_impact": "fx_impact_goblin_n1"
   },
   "orc_brute_mounted": {
    "faction": "orc",
    "archetype": "brute",
    "name": "Orco guerrero montado",
-   "sprite": "orco_guerrero_montado",
+   "sprite": "orco_guerrero_montado_n1",
    "scale": 1.0,
    "hp": 256,
    "damage": 18,
@@ -515,14 +525,14 @@
    "slots": 4,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "fx_sprite": "orco_guerrero",
-   "projectile_tint": "#ff5036"
+   "fx_sprite": "orco_guerrero_n1",
+   "fx_melee": "fx_melee_orco_n1"
   },
   "orc_ranged_mounted": {
    "faction": "orc",
    "archetype": "ranged",
    "name": "Orco arquero montado",
-   "sprite": "orco_arquero_montado",
+   "sprite": "orco_arquero_montado_n1",
    "scale": 1.0,
    "hp": 64,
    "damage": 12,
@@ -534,15 +544,14 @@
    "slots": 2,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_arrow",
-   "fx_sprite": "orco_arquero",
-   "projectile_tint": "#ff5036"
+   "projectile": "proj_arrow_orco_n1",
+   "fx_sprite": "orco_arquero_n1"
   },
   "orc_special_mounted": {
    "faction": "orc",
    "archetype": "special",
    "name": "Orco mago montado",
-   "sprite": "orco_mago_montado",
+   "sprite": "orco_mago_montado_n1",
    "scale": 1.0,
    "hp": 77,
    "damage": 20,
@@ -555,15 +564,15 @@
    "splash": 16,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_magic",
-   "fx_sprite": "orco_mago",
-   "projectile_tint": "#ff5036"
+   "projectile": "proj_magic_orco_n1",
+   "fx_sprite": "orco_mago_n1",
+   "fx_impact": "fx_impact_orco_n1"
   },
   "dwarf_brute_mounted": {
    "faction": "dwarf",
    "archetype": "brute",
    "name": "Enano guerrero montado",
-   "sprite": "enano_guerrero_montado",
+   "sprite": "enano_guerrero_montado_n1",
    "scale": 1.0,
    "hp": 288,
    "damage": 12,
@@ -575,14 +584,14 @@
    "slots": 4,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "fx_sprite": "enano_guerrero",
-   "projectile_tint": "#ff880b"
+   "fx_sprite": "enano_guerrero_n1",
+   "fx_melee": "fx_melee_enano_n1"
   },
   "dwarf_ranged_mounted": {
    "faction": "dwarf",
    "archetype": "ranged",
    "name": "Enano arquero montado",
-   "sprite": "enano_arquero_montado",
+   "sprite": "enano_arquero_montado_n1",
    "scale": 1.0,
    "hp": 64,
    "damage": 15,
@@ -594,15 +603,14 @@
    "slots": 2,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_bolt",
-   "fx_sprite": "enano_arquero",
-   "projectile_tint": "#ff880b"
+   "projectile": "proj_arrow_enano_n1",
+   "fx_sprite": "enano_arquero_n1"
   },
   "dwarf_special_mounted": {
    "faction": "dwarf",
    "archetype": "special",
    "name": "Enano mago montado",
-   "sprite": "enano_mago_montado",
+   "sprite": "enano_mago_montado_n1",
    "scale": 1.0,
    "hp": 77,
    "damage": 24,
@@ -615,15 +623,15 @@
    "slots": 3,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_magic",
-   "fx_sprite": "enano_mago",
-   "projectile_tint": "#ff880b"
+   "projectile": "proj_magic_enano_n1",
+   "fx_sprite": "enano_mago_n1",
+   "fx_impact": "fx_impact_enano_n1"
   },
   "elf_brute_mounted": {
    "faction": "elf",
    "archetype": "brute",
    "name": "Elfo guerrero montado",
-   "sprite": "elfo_guerrero_montado",
+   "sprite": "elfo_guerrero_montado_n1",
    "scale": 1.0,
    "hp": 144,
    "damage": 11,
@@ -635,14 +643,14 @@
    "slots": 4,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "fx_sprite": "elfo_guerrero",
-   "projectile_tint": "#5fb7f3"
+   "fx_sprite": "elfo_guerrero_n1",
+   "fx_melee": "fx_melee_elfo_n1"
   },
   "elf_ranged_mounted": {
    "faction": "elf",
    "archetype": "ranged",
    "name": "Elfo arquero montado",
-   "sprite": "elfo_arquero_montado",
+   "sprite": "elfo_arquero_montado_n1",
    "scale": 1.0,
    "hp": 45,
    "damage": 11,
@@ -654,15 +662,14 @@
    "slots": 2,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_arrow",
-   "fx_sprite": "elfo_arquero",
-   "projectile_tint": "#5fb7f3"
+   "projectile": "proj_arrow_elfo_n1",
+   "fx_sprite": "elfo_arquero_n1"
   },
   "elf_special_mounted": {
    "faction": "elf",
    "archetype": "special",
    "name": "Elfo mago montado",
-   "sprite": "elfo_mago_montado",
+   "sprite": "elfo_mago_montado_n1",
    "scale": 1.0,
    "hp": 54,
    "damage": 18,
@@ -675,9 +682,9 @@
    "splash": 16,
    "atlas": "mounted",
    "tint": "#FFFFFF",
-   "projectile": "proj_magic",
-   "fx_sprite": "elfo_mago",
-   "projectile_tint": "#5fb7f3"
+   "projectile": "proj_magic_elfo_n1",
+   "fx_sprite": "elfo_mago_n1",
+   "fx_impact": "fx_impact_elfo_n1"
   },
   "beast_bear": {
    "name": "Oso",
@@ -743,7 +750,7 @@
    "structure": true,
    "atlas": "structure",
    "name": "Centro de bestias",
-   "sprite": "goblin_beast_center",
+   "sprite": "goblin_beast_center_n1",
    "scale": 1.0,
    "tint": "#FFFFFF",
    "hp": 300,

@@ -21,7 +21,7 @@
 [sub_resource type="ShaderMaterial" id="Mat_decor"]
 shader = ExtResource("5_shader")
 shader_parameter/atlas = ExtResource("6_struct")
-shader_parameter/grid = Vector2(2, 70)
+shader_parameter/grid = Vector2(2, 174)
 
 [sub_resource type="QuadMesh" id="Quad32"]
 size = Vector2(32, 32)
@@ -35,7 +35,7 @@ mesh = SubResource("Quad32")
 [sub_resource type="ShaderMaterial" id="Mat_vill"]
 shader = ExtResource("5_shader")
 shader_parameter/atlas = ExtResource("16_foot")
-shader_parameter/grid = Vector2(2, 24)
+shader_parameter/grid = Vector2(2, 48)
 
 [sub_resource type="QuadMesh" id="Quad16"]
 size = Vector2(16, 16)

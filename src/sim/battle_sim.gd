@@ -57,6 +57,10 @@ var team_count := PackedInt32Array([0, 0, 0, 0])
 var death_events := PackedFloat32Array()
 ## Disparos para el dibujado: x0, y0, x1, y1, tipo_que_dispara (el daño ya se aplicó; es solo visual)
 var shot_events := PackedFloat32Array()
+## Golpes cuerpo a cuerpo para el dibujado: x, y, fila_fx (efecto del golpe en fx.png)
+var hit_events := PackedFloat32Array()
+const HIT_STRIDE := 3
+const HIT_EVENTS_MAX := 600  ## tope por paso (con miles de golpes no hace falta dibujarlos todos)
 
 # --- mapa de celdas caminables (opcional) ---
 var walk := PackedByteArray()
@@ -110,6 +114,7 @@ func clear_all() -> void:
 	dead_queue.clear()
 	death_events.clear()
 	shot_events.clear()
+	hit_events.clear()
 	team_count.fill(0)
 	structs_dirty = true
 
@@ -147,6 +152,12 @@ func spawn_t(t: int, team_id: int, x: float, y: float, do_seek: bool = false, ta
 	if db.is_structure[t] == 1:
 		structs_dirty = true
 	return i
+
+
+func drain_hit_events() -> PackedFloat32Array:
+	var out := hit_events
+	hit_events = PackedFloat32Array()
+	return out
 
 
 func drain_shot_events() -> PackedFloat32Array:
@@ -228,6 +239,8 @@ func step(dt: float = STEP_DT) -> void:
 						_splash(px[tg], py[tg], db.splash[t], dmg, int(team[i]))  # mago: daño en área
 					else:
 						_hit(tg, dmg)
+					if db.fx_melee_row[t] >= 0 and hit_events.size() < HIT_EVENTS_MAX * HIT_STRIDE:
+						hit_events.append(px[tg]); hit_events.append(py[tg]); hit_events.append(float(db.fx_melee_row[t]))
 					if db.projectile_row[t] >= 0:
 						shot_events.append(px[i]); shot_events.append(py[i])
 						shot_events.append(px[tg]); shot_events.append(py[tg])

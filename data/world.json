@@ -153,9 +153,10 @@
   "trees_per_zone": 4
  },
  "ground": {
-  "_nota": "Las piezas de terreno las entrega el director de arte (assets/atlas/terrain.png + terrain_manifest.json, autotiles de 4 vecinos). Aqui: tamano de los trozos horneados y probabilidad de estrella.",
+  "_nota": "Suelo NEGRO (Neku): el bioma se nota en montañas y árboles (terrain_manifest: <pieza>_<bioma>). La costa la dibuja el código con coast_color.",
   "chunk_px": 512,
-  "star_chance": 0.12
+  "star_chance": 0.12,
+  "coast_color": "#3a6f9a"
  },
  "terrain": {
   "_nota": "Reglas de Neku: montañas = MUROS continuos (cordillera entre inicio y centro + crestas interiores), solo se cruzan por pasos que abren los caminos; bosques = masas densas; rio desde la cordillera al mar con puentes; caminos con Dijkstra. Umbrales 0..1.",

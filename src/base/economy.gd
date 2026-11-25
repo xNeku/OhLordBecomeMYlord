@@ -262,8 +262,15 @@ func upgrade_stats(arch: String) -> bool:
 		return false
 	stat_level[arch] += 1
 	var lvl: int = stat_level[arch]
-	battle.db.set_multipliers(battle.db.unit_id(faction, arch),
-		1.0 + float(st["hp_per_level"]) * lvl, 1.0 + float(st["damage_per_level"]) * lvl)
+	var tid := battle.db.unit_id(faction, arch)
+	battle.db.set_multipliers(tid, 1.0 + float(st["hp_per_level"]) * lvl, 1.0 + float(st["damage_per_level"]) * lvl)
+	# nivel visual n1..n3 según la mejora (0-1 -> n1, 2-3 -> n2, 4-5 -> n3)
+	var vis := 1 + int(lvl * 3 / (int(st["max_level"]) + 1))
+	battle.db.set_level(tid, vis)
+	var mid := battle.db.mounted_id(faction, arch)
+	if mid != "":
+		battle.db.set_multipliers(mid, 1.0 + float(st["hp_per_level"]) * lvl, 1.0 + float(st["damage_per_level"]) * lvl)
+		battle.db.set_level(mid, vis)
 	changed.emit()
 	return true
 

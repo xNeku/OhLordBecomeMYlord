@@ -7,7 +7,7 @@ extends Node2D
 const WHITE := Color(1, 1, 1, 1)
 
 var map: MapData
-var style: Dictionary = {"chunk_px": 512, "star_chance": 0.12}
+var style: Dictionary = {"chunk_px": 512, "star_chance": 0.12, "coast_color": "#3a6f9a"}
 var _chunks: Array[Dictionary] = []  ## {tex: ImageTexture, pos: Vector2}
 var bake_ms := 0.0
 
@@ -67,6 +67,14 @@ func _mask(cx: int, cy: int, c: int) -> int:
 	return m
 
 
+## Tierra = zona asignada y no agua (el río y los puentes no cuentan como tierra).
+func _land(cx: int, cy: int) -> bool:
+	if not map.in_bounds(cx, cy):
+		return false
+	var i := map.idx(cx, cy)
+	return map.zone_id[i] != MapData.VOID and _cls(cx, cy) != C_WATER
+
+
 func _is_bridge(cx: int, cy: int) -> bool:
 	return map.in_bounds(cx, cy) and map.terrain[map.idx(cx, cy)] == MapData.T_BRIDGE
 
@@ -95,29 +103,40 @@ func _bake() -> void:
 			var hv := _h(cx, cy)
 			var t := map.terrain[i]
 			var z := map.zone_id[i]
-			# suelo de la región bajo todo lo que es tierra
-			if z != MapData.VOID and t != MapData.T_RIVER and t != MapData.T_BRIDGE:
-				_stamp(img, ta.pick("ground_" + str(map.zones[z]["pattern"]), hv), dst)
+			# suelo NEGRO (Neku): el bioma de la región se nota en montañas y árboles
+			var biome: String = str(map.zones[z]["pattern"]) if z != MapData.VOID else "inicio"
 			match _cls(cx, cy):
 				C_WATER:
 					_stamp(img, ta.pick("river_%d" % _mask(cx, cy, C_WATER), 0), dst)
 				C_MOUNTAIN:
 					if map.ore[i] == 1:
-						_stamp(img, ta.pick("mountain_ore", hv), dst)
+						_stamp(img, ta.pick("mountain_ore_" + biome, hv), dst)
 					else:
-						_stamp(img, ta.pick("mountain_wall_%d" % _mask(cx, cy, C_MOUNTAIN), 0), dst)
+						_stamp(img, ta.pick("mountain_wall_%s_%d" % [biome, _mask(cx, cy, C_MOUNTAIN)], 0), dst)
 				C_ROAD:
 					_stamp(img, ta.pick("road_%d" % _mask(cx, cy, C_ROAD), 0), dst)
 				C_FOREST:
 					if _mask(cx, cy, C_FOREST) == 15:
-						_stamp(img, ta.pick("forest_fill", hv), dst)
+						_stamp(img, ta.pick("forest_fill_" + biome, hv), dst)
 					else:
-						var tr := ta.pick("forest_tree", hv)
+						var tr := ta.pick("forest_tree_" + biome, hv)
 						if tr != null:
 							_stamp(img, tr, dst + Vector2i((cs - tr.get_width()) / 2, (cs - tr.get_height()) / 2))
 				_:
 					if t == MapData.T_VOID and float(hv % 1000) / 1000.0 < star_chance:
 						_stamp(img, ta.pick("void_star", hv / 7), dst + Vector2i(hv % 10, (hv / 13) % 10))
+	# costa: línea donde la tierra toca agua o vacío
+	var coast := Color(style["coast_color"])
+	for cy in map.h:
+		for cx in map.w:
+			if not _land(cx, cy):
+				continue
+			var x := cx * cs
+			var y := cy * cs
+			if not _land(cx + 1, cy): img.fill_rect(Rect2i(x + cs - 1, y, 1, cs), coast)
+			if not _land(cx - 1, cy): img.fill_rect(Rect2i(x, y, 1, cs), coast)
+			if not _land(cx, cy + 1): img.fill_rect(Rect2i(x, y + cs - 1, cs, 1), coast)
+			if not _land(cx, cy - 1): img.fill_rect(Rect2i(x, y, cs, 1), coast)
 	# 4) trocear en texturas (los móviles no aceptan texturas gigantes)
 	var chunk := int(style["chunk_px"])
 	_chunks.clear()

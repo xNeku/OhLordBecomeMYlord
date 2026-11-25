@@ -1,469 +1,697 @@
 {
- "_nota": "Piezas [x,y,w,h], coloreadas (tint blanco). Mascara de vecinos: N=1,E=2,S=4,O=8 (suma de los lados que SI tienen vecino de la misma clase). mountain_wall_<m>, river_<m> (agua, rio y mar) y road_<m>. mountain_ore_1..3 son muro con filones (zona de mineria). bridge_h/bridge_v sobre el agua. forest_fill_1..3 encajan en mosaico (masa de bosque); forest_tree_1..3 son arboles sueltos de borde (8x10). ground_<region>_N suelos tenues (16x16). void_star_N estrellas (5x5). SUSTITUYE al terrain.png anterior: ya no existen mountain_1/2 ni road_1/2.",
+ "_nota": "Piezas [x,y,w,h], coloreadas (tint blanco). EL SUELO ES NEGRO: ya no hay tiles de suelo (se quitaron ground_* y los arbustos). El bioma se nota SOLO en montanas y arboles: inicio = gris y verde, centro = arenisca y arboles de otono, final = obsidiana morada y arboles muertos. Nombres: mountain_wall_<bioma>_<mascara>, mountain_ore_<bioma>_1..3 (muro con filones: zona de mineria), forest_fill_<bioma>_1..3 (masa de bosque en mosaico), forest_tree_<bioma>_1..3 (arbol suelto de borde, 8x10). Comunes: river_<mascara> (rio y mar, mas oscuro y con huecos), road_<mascara> (camino en banda limpia con borde), bridge_h, bridge_v, void_star_1..6. Mascara de vecinos N=1,E=2,S=4,O=8. bioma = inicio|centro|final.",
  "tamano": [
   256,
-  80
+  112
  ],
  "piezas": {
-  "mountain_wall_0": [
+  "mountain_wall_inicio_0": [
    0,
    0,
    16,
    16
   ],
-  "mountain_wall_1": [
+  "mountain_wall_inicio_1": [
    16,
    0,
    16,
    16
   ],
-  "mountain_wall_2": [
+  "mountain_wall_inicio_2": [
    32,
    0,
    16,
    16
   ],
-  "mountain_wall_3": [
+  "mountain_wall_inicio_3": [
    48,
    0,
    16,
    16
   ],
-  "mountain_wall_4": [
+  "mountain_wall_inicio_4": [
    64,
    0,
    16,
    16
   ],
-  "mountain_wall_5": [
+  "mountain_wall_inicio_5": [
    80,
    0,
    16,
    16
   ],
-  "mountain_wall_6": [
+  "mountain_wall_inicio_6": [
    96,
    0,
    16,
    16
   ],
-  "mountain_wall_7": [
+  "mountain_wall_inicio_7": [
    112,
    0,
    16,
    16
   ],
-  "mountain_wall_8": [
+  "mountain_wall_inicio_8": [
    128,
    0,
    16,
    16
   ],
-  "mountain_wall_9": [
+  "mountain_wall_inicio_9": [
    144,
    0,
    16,
    16
   ],
-  "mountain_wall_10": [
+  "mountain_wall_inicio_10": [
    160,
    0,
    16,
    16
   ],
-  "mountain_wall_11": [
+  "mountain_wall_inicio_11": [
    176,
    0,
    16,
    16
   ],
-  "mountain_wall_12": [
+  "mountain_wall_inicio_12": [
    192,
    0,
    16,
    16
   ],
-  "mountain_wall_13": [
+  "mountain_wall_inicio_13": [
    208,
    0,
    16,
    16
   ],
-  "mountain_wall_14": [
+  "mountain_wall_inicio_14": [
    224,
    0,
    16,
    16
   ],
-  "mountain_wall_15": [
+  "mountain_wall_inicio_15": [
    240,
    0,
    16,
    16
   ],
-  "mountain_ore_1": [
+  "mountain_ore_inicio_1": [
    0,
    16,
    16,
    16
   ],
-  "mountain_ore_2": [
+  "mountain_ore_inicio_2": [
    16,
    16,
    16,
    16
   ],
-  "mountain_ore_3": [
+  "mountain_ore_inicio_3": [
    32,
    16,
+   16,
+   16
+  ],
+  "forest_fill_inicio_1": [
+   48,
+   16,
+   16,
+   16
+  ],
+  "forest_fill_inicio_2": [
+   64,
+   16,
+   16,
+   16
+  ],
+  "forest_fill_inicio_3": [
+   80,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_0": [
+   96,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_1": [
+   112,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_2": [
+   128,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_3": [
+   144,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_4": [
+   160,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_5": [
+   176,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_6": [
+   192,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_7": [
+   208,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_8": [
+   224,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_9": [
+   240,
+   16,
+   16,
+   16
+  ],
+  "mountain_wall_centro_10": [
+   0,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_centro_11": [
+   16,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_centro_12": [
+   32,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_centro_13": [
+   48,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_centro_14": [
+   64,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_centro_15": [
+   80,
+   32,
+   16,
+   16
+  ],
+  "mountain_ore_centro_1": [
+   96,
+   32,
+   16,
+   16
+  ],
+  "mountain_ore_centro_2": [
+   112,
+   32,
+   16,
+   16
+  ],
+  "mountain_ore_centro_3": [
+   128,
+   32,
+   16,
+   16
+  ],
+  "forest_fill_centro_1": [
+   144,
+   32,
+   16,
+   16
+  ],
+  "forest_fill_centro_2": [
+   160,
+   32,
+   16,
+   16
+  ],
+  "forest_fill_centro_3": [
+   176,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_final_0": [
+   192,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_final_1": [
+   208,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_final_2": [
+   224,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_final_3": [
+   240,
+   32,
+   16,
+   16
+  ],
+  "mountain_wall_final_4": [
+   0,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_5": [
+   16,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_6": [
+   32,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_7": [
+   48,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_8": [
+   64,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_9": [
+   80,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_10": [
+   96,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_11": [
+   112,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_12": [
+   128,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_13": [
+   144,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_14": [
+   160,
+   48,
+   16,
+   16
+  ],
+  "mountain_wall_final_15": [
+   176,
+   48,
+   16,
+   16
+  ],
+  "mountain_ore_final_1": [
+   192,
+   48,
+   16,
+   16
+  ],
+  "mountain_ore_final_2": [
+   208,
+   48,
+   16,
+   16
+  ],
+  "mountain_ore_final_3": [
+   224,
+   48,
+   16,
+   16
+  ],
+  "forest_fill_final_1": [
+   240,
+   48,
+   16,
+   16
+  ],
+  "forest_fill_final_2": [
+   0,
+   64,
+   16,
+   16
+  ],
+  "forest_fill_final_3": [
+   16,
+   64,
    16,
    16
   ],
   "river_0": [
-   48,
-   16,
+   32,
+   64,
    16,
    16
   ],
   "river_1": [
+   48,
    64,
-   16,
    16,
    16
   ],
   "river_2": [
-   80,
-   16,
+   64,
+   64,
    16,
    16
   ],
   "river_3": [
-   96,
-   16,
+   80,
+   64,
    16,
    16
   ],
   "river_4": [
-   112,
-   16,
+   96,
+   64,
    16,
    16
   ],
   "river_5": [
-   128,
-   16,
+   112,
+   64,
    16,
    16
   ],
   "river_6": [
-   144,
-   16,
+   128,
+   64,
    16,
    16
   ],
   "river_7": [
-   160,
-   16,
+   144,
+   64,
    16,
    16
   ],
   "river_8": [
-   176,
-   16,
+   160,
+   64,
    16,
    16
   ],
   "river_9": [
-   192,
-   16,
+   176,
+   64,
    16,
    16
   ],
   "river_10": [
-   208,
-   16,
+   192,
+   64,
    16,
    16
   ],
   "river_11": [
-   224,
-   16,
+   208,
+   64,
    16,
    16
   ],
   "river_12": [
-   240,
-   16,
+   224,
+   64,
    16,
    16
   ],
   "river_13": [
-   0,
-   32,
+   240,
+   64,
    16,
    16
   ],
   "river_14": [
-   16,
-   32,
+   0,
+   80,
    16,
    16
   ],
   "river_15": [
-   32,
-   32,
+   16,
+   80,
    16,
    16
   ],
   "bridge_h": [
-   48,
    32,
+   80,
    16,
    16
   ],
   "bridge_v": [
-   64,
-   32,
+   48,
+   80,
    16,
    16
   ],
   "road_0": [
+   64,
    80,
-   32,
    16,
    16
   ],
   "road_1": [
-   96,
-   32,
+   80,
+   80,
    16,
    16
   ],
   "road_2": [
-   112,
-   32,
+   96,
+   80,
    16,
    16
   ],
   "road_3": [
-   128,
-   32,
+   112,
+   80,
    16,
    16
   ],
   "road_4": [
-   144,
-   32,
+   128,
+   80,
    16,
    16
   ],
   "road_5": [
-   160,
-   32,
+   144,
+   80,
    16,
    16
   ],
   "road_6": [
-   176,
-   32,
+   160,
+   80,
    16,
    16
   ],
   "road_7": [
-   192,
-   32,
+   176,
+   80,
    16,
    16
   ],
   "road_8": [
-   208,
-   32,
+   192,
+   80,
    16,
    16
   ],
   "road_9": [
-   224,
-   32,
+   208,
+   80,
    16,
    16
   ],
   "road_10": [
-   240,
-   32,
+   224,
+   80,
    16,
    16
   ],
   "road_11": [
-   0,
-   48,
+   240,
+   80,
    16,
    16
   ],
   "road_12": [
-   16,
-   48,
+   0,
+   96,
    16,
    16
   ],
   "road_13": [
-   32,
-   48,
+   16,
+   96,
    16,
    16
   ],
   "road_14": [
-   48,
-   48,
+   32,
+   96,
    16,
    16
   ],
   "road_15": [
-   64,
    48,
-   16,
-   16
-  ],
-  "forest_fill_1": [
-   80,
-   48,
-   16,
-   16
-  ],
-  "forest_fill_2": [
    96,
-   48,
    16,
    16
   ],
-  "forest_fill_3": [
-   112,
-   48,
-   16,
-   16
-  ],
-  "ground_inicio_1": [
-   128,
-   48,
-   16,
-   16
-  ],
-  "ground_inicio_2": [
-   144,
-   48,
-   16,
-   16
-  ],
-  "ground_inicio_3": [
-   160,
-   48,
-   16,
-   16
-  ],
-  "ground_inicio_4": [
-   176,
-   48,
-   16,
-   16
-  ],
-  "ground_centro_1": [
-   192,
-   48,
-   16,
-   16
-  ],
-  "ground_centro_2": [
-   208,
-   48,
-   16,
-   16
-  ],
-  "ground_centro_3": [
-   224,
-   48,
-   16,
-   16
-  ],
-  "ground_centro_4": [
-   240,
-   48,
-   16,
-   16
-  ],
-  "ground_final_1": [
-   0,
+  "forest_tree_inicio_1": [
    64,
-   16,
-   16
-  ],
-  "ground_final_2": [
-   16,
-   64,
-   16,
-   16
-  ],
-  "ground_final_3": [
-   32,
-   64,
-   16,
-   16
-  ],
-  "ground_final_4": [
-   48,
-   64,
-   16,
-   16
-  ],
-  "forest_tree_1": [
-   64,
-   64,
+   96,
    8,
    10
   ],
-  "forest_tree_2": [
+  "forest_tree_centro_1": [
    72,
-   64,
+   96,
    8,
    10
   ],
-  "forest_tree_3": [
+  "forest_tree_final_1": [
    80,
-   64,
+   96,
+   8,
+   10
+  ],
+  "forest_tree_inicio_2": [
+   88,
+   96,
+   8,
+   10
+  ],
+  "forest_tree_centro_2": [
+   96,
+   96,
+   8,
+   10
+  ],
+  "forest_tree_final_2": [
+   104,
+   96,
+   8,
+   10
+  ],
+  "forest_tree_inicio_3": [
+   112,
+   96,
+   8,
+   10
+  ],
+  "forest_tree_centro_3": [
+   120,
+   96,
+   8,
+   10
+  ],
+  "forest_tree_final_3": [
+   128,
+   96,
    8,
    10
   ],
   "void_star_1": [
-   88,
-   64,
+   136,
+   96,
    5,
    5
   ],
   "void_star_2": [
-   93,
-   64,
+   141,
+   96,
    5,
    5
   ],
   "void_star_3": [
-   98,
-   64,
+   146,
+   96,
    5,
    5
   ],
   "void_star_4": [
-   103,
-   64,
+   151,
+   96,
    5,
    5
   ],
   "void_star_5": [
-   108,
-   64,
+   156,
+   96,
    5,
    5
   ],
   "void_star_6": [
-   113,
-   64,
+   161,
+   96,
    5,
    5
   ]

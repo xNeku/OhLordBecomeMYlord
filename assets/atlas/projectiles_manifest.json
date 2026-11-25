@@ -1,17 +1,38 @@
 {
- "_nota": "Celda 8x8, 2 columnas, en BLANCO: ti\u00f1elos con el color de la raza.",
+ "_nota": "Proyectiles 8x8, 2 fotogramas, ya coloreados (tint blanco). arrow_<raza>_n<nivel> y magic_<raza>_n<nivel>: cada raza tiene su forma y su color, y crecen con el nivel.",
  "celda": [
   8,
   8
  ],
  "grid": [
   2,
-  4
+  24
  ],
+ "tint": "#FFFFFF",
  "filas": {
-  "proj_arrow": 0,
-  "proj_stone": 1,
-  "proj_magic": 2,
-  "proj_bolt": 3
+  "proj_arrow_enano_n1": 0,
+  "proj_arrow_enano_n2": 1,
+  "proj_arrow_enano_n3": 2,
+  "proj_magic_enano_n1": 3,
+  "proj_magic_enano_n2": 4,
+  "proj_magic_enano_n3": 5,
+  "proj_arrow_elfo_n1": 6,
+  "proj_arrow_elfo_n2": 7,
+  "proj_arrow_elfo_n3": 8,
+  "proj_magic_elfo_n1": 9,
+  "proj_magic_elfo_n2": 10,
+  "proj_magic_elfo_n3": 11,
+  "proj_arrow_goblin_n1": 12,
+  "proj_arrow_goblin_n2": 13,
+  "proj_arrow_goblin_n3": 14,
+  "proj_magic_goblin_n1": 15,
+  "proj_magic_goblin_n2": 16,
+  "proj_magic_goblin_n3": 17,
+  "proj_arrow_orco_n1": 18,
+  "proj_arrow_orco_n2": 19,
+  "proj_arrow_orco_n3": 20,
+  "proj_magic_orco_n1": 21,
+  "proj_magic_orco_n2": 22,
+  "proj_magic_orco_n3": 23
  }
 }
