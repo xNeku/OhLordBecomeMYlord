@@ -1,0 +1,84 @@
+{
+ "_nota": "Concepto 2 (estilo piezas 10x10). Atlas en BLANCO: el color sale del tint de data/units.json. Columnas = 2 fotogramas, filas = ids. 'color' es el tint sugerido por raza.",
+ "colores": {
+  "enano": "#ff880b",
+  "elfo": "#5fb7f3",
+  "goblin": "#4dd464",
+  "orco": "#ff5036",
+  "oso": "#cc8e4c",
+  "sable": "#f3e2b1",
+  "warg": "#929992",
+  "avestruz": "#f7c439"
+ },
+ "units_foot": {
+  "archivo": "units_foot.png",
+  "celda": [
+   16,
+   16
+  ],
+  "grid": [
+   2,
+   16
+  ],
+  "filas": {
+   "enano_base": 0,
+   "enano_guerrero": 1,
+   "enano_arquero": 2,
+   "enano_mago": 3,
+   "elfo_base": 4,
+   "elfo_guerrero": 5,
+   "elfo_arquero": 6,
+   "elfo_mago": 7,
+   "goblin_base": 8,
+   "goblin_guerrero": 9,
+   "goblin_arquero": 10,
+   "goblin_mago": 11,
+   "orco_base": 12,
+   "orco_guerrero": 13,
+   "orco_arquero": 14,
+   "orco_mago": 15
+  }
+ },
+ "units_mounted": {
+  "archivo": "units_mounted.png",
+  "celda": [
+   20,
+   20
+  ],
+  "grid": [
+   2,
+   12
+  ],
+  "filas": {
+   "enano_guerrero_montado": 0,
+   "enano_arquero_montado": 1,
+   "enano_mago_montado": 2,
+   "elfo_guerrero_montado": 3,
+   "elfo_arquero_montado": 4,
+   "elfo_mago_montado": 5,
+   "goblin_guerrero_montado": 6,
+   "goblin_arquero_montado": 7,
+   "goblin_mago_montado": 8,
+   "orco_guerrero_montado": 9,
+   "orco_arquero_montado": 10,
+   "orco_mago_montado": 11
+  }
+ },
+ "beasts": {
+  "archivo": "beasts.png",
+  "celda": [
+   16,
+   16
+  ],
+  "grid": [
+   2,
+   4
+  ],
+  "filas": {
+   "oso": 0,
+   "sable": 1,
+   "warg": 2,
+   "avestruz": 3
+  }
+ }
+}
