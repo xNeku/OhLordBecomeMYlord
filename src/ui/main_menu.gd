@@ -7,6 +7,16 @@ extends Control
 func _ready() -> void:
 	seed_box.value = GameState.seed_value
 	$Center/Panel/Box/Campaign.grab_focus()
+	_refresh_filter()
+
+
+func _refresh_filter() -> void:
+	$Center/Panel/Box/Filter.text = "Filtro: %s" % Filters.current_name()
+
+
+func _on_filter_pressed() -> void:
+	Filters.cycle()
+	_refresh_filter()
 
 
 func _on_campaign_pressed() -> void:

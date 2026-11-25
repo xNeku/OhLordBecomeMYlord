@@ -13,6 +13,8 @@ const T_FOREST := 3    ## se puede pisar
 const T_MOUNTAIN := 4  ## bloquea
 const T_ROAD := 5
 const T_LAKE := 6      ## agua dentro de una zona (bloquea)
+const T_RIVER := 7     ## río (bloquea; los caminos lo cruzan con puentes)
+const T_BRIDGE := 8    ## puente sobre el río (caminable; los de la barrera solo al repararla)
 
 var seed_value := 0
 var cell := 16.0           ## píxeles por celda
@@ -22,6 +24,7 @@ var zone_id := PackedByteArray()      ## zona de cada celda, VOID = vacío
 var barrier_id := PackedByteArray()   ## barrera de cada celda, VOID = ninguna
 var walk := PackedByteArray()         ## 1 = caminable ahora mismo
 var terrain := PackedByteArray()      ## T_* por celda
+var ore := PackedByteArray()          ## 1 = muro de montaña con filón (se mina aquí)
 var zones: Array[Dictionary] = []     ## {name,center(celdas),radius}
 var barriers: Array[Dictionary] = []  ## {kind,name,cost,open,cells,pos(px),rect(px),from_zone,to_zone}
 var camps: Array[Dictionary] = []     ## {level,reward,pos,zone}
@@ -129,3 +132,42 @@ func validate() -> PackedStringArray:
 	if not has_final:
 		problems.append("no hay base final")
 	return problems
+
+
+## ¿Hay una celda de terreno `t` a <= r celdas de `p`? (para colocar centros pegados al bosque o al muro)
+func near_terrain(p: Vector2, t: int, r: int) -> bool:
+	var c := cell_of(p)
+	for dy in range(-r, r + 1):
+		for dx in range(-r, r + 1):
+			var nx := c.x + dx
+			var ny := c.y + dy
+			if in_bounds(nx, ny) and terrain[idx(nx, ny)] == t:
+				return true
+	return false
+
+
+## Celda de terreno `t` más cercana a `p` (búsqueda en anillos hasta `max_r`), en px; INF si no hay.
+func nearest_terrain(p: Vector2, t: int, max_r: int, only_edge: bool = false) -> Vector2:
+	var c := cell_of(p)
+	for r in max_r + 1:
+		for dy in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				if maxi(absi(dx), absi(dy)) != r:
+					continue
+				var nx := c.x + dx
+				var ny := c.y + dy
+				if not in_bounds(nx, ny) or terrain[idx(nx, ny)] != t:
+					continue
+				if only_edge and not _touches_walk(nx, ny):
+					continue
+				return cell_center(nx, ny)
+	return Vector2.INF
+
+
+func _touches_walk(cx: int, cy: int) -> bool:
+	for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+		var nx: int = cx + d.x
+		var ny: int = cy + d.y
+		if in_bounds(nx, ny) and walk[idx(nx, ny)] != 0:
+			return true
+	return false

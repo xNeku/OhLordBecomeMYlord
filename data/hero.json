@@ -28,5 +28,14 @@
   "rest_delay_s": 2.0,
   "refill_per_second": 8.0
  },
- "sprite_type": "goblin_brute"
+ "sprite_type": "goblin_brute",
+ "villagers": {
+  "_nota": "Aldeanos visibles (solo decoracion): van del centro (o del ayuntamiento) al bosque/muro mas cercano y trabajan alli. Uno por cada 'workers_per_villager' trabajadores asignados.",
+  "wood_sprite": "goblin_lenador",
+  "mining_sprite": "goblin_minero",
+  "workers_per_villager": 1,
+  "max_visible": 20,
+  "speed": 26,
+  "work_s": 3.0
+ }
 }

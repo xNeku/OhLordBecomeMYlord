@@ -19,7 +19,7 @@ RTS con capa roguelike. Godot **4.7.2**, GDScript. El diseño está en `GDD.md` 
 | Menú de base: ayuntamiento, cuartel, tropas | Tab (cerrar: Tab o clic derecho) | Back / Select |
 | Reparar puente / abrir paso | F (al lado de la barrera) | A |
 | Panel de depuración | F3 | — |
-| Volver al menú | Esc | — |
+| Pausa (filtros de visión, volver al menú) | Esc | Start |
 
 ## Estructura
 ```

@@ -24,10 +24,10 @@
  ],
  "barriers": [
   {
-   "kind": "bridge",
-   "name": "Puente roto",
-   "gap_cells": 14,
-   "width_cells": 3,
+   "kind": "river",
+   "name": "Puente roto (río)",
+   "gap_cells": -42,
+   "width_cells": 2,
    "cost": {
     "wood": 60,
     "mineral": 0
@@ -36,7 +36,7 @@
   {
    "kind": "sea",
    "name": "Mar: muelle y barco",
-   "gap_cells": 20,
+   "gap_cells": 18,
    "width_cells": 5,
    "cost": {
     "wood": 120,
@@ -55,8 +55,6 @@
      "level": 1
     }
    ],
-   "trees": 30,
-   "ore": 8,
    "houses": 3,
    "player_base": true
   },
@@ -73,8 +71,6 @@
      "level": 3
     }
    ],
-   "trees": 34,
-   "ore": 10,
    "enemy_outpost": true
   },
   {
@@ -84,8 +80,6 @@
      "level": 3
     }
    ],
-   "trees": 18,
-   "ore": 6,
    "final_base": true
   }
  ],
@@ -156,23 +150,34 @@
  },
  "decor": {
   "tree": "tree_landmark",
-  "ore": "ore"
+  "trees_per_zone": 4
  },
  "ground": {
-  "_nota": "Las piezas de terreno las entrega el director de arte (assets/atlas/terrain.png + terrain_manifest.json). Aqui solo: tamano de los trozos horneados, probabilidad de estrella y color de la linea de costa.",
+  "_nota": "Las piezas de terreno las entrega el director de arte (assets/atlas/terrain.png + terrain_manifest.json, autotiles de 4 vecinos). Aqui: tamano de los trozos horneados y probabilidad de estrella.",
   "chunk_px": 512,
-  "star_chance": 0.12,
-  "coast_color": "#5fb7f3"
+  "star_chance": 0.12
  },
  "terrain": {
-  "_nota": "Relieve generado con ruido (semilla). Montañas y lagos bloquean el paso; bosque y camino se pueden pisar. Umbrales 0..1: más alto = menos cantidad.",
-  "noise_frequency": 0.06,
-  "mountain_threshold": 0.7,
-  "lake_threshold": 0.82,
-  "forest_threshold": 0.68,
+  "_nota": "Reglas de Neku: montañas = MUROS continuos (cordillera entre inicio y centro + crestas interiores), solo se cruzan por pasos que abren los caminos; bosques = masas densas; rio desde la cordillera al mar con puentes; caminos con Dijkstra. Umbrales 0..1.",
+  "wall_thickness": 2,
+  "ridge_frequency": 0.035,
+  "ridge_width": 0.045,
+  "ridge_mask_threshold": 0.15,
+  "forest_frequency": 0.05,
+  "forest_threshold": 0.62,
+  "river_width": 2,
+  "river_offset_cells": 4,
   "clear_radius_key": 8,
-  "road_clearance": 2,
+  "clear_radius_camp": 5,
+  "road_clearance": 1,
   "sea_margin_cells": 4,
-  "road_wiggle": 3.0
+  "road_cost": {
+   "plain": 1.0,
+   "forest": 7.0,
+   "mountain": 30.0,
+   "river": 25.0,
+   "road": 0.5
+  },
+  "ore_chance": 0.1
  }
 }

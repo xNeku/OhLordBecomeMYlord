@@ -74,6 +74,10 @@ text = "Aleatoria"
 layout_mode = 2
 text = "Hito 0 · Benchmark de rendimiento"
 
+[node name="Filter" type="Button" parent="Center/Panel/Box"]
+layout_mode = 2
+text = "Filtro: Sin filtro"
+
 [node name="Quit" type="Button" parent="Center/Panel/Box"]
 layout_mode = 2
 text = "Salir"
@@ -81,4 +85,5 @@ text = "Salir"
 [connection signal="pressed" from="Center/Panel/Box/Campaign" to="." method="_on_campaign_pressed"]
 [connection signal="pressed" from="Center/Panel/Box/SeedRow/RandomSeed" to="." method="_on_random_seed_pressed"]
 [connection signal="pressed" from="Center/Panel/Box/Benchmark" to="." method="_on_benchmark_pressed"]
+[connection signal="pressed" from="Center/Panel/Box/Filter" to="." method="_on_filter_pressed"]
 [connection signal="pressed" from="Center/Panel/Box/Quit" to="." method="_on_quit_pressed"]

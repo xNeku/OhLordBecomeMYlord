@@ -32,7 +32,7 @@
   ],
   "grid": [
    2,
-   16
+   24
   ],
   "tint": "color de la raza",
   "filas": {
@@ -40,18 +40,26 @@
    "enano_guerrero": 1,
    "enano_arquero": 2,
    "enano_mago": 3,
-   "elfo_base": 4,
-   "elfo_guerrero": 5,
-   "elfo_arquero": 6,
-   "elfo_mago": 7,
-   "goblin_base": 8,
-   "goblin_guerrero": 9,
-   "goblin_arquero": 10,
-   "goblin_mago": 11,
-   "orco_base": 12,
-   "orco_guerrero": 13,
-   "orco_arquero": 14,
-   "orco_mago": 15
+   "enano_minero": 4,
+   "enano_lenador": 5,
+   "elfo_base": 6,
+   "elfo_guerrero": 7,
+   "elfo_arquero": 8,
+   "elfo_mago": 9,
+   "elfo_minero": 10,
+   "elfo_lenador": 11,
+   "goblin_base": 12,
+   "goblin_guerrero": 13,
+   "goblin_arquero": 14,
+   "goblin_mago": 15,
+   "goblin_minero": 16,
+   "goblin_lenador": 17,
+   "orco_base": 18,
+   "orco_guerrero": 19,
+   "orco_arquero": 20,
+   "orco_mago": 21,
+   "orco_minero": 22,
+   "orco_lenador": 23
   }
  },
  "units_mounted": {

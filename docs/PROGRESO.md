@@ -79,9 +79,24 @@ Cómo leerlo: con 2.000 unidades la simulación cabe de sobra en su presupuesto.
   - Las bestias llevan sus colores de dos tonos.
   - El golpe en estructuras vuelve a ser un destello blanco.
 
+### Tanda 3 del director de arte + reglas de mapa de Neku ✅
+- **Mapa nuevo** (`src/world/map_generator.gd`), con tus reglas:
+  - Las regiones de inicio y centro forman un continente separado por una **cordillera** de costa a costa. Hay además **crestas** interiores. Las montañas solo se cruzan por los **pasos** que abren los caminos.
+  - Un **río** nace en la cordillera y baja hasta el mar. Su **puente roto** es la primera barrera; se repara con F.
+  - La región final es una isla al otro lado del estrecho (muelle y barco).
+  - **Bosques en masas** densas, con árboles sueltos en el borde.
+  - **Caminos** que unen tu base, los campamentos, la avanzada y la fortaleza: esquivan bosque y montaña, y abren pasos y puentes.
+  - **Filones** de mineral en los muros de montaña que dan al llano.
+  - Comprobado con 200 semillas: siempre hay camino.
+- **Terreno con piezas que se ajustan a sus vecinos** (autotiles): muro, río y camino. Más puentes, bosque, suelo por región y estrellas.
+- **Estructuras por raza**: tú usas las goblin y el enemigo del mapa 1 las enanas.
+- **Recursos que no se agotan**: el centro de madera se construye pegado a un bosque y el de mineros pegado a un muro. Se ven **leñadores y mineros** yendo y trabajando; su número sigue al reparto de trabajadores.
+- **Tropas que rodean obstáculos**: cuando van hacia una estructura lejana siguen un **mapa de flujo** (la distancia andando, calculada una vez por objetivo), así que rodean muros y ríos. Las oleadas enemigas también.
+- **Filtros de visión** (CRT, LCD, ámbar y Game Boy), probados en Godot y funcionando. Se cambian desde el **menú de pausa (Esc)** o desde el menú principal, y la elección se guarda.
+
 ## Pruebas realizadas (todas sin ventana, en el servidor)
 - `tools/test_world.gd`: 300 semillas sin problemas.
-- `tools/smoke_world.gd`: partida automática con 25 comprobaciones, todas OK en las semillas 123, 7 y 55. Además de lo de antes, cubre: no reponer lejos de la base, reponer descansando en ella, producción de madera, construir el cuartel, desbloquear, mejorar stats y ampliar capacidad. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.
+- `tools/smoke_world.gd`: partida automática con 30 comprobaciones, todas OK en las semillas 123, 7, 55 y 9. Además de lo de antes, cubre: no reponer lejos de la base, reponer descansando en ella, producción de madera, construir el cuartel, desbloquear, mejorar stats y ampliar capacidad. Cubre: lanzar tropas, límite del reparto, reposición gratis, cobro de la recompensa de un campamento, apertura de barrera (para el héroe y para la simulación), cruce a la zona 2 y llegada de una oleada.
 - Capturas renderizadas del benchmark y del mundo con OpenGL por software.
 - **Sin probar:** mando físico, Mac, Android y el rendimiento con GPU real.
 

@@ -35,6 +35,11 @@ Lo leo por **manifests**, así que añadir o reordenar filas no rompe nada.
 - Para actualizar, se copian los PNG y el manifest nuevos a `assets/atlas/`. Si cambian los ids, se ajusta `data/units.json`.
 - Tanda 2 integrada: `structures.png` + `structures_manifest.json` (32x32, ya coloreadas; el golpe es un destello blanco), `projectiles.png` + manifest (8x8, en blanco y tintados con el color de la raza) y `terrain.png` + `terrain_manifest.json`. Las piezas del terreno se agrupan por prefijo (`ground_inicio_N` → grupo `ground_inicio`).
 - Tintes: `units_foot` lleva tinte de raza; `units_mounted`, `beasts` y `structures` van ya coloreadas (tinte blanco).
+- Tanda 3 integrada:
+  - Estructuras por raza (`<raza>_<tipo>`).
+  - Clases y aldeanos (`<raza>_minero`, `<raza>_lenador`).
+  - Terreno con autotiles de 4 vecinos (`mountain_wall_N`, `river_N`, `road_N`, puentes, `forest_fill`/`forest_tree`). El código busca primero el nombre exacto y, si no lo encuentra, una variante del grupo.
+  - Filtros de visión (`assets/shaders/filters/` + `assets/atlas/filtros.json`).
 - Todo el arte procede de la rama de arte. El código ya no genera atlas (se ha retirado `tools/build_atlas.py`).
 
 ## 4. Arquetipos (decidido por Neku)

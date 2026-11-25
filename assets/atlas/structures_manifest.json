@@ -1,116 +1,372 @@
 {
- "_nota": "Celda 32x32, 2 columnas (fotogramas), una fila por id. Ya coloreadas: tint blanco. 'colores' = principal/acento por si quieres tinte propio en el destello.",
+ "_nota": "Celda 32x32, 2 columnas (fotogramas), una fila por id. Ya coloreadas (tint blanco). Ids = <raza>_<tipo>. Cada raza tiene su propio DISEÑO (no solo color): elfo elegante marfil y verde, enano rudo de piedra con mineral dorado, orco de madera y piedra rota, goblin de chatarra oxidada. Neutrales: camp_tent y tree_landmark. El mineral ya NO es una estructura: se mina directamente de los muros de montana.",
  "celda": [
   32,
   32
  ],
  "grid": [
   2,
-  20
+  70
  ],
  "tint": "#FFFFFF",
+ "razas": {
+  "elfo": "#5fb7f3",
+  "enano": "#ff880b",
+  "goblin": "#4dd464",
+  "orco": "#ff5036"
+ },
  "filas": {
-  "townhall": 0,
-  "house": 1,
-  "barracks": 2,
-  "lumber_center": 3,
-  "miners_center": 4,
-  "beast_center": 5,
-  "engineering_center": 6,
-  "wall": 7,
-  "tower_archer": 8,
-  "tower_cannon": 9,
-  "mortar": 10,
-  "ritual_lvl1": 11,
-  "ritual_lvl2": 12,
-  "scaffold": 13,
-  "camp_tent": 14,
-  "enemy_hall": 15,
-  "enemy_tower": 16,
-  "fortress": 17,
-  "tree_landmark": 18,
-  "ore": 19
+  "elfo_townhall": 0,
+  "elfo_house": 1,
+  "elfo_barracks": 2,
+  "elfo_lumber_center": 3,
+  "elfo_miners_center": 4,
+  "elfo_beast_center": 5,
+  "elfo_engineering_center": 6,
+  "elfo_wall": 7,
+  "elfo_tower_archer": 8,
+  "elfo_tower_cannon": 9,
+  "elfo_mortar": 10,
+  "elfo_ritual_lvl1": 11,
+  "elfo_ritual_lvl2": 12,
+  "elfo_scaffold": 13,
+  "elfo_enemy_hall": 14,
+  "elfo_enemy_tower": 15,
+  "elfo_fortress": 16,
+  "enano_townhall": 17,
+  "enano_house": 18,
+  "enano_barracks": 19,
+  "enano_lumber_center": 20,
+  "enano_miners_center": 21,
+  "enano_beast_center": 22,
+  "enano_engineering_center": 23,
+  "enano_wall": 24,
+  "enano_tower_archer": 25,
+  "enano_tower_cannon": 26,
+  "enano_mortar": 27,
+  "enano_ritual_lvl1": 28,
+  "enano_ritual_lvl2": 29,
+  "enano_scaffold": 30,
+  "enano_enemy_hall": 31,
+  "enano_enemy_tower": 32,
+  "enano_fortress": 33,
+  "orco_townhall": 34,
+  "orco_house": 35,
+  "orco_barracks": 36,
+  "orco_lumber_center": 37,
+  "orco_miners_center": 38,
+  "orco_beast_center": 39,
+  "orco_engineering_center": 40,
+  "orco_wall": 41,
+  "orco_tower_archer": 42,
+  "orco_tower_cannon": 43,
+  "orco_mortar": 44,
+  "orco_ritual_lvl1": 45,
+  "orco_ritual_lvl2": 46,
+  "orco_scaffold": 47,
+  "orco_enemy_hall": 48,
+  "orco_enemy_tower": 49,
+  "orco_fortress": 50,
+  "goblin_townhall": 51,
+  "goblin_house": 52,
+  "goblin_barracks": 53,
+  "goblin_lumber_center": 54,
+  "goblin_miners_center": 55,
+  "goblin_beast_center": 56,
+  "goblin_engineering_center": 57,
+  "goblin_wall": 58,
+  "goblin_tower_archer": 59,
+  "goblin_tower_cannon": 60,
+  "goblin_mortar": 61,
+  "goblin_ritual_lvl1": 62,
+  "goblin_ritual_lvl2": 63,
+  "goblin_scaffold": 64,
+  "goblin_enemy_hall": 65,
+  "goblin_enemy_tower": 66,
+  "goblin_fortress": 67,
+  "camp_tent": 68,
+  "tree_landmark": 69
  },
  "colores": {
-  "townhall": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_townhall": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "house": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_house": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "barracks": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_barracks": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "lumber_center": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_lumber_center": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "miners_center": {
-   "principal": "#929992",
-   "acento": "#5fb7f3"
+  "elfo_miners_center": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "beast_center": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_beast_center": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "engineering_center": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_engineering_center": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "wall": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_wall": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "tower_archer": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_tower_archer": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "tower_cannon": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_tower_cannon": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "mortar": {
-   "principal": "#929992",
-   "acento": "#cc8e4c"
+  "elfo_mortar": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "ritual_lvl1": {
-   "principal": "#929992",
-   "acento": "#e05ad1"
+  "elfo_ritual_lvl1": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "ritual_lvl2": {
-   "principal": "#929992",
-   "acento": "#f7c439"
+  "elfo_ritual_lvl2": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
   },
-  "scaffold": {
-   "principal": "#cc8e4c",
-   "acento": "#f3e2b1"
+  "elfo_scaffold": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
+  },
+  "elfo_enemy_hall": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
+  },
+  "elfo_enemy_tower": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
+  },
+  "elfo_fortress": {
+   "principal": "#e9e4d0",
+   "acento": "#5cb86a"
+  },
+  "enano_townhall": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_house": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_barracks": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_lumber_center": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_miners_center": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_beast_center": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_engineering_center": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_wall": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_tower_archer": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_tower_cannon": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_mortar": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_ritual_lvl1": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_ritual_lvl2": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_scaffold": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_enemy_hall": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_enemy_tower": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "enano_fortress": {
+   "principal": "#78808a",
+   "acento": "#e8b923"
+  },
+  "orco_townhall": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_house": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_barracks": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_lumber_center": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_miners_center": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_beast_center": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_engineering_center": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_wall": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_tower_archer": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_tower_cannon": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_mortar": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_ritual_lvl1": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_ritual_lvl2": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_scaffold": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_enemy_hall": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_enemy_tower": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "orco_fortress": {
+   "principal": "#a8693a",
+   "acento": "#8e9399"
+  },
+  "goblin_townhall": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_house": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_barracks": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_lumber_center": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_miners_center": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_beast_center": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_engineering_center": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_wall": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_tower_archer": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_tower_cannon": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_mortar": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_ritual_lvl1": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_ritual_lvl2": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_scaffold": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_enemy_hall": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_enemy_tower": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
+  },
+  "goblin_fortress": {
+   "principal": "#8d949a",
+   "acento": "#c0561f"
   },
   "camp_tent": {
    "principal": "#cc8e4c",
    "acento": "#e05ad1"
   },
-  "enemy_hall": {
-   "principal": "#c4324a",
-   "acento": "#f3e2b1"
-  },
-  "enemy_tower": {
-   "principal": "#c4324a",
-   "acento": "#f3e2b1"
-  },
-  "fortress": {
-   "principal": "#c4324a",
-   "acento": "#f3e2b1"
-  },
   "tree_landmark": {
    "principal": "#a8693a",
    "acento": "#f3e2b1"
-  },
-  "ore": {
-   "principal": "#929992",
-   "acento": "#5fb7f3"
   }
  }
 }

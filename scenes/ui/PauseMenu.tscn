@@ -1,0 +1,69 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/pause_menu.gd" id="1_p"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+bg_color = Color(0, 0, 0, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+content_margin_left = 26.0
+content_margin_top = 18.0
+content_margin_right = 26.0
+content_margin_bottom = 18.0
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 110
+script = ExtResource("1_p")
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Dim" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Center" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Root/Center"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Box" type="VBoxContainer" parent="Root/Center/Panel"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Center/Panel/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="Continue" type="Button" parent="Root/Center/Panel/Box"]
+layout_mode = 2
+text = "Continuar (Esc)"
+
+[node name="Filter" type="Button" parent="Root/Center/Panel/Box"]
+layout_mode = 2
+text = "Filtro: Sin filtro"
+
+[node name="Menu" type="Button" parent="Root/Center/Panel/Box"]
+layout_mode = 2
+text = "Menú principal"
+
+[connection signal="pressed" from="Root/Center/Panel/Box/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Root/Center/Panel/Box/Filter" to="." method="_on_filter_pressed"]
+[connection signal="pressed" from="Root/Center/Panel/Box/Menu" to="." method="_on_menu_pressed"]

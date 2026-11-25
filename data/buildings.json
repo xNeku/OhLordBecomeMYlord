@@ -88,8 +88,10 @@
    "work": 36,
    "max": 3,
    "unit_type": "lumber_center",
-   "effect": "+75% madera por cada uno",
-   "wood_bonus": 0.75
+   "effect": "+75% madera por cada uno. Se construye pegado a un bosque",
+   "wood_bonus": 0.75,
+   "next_to": "forest",
+   "search_radius_cells": 32
   },
   "miners_center": {
    "name": "Centro de mineros",
@@ -100,8 +102,10 @@
    "work": 36,
    "max": 3,
    "unit_type": "miners_center",
-   "effect": "+75% mineral por cada uno",
-   "mineral_bonus": 0.75
+   "effect": "+75% mineral por cada uno. Se construye pegado a un muro de montaña",
+   "mineral_bonus": 0.75,
+   "next_to": "mountain",
+   "search_radius_cells": 32
   },
   "beast_center": {
    "name": "Centro de bestias",

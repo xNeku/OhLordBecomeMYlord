@@ -7,6 +7,7 @@ const PNG := "res://assets/atlas/terrain.png"
 const MANIFEST := "res://assets/atlas/terrain_manifest.json"
 
 var groups: Dictionary = {}  ## prefijo -> Array[Image]
+var exact: Dictionary = {}   ## nombre exacto -> Image (p.ej. "river_5" de los autotiles)
 
 
 func _init() -> void:
@@ -22,6 +23,7 @@ func _init() -> void:
 	for name: String in names:
 		var r: Array = man["piezas"][name]
 		var piece := img.get_region(Rect2i(int(r[0]), int(r[1]), int(r[2]), int(r[3])))
+		exact[name] = piece
 		var prefix: String = name
 		var us: int = name.rfind("_")
 		if us > 0 and name.substr(us + 1).is_valid_int():
@@ -31,8 +33,10 @@ func _init() -> void:
 		groups[prefix].append(piece)
 
 
-## Variante `v` del grupo, o null si el grupo no existe.
+## Pieza por nombre exacto si existe; si no, variante `v` del grupo con ese prefijo; o null.
 func pick(prefix: String, v: int) -> Image:
+	if exact.has(prefix):
+		return exact[prefix]
 	var g: Array = groups.get(prefix, [])
 	if g.is_empty():
 		return null

@@ -64,6 +64,13 @@ var walk_w := 0
 var walk_h := 0
 var walk_inv := 1.0
 
+# --- mapas de flujo hacia estructuras (para rodear muros y ríos) ---
+## uid de la estructura -> PackedInt32Array con la distancia en celdas andando (-1 = inalcanzable)
+var _flow: Dictionary = {}
+var _flow_budget := 0  ## mapas nuevos que se pueden calcular en este paso
+const FLOW_PER_STEP := 1
+const FLOW_NEAR_PX := 40.0  ## más cerca que esto (más el alcance) se va en línea recta
+
 # variables de trabajo de la búsqueda (evitan asignaciones en el bucle caliente)
 var _best := -1
 var _best_d := 0.0
@@ -83,6 +90,7 @@ func set_walk_grid(cells: PackedByteArray, w: int, h: int, cell_px: float) -> vo
 	walk_w = w
 	walk_h = h
 	walk_inv = 1.0 / cell_px
+	_flow.clear()  # el terreno cambió (p.ej. se abrió una barrera): se recalculan los flujos
 
 
 func _resize(new_cap: int) -> void:
@@ -157,6 +165,7 @@ func drain_death_events() -> PackedFloat32Array:
 
 func step(dt: float = STEP_DT) -> void:
 	tick += 1
+	_flow_budget = FLOW_PER_STEP
 	grid.rebuild(px, py, alive, high)
 	if structs_dirty:
 		_rebuild_struct_list()
@@ -228,9 +237,15 @@ func step(dt: float = STEP_DT) -> void:
 			var room := d - reach
 			if stp > room:
 				stp = room
-			var nx := px[i] + dx / d * stp
-			var ny := py[i] + dy / d * stp
-			_move_to(i, nx, ny)
+			var mx := dx / d
+			var my := dy / d
+			# lejos de una estructura: seguir su mapa de flujo para rodear obstáculos
+			if walk_w > 0 and db.is_structure[tt] == 1 and room > FLOW_NEAR_PX:
+				var fd := _flow_dir(i, tg)
+				if fd != Vector2.ZERO:
+					mx = fd.x
+					my = fd.y
+			_move_to(i, px[i] + mx * stp, py[i] + my * stp)
 
 		# ---- separación (cada 2 pasos por unidad, con vecinos acotados) ----
 		if spd > 0.0 and ((tick + i) & 1) == 0:
@@ -449,3 +464,91 @@ func _splash(x: float, y: float, r: float, dmg: float, src_team: int) -> void:
 				var dd := maxf(sqrt(dx * dx + dy * dy) - rad, 0.0)
 				if dd * dd <= r2:
 					_hit(j, dmg)
+
+
+# ------------------------------------------------------------ mapas de flujo
+
+## Dirección (unitaria) hacia la celda vecina más cercana a la estructura `j` andando,
+## o ZERO si no hay mapa (aún) o la unidad está en una celda sin camino.
+func _flow_dir(i: int, j: int) -> Vector2:
+	var f: PackedInt32Array
+	var key := uid[j]
+	if _flow.has(key):
+		f = _flow[key]
+	elif _flow_budget > 0:
+		_flow_budget -= 1
+		f = _build_flow(j)
+		_flow[key] = f
+	else:
+		return Vector2.ZERO
+	var cx := int(px[i] * walk_inv)
+	var cy := int(py[i] * walk_inv)
+	if cx < 0 or cy < 0 or cx >= walk_w or cy >= walk_h:
+		return Vector2.ZERO
+	var c := cy * walk_w + cx
+	var here := f[c]
+	if here <= 0:
+		return Vector2.ZERO
+	var best := here
+	var bx := 0
+	var by := 0
+	# 8 vecinos (sin cortar esquinas de obstáculos)
+	for oy in range(-1, 2):
+		for ox in range(-1, 2):
+			if ox == 0 and oy == 0:
+				continue
+			var nx := cx + ox
+			var ny := cy + oy
+			if nx < 0 or ny < 0 or nx >= walk_w or ny >= walk_h:
+				continue
+			var v := f[ny * walk_w + nx]
+			if v < 0 or v >= best:
+				continue
+			if ox != 0 and oy != 0 and (f[cy * walk_w + nx] < 0 or f[ny * walk_w + cx] < 0):
+				continue
+			best = v
+			bx = ox
+			by = oy
+	if bx == 0 and by == 0:
+		return Vector2.ZERO
+	var cell := 1.0 / walk_inv
+	var tx := (cx + bx + 0.5) * cell - px[i]
+	var ty := (cy + by + 0.5) * cell - py[i]
+	var l := sqrt(tx * tx + ty * ty)
+	return Vector2(tx / l, ty / l) if l > 0.001 else Vector2.ZERO
+
+
+## BFS desde las celdas que ocupa la estructura `j` por el terreno caminable.
+func _build_flow(j: int) -> PackedInt32Array:
+	var n := walk_w * walk_h
+	var f := PackedInt32Array()
+	f.resize(n)
+	f.fill(-1)
+	var q := PackedInt32Array()
+	var r := int(ceil(db.radius[type[j]] * walk_inv)) + 1
+	var cx := int(px[j] * walk_inv)
+	var cy := int(py[j] * walk_inv)
+	for oy in range(-r, r + 1):
+		for ox in range(-r, r + 1):
+			var nx := cx + ox
+			var ny := cy + oy
+			if nx >= 0 and ny >= 0 and nx < walk_w and ny < walk_h:
+				var c := ny * walk_w + nx
+				if walk[c] != 0 and f[c] < 0:
+					f[c] = 0
+					q.append(c)
+	var head := 0
+	while head < q.size():
+		var c := q[head]
+		head += 1
+		var d := f[c] + 1
+		var x := c % walk_w
+		if x + 1 < walk_w and f[c + 1] < 0 and walk[c + 1] != 0:
+			f[c + 1] = d; q.append(c + 1)
+		if x > 0 and f[c - 1] < 0 and walk[c - 1] != 0:
+			f[c - 1] = d; q.append(c - 1)
+		if c + walk_w < n and f[c + walk_w] < 0 and walk[c + walk_w] != 0:
+			f[c + walk_w] = d; q.append(c + walk_w)
+		if c - walk_w >= 0 and f[c - walk_w] < 0 and walk[c - walk_w] != 0:
+			f[c - walk_w] = d; q.append(c - walk_w)
+	return f

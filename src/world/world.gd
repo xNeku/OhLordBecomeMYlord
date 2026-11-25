@@ -13,6 +13,7 @@ extends Node2D
 @onready var base_menu: BaseMenu = $Ui/BaseMenu
 @onready var economy: Economy = $Economy
 @onready var construction: ConstructionView = $Construction
+@onready var villagers: VillagerView = $Villagers
 @onready var debug: DebugOverlay = $DebugOverlay
 
 var params: Dictionary
@@ -42,6 +43,7 @@ func _ready() -> void:
 	economy.setup(battle, map, hero.store, hero.data["faction"])
 	economy.message.connect(func(t: String): hud.show_banner(t, 2.5))
 	construction.bind(economy)
+	villagers.bind(economy, map, battle.db, hero.data)
 	base_menu.bind(economy, hero.store, battle.db, hero.data["faction"])
 	hero.store.resting_changed.connect(func(on: bool):
 		if on: hud.show_banner("Descansando en la base: reponiendo tropas", 2.0))
@@ -142,11 +144,6 @@ func _end(victory: bool) -> void:
 	waves.enabled = false
 	hero.input_enabled = false
 	hud.show_end(victory)
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("back_to_menu"):
-		_to_menu()
 
 
 func _to_menu() -> void:

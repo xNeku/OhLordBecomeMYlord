@@ -34,9 +34,12 @@ func _run() -> void:
 
 	# --- lanzar tropas contra el campamento 0 ---
 	var camp: Dictionary = w.map.camps[0]
-	var dir: Vector2 = (camp["pos"] - w.map.spawn).normalized()
-	var spot: Vector2 = camp["pos"] - dir * 70.0
-	if not w.map.is_walkable(spot): spot = w.map.spawn
+	var spot: Vector2 = w.map.spawn
+	for k in 16:
+		var cand: Vector2 = camp["pos"] + Vector2.RIGHT.rotated(TAU * k / 16.0) * 70.0
+		if w.map.is_walkable(cand) and _clear_line(w.map, cand, camp["pos"]):
+			spot = cand
+			break
 	w.hero.global_position = spot
 	w.hero.last_dir = (camp["pos"] - spot).normalized()
 	w.hero.launcher._pad_aim = true
@@ -102,6 +105,18 @@ func _run() -> void:
 	check(eco.upgrade_stats("base") and sim.db.hp[t_base] > hp0, "mejora de stats sube la vida (%.0f -> %.0f)" % [hp0, sim.db.hp[t_base]])
 	var cap0: int = st.capacity
 	check(eco.upgrade_capacity() and st.capacity > cap0, "mejora de capacidad (%d -> %d)" % [cap0, st.capacity])
+	# --- centros de recurso pegados al bosque / muro ---
+	check(eco.order_building("lumber_center"), "se encarga un centro de madera")
+	check(eco.order_building("miners_center"), "se encarga un centro de mineros")
+	var lq: Dictionary = eco.queue[eco.queue.size() - 2]
+	var mq: Dictionary = eco.queue[eco.queue.size() - 1]
+	check(w.map.near_terrain(lq["pos"], MapData.T_FOREST, 2), "el centro de madera va pegado a un bosque")
+	check(w.map.near_terrain(mq["pos"], MapData.T_MOUNTAIN, 2), "el centro de mineros va pegado a un muro de montaña")
+	eco.set_split("wood", 40)
+	await frames(2)
+	check(w.villagers._list.size() > 0, "hay aldeanos trabajando (%d)" % w.villagers._list.size())
+	eco.set_split("build", 100)
+
 	# --- centro de bestias: probabilidad de que salgan montadas ---
 	check(eco.order_building("beast_center"), "se encarga un centro de bestias")
 	var t3 := 0
@@ -134,11 +149,11 @@ func _run() -> void:
 	await frames(2)
 	check(w.map.barriers[0]["open"], "interactuar con recursos abre la barrera")
 	check(w.map.is_walkable(b["pos"]) and sim.walk[w.map.idx(w.map.cell_of(b["pos"]).x, w.map.cell_of(b["pos"]).y)] != 0, "la simulación también ve la barrera abierta")
-	# el héroe cruza andando
-	Input.action_press("move_right")
-	await frames(60 * 6)
-	Input.action_release("move_right")
-	check(w.hero.zone >= 1, "el héroe cruzó a la zona %d" % w.hero.zone)
+	var outpost_pos := Vector2.INF
+	for e in w.map.entities:
+		if e.get("type", "") == "enemy_hall":
+			outpost_pos = e["pos"]
+	check(_walk_path(w.map, w.map.spawn, outpost_pos), "con el puente reparado se llega andando de tu base a la avanzada enemiga")
 
 	# --- oleada enemiga ---
 	w.hero.global_position = w.map.spawn
@@ -158,3 +173,37 @@ func _alive_of(sim: BattleSim, type_id: String) -> int:
 		if sim.alive[i] == 1 and sim.type[i] == t:
 			n += 1
 	return n
+
+
+func _clear_line(m: MapData, a: Vector2, b: Vector2) -> bool:
+	for k in 21:
+		if not m.is_walkable(a.lerp(b, k / 20.0)):
+			return false
+	return true
+
+
+## BFS por celdas caminables (lo que de verdad puede recorrer el héroe).
+func _walk_path(m: MapData, from: Vector2, to: Vector2) -> bool:
+	var s := m.cell_of(from)
+	var t := m.cell_of(to)
+	var seen := PackedByteArray()
+	seen.resize(m.w * m.h)
+	var q := PackedInt32Array([m.idx(s.x, s.y)])
+	seen[q[0]] = 1
+	var head := 0
+	while head < q.size():
+		var c := q[head]
+		head += 1
+		if c == m.idx(t.x, t.y):
+			return true
+		var cx := c % m.w
+		var cy := c / m.w
+		for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			var nx: int = cx + d.x
+			var ny: int = cy + d.y
+			if m.in_bounds(nx, ny):
+				var n := m.idx(nx, ny)
+				if seen[n] == 0 and m.walk[n] != 0:
+					seen[n] = 1
+					q.append(n)
+	return false

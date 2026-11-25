@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/world/world.gd" id="1_world"]
 [ext_resource type="Script" path="res://src/world/world_view.gd" id="2_view"]
@@ -14,11 +14,14 @@
 [ext_resource type="PackedScene" path="res://scenes/base/BaseMenu.tscn" id="12_base"]
 [ext_resource type="Script" path="res://src/base/economy.gd" id="13_eco"]
 [ext_resource type="Script" path="res://src/base/construction_view.gd" id="14_cons"]
+[ext_resource type="Script" path="res://src/base/villager_view.gd" id="15_vill"]
+[ext_resource type="Texture2D" path="res://assets/atlas/units_foot.png" id="16_foot"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="17_pause"]
 
 [sub_resource type="ShaderMaterial" id="Mat_decor"]
 shader = ExtResource("5_shader")
 shader_parameter/atlas = ExtResource("6_struct")
-shader_parameter/grid = Vector2(2, 20)
+shader_parameter/grid = Vector2(2, 70)
 
 [sub_resource type="QuadMesh" id="Quad32"]
 size = Vector2(32, 32)
@@ -28,6 +31,20 @@ transform_format = 0
 use_colors = true
 use_custom_data = true
 mesh = SubResource("Quad32")
+
+[sub_resource type="ShaderMaterial" id="Mat_vill"]
+shader = ExtResource("5_shader")
+shader_parameter/atlas = ExtResource("16_foot")
+shader_parameter/grid = Vector2(2, 24)
+
+[sub_resource type="QuadMesh" id="Quad16"]
+size = Vector2(16, 16)
+
+[sub_resource type="MultiMesh" id="MM_vill"]
+transform_format = 0
+use_colors = true
+use_custom_data = true
+mesh = SubResource("Quad16")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_world")
@@ -43,6 +60,15 @@ script = ExtResource("4_batch")
 
 [node name="Construction" type="Node2D" parent="."]
 script = ExtResource("14_cons")
+
+[node name="Villagers" type="Node2D" parent="."]
+script = ExtResource("15_vill")
+
+[node name="Batch" type="MultiMeshInstance2D" parent="Villagers"]
+material = SubResource("Mat_vill")
+multimesh = SubResource("MM_vill")
+texture_filter = 1
+script = ExtResource("4_batch")
 
 [node name="Battle" parent="." instance=ExtResource("7_battle")]
 
@@ -63,3 +89,5 @@ script = ExtResource("3_waves")
 [node name="BaseMenu" parent="Ui" instance=ExtResource("12_base")]
 
 [node name="DebugOverlay" parent="." instance=ExtResource("11_dbg")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("17_pause")]

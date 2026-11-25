@@ -13,7 +13,7 @@
 [sub_resource type="ShaderMaterial" id="Mat_foot"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("5_foot")
-shader_parameter/grid = Vector2(2, 16)
+shader_parameter/grid = Vector2(2, 24)
 
 [sub_resource type="ShaderMaterial" id="Mat_mounted"]
 shader = ExtResource("4_shader")
@@ -33,7 +33,7 @@ shader_parameter/grid = Vector2(2, 4)
 [sub_resource type="ShaderMaterial" id="Mat_struct"]
 shader = ExtResource("4_shader")
 shader_parameter/atlas = ExtResource("6_struct")
-shader_parameter/grid = Vector2(2, 20)
+shader_parameter/grid = Vector2(2, 70)
 
 [sub_resource type="QuadMesh" id="Quad8"]
 size = Vector2(8, 8)

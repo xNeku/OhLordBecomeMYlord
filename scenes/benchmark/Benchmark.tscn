@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/bench/benchmark.gd" id="1_bench"]
 [ext_resource type="PackedScene" path="res://scenes/battle/Battle.tscn" id="2_battle"]
 [ext_resource type="PackedScene" path="res://scenes/ui/DebugOverlay.tscn" id="3_dbg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PauseMenu.tscn" id="4_pause"]
 
 [sub_resource type="StyleBoxFlat" id="Style_panel"]
 bg_color = Color(0, 0, 0, 0.7)
@@ -20,6 +21,8 @@ script = ExtResource("1_bench")
 zoom = Vector2(0.7, 0.7)
 
 [node name="DebugOverlay" parent="." instance=ExtResource("3_dbg")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause")]
 
 [node name="Ui" type="CanvasLayer" parent="."]
 
@@ -62,7 +65,7 @@ text = "Velocidad x3"
 
 [node name="Back" type="Button" parent="Ui/Panel/Box"]
 layout_mode = 2
-text = "Volver al menú (Esc)"
+text = "Volver al menú"
 
 [connection signal="pressed" from="Ui/Panel/Box/Row/Less" to="." method="_on_less_pressed"]
 [connection signal="pressed" from="Ui/Panel/Box/Row/More" to="." method="_on_more_pressed"]

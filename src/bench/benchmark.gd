@@ -54,8 +54,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			cam.zoom = (cam.zoom * 1.15).clamp(Vector2(0.15, 0.15), Vector2(6, 6))
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			cam.zoom = (cam.zoom / 1.15).clamp(Vector2(0.15, 0.15), Vector2(6, 6))
-	if event.is_action_pressed("back_to_menu"):
-		_on_back_pressed()
 
 
 func _on_more_pressed() -> void:

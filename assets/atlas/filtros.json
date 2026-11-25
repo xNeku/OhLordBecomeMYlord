@@ -1,0 +1,10 @@
+{
+ "_nota": "Filtros de vision retro (post-proceso de pantalla completa). Cada uno es un .gdshader de assets/shaders/filters/. El orden de abajo es el del selector del menu Esc (rotar con un boton 'Filtro: <nombre>'). 'ninguno' = sin material. SIN PROBAR en Godot (el entorno de arte no tiene motor): revisalos al integrarlos.",
+ "orden": [
+  {"id": "ninguno", "nombre": "Sin filtro", "shader": null},
+  {"id": "crt", "nombre": "CRT", "shader": "res://assets/shaders/filters/filter_crt.gdshader", "uniforms": {"line_height": "escala del juego (p.ej. 3.0)"}},
+  {"id": "lcd", "nombre": "LCD", "shader": "res://assets/shaders/filters/filter_lcd.gdshader", "uniforms": {"cell": "escala del juego (p.ej. 3.0)"}},
+  {"id": "ambar", "nombre": "Fosforo ambar", "shader": "res://assets/shaders/filters/filter_ambar.gdshader", "uniforms": {"line_height": "escala del juego"}},
+  {"id": "gameboy", "nombre": "Game Boy", "shader": "res://assets/shaders/filters/filter_gameboy.gdshader"}
+ ]
+}

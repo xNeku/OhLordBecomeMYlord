@@ -126,9 +126,10 @@ func order_building(id: String) -> bool:
 	if build_block_reason(id) != "":
 		message.emit("%s: %s" % [catalog[id]["name"], build_block_reason(id)])
 		return false
-	var spot := _find_spot()
+	var spot := _find_spot(id)
 	if spot == Vector2.INF:
-		message.emit("No queda sitio libre alrededor del ayuntamiento")
+		var nt: String = catalog[id].get("next_to", "")
+		message.emit("No hay sitio libre%s cerca de tu base" % ({"forest": " pegado a un bosque", "mountain": " pegado a un muro de montaña"}.get(nt, "")))
 		return false
 	GameState.spend(catalog[id]["cost"])
 	var work := float(catalog[id]["work"])
@@ -138,9 +139,16 @@ func order_building(id: String) -> bool:
 	return true
 
 
-func _find_spot() -> Vector2:
+func _find_spot(id: String = "") -> Vector2:
 	var pl: Dictionary = params["placement"]
 	var spacing := float(pl["spacing_px"])
+	var next_to: String = catalog.get(id, {}).get("next_to", "")
+	var need_t := -1
+	if next_to == "forest":
+		need_t = MapData.T_FOREST
+	elif next_to == "mountain":
+		need_t = MapData.T_MOUNTAIN
+	var max_r := int(catalog.get(id, {}).get("search_radius_cells", pl["max_radius_cells"]))
 	var taken: Array[Vector2] = []
 	var sim := battle.sim
 	for i in sim.high:
@@ -148,13 +156,15 @@ func _find_spot() -> Vector2:
 			taken.append(Vector2(sim.px[i], sim.py[i]))
 	for q in queue:
 		taken.append(q["pos"])
-	for r in range(int(pl["min_radius_cells"]), int(pl["max_radius_cells"]) + 1):
+	for r in range(int(pl["min_radius_cells"]), max_r + 1):
 		var steps := 6 * r
 		for k in steps:
 			var ang := TAU * k / steps
 			var p := map.spawn + Vector2(cos(ang), sin(ang)) * r * map.cell
 			if not _clear(p):
 				continue
+			if need_t >= 0 and not map.near_terrain(p, need_t, 2):
+				continue  # centros de recurso: pegados al bosque o al muro
 			var ok := true
 			for t in taken:
 				if t.distance_to(p) < spacing:
