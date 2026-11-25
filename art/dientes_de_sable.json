@@ -1,0 +1,35 @@
+{
+ "note": "Dientes de sable (estilo v2): replica simplificada de la imagen de Neku. '.' transparente.",
+ "sprites": {
+  "dientes_de_sable": {
+   "palette": {
+    "A": "#c2cdd1",
+    "B": "#e6f1f2",
+    "C": "#849ca8",
+    "D": "#4c5d73",
+    "I": "#3d1c26",
+    "k": "#0a0a0e"
+   },
+   "rows": [
+    "...........ABBA.......",
+    ".........ACBBBBBA.C...",
+    "......ABBAABBABDABBA..",
+    "...AABBBBABBBBACABBBA.",
+    "..ABBBBBBBBBBBCAABIAB.",
+    ".ABBBABBBBABBACBABBBCC",
+    "ACBBBBABBAABBACABAABBC",
+    "CDBBBBCABCABBBCDBADCDC",
+    "..ABBBCAACABBACCDD.B.B",
+    "..AABBDCCAABACCDC..C.C",
+    "..AABADDDABBCDDCC.....",
+    ".AAAA.DDD.ABCkDCA.....",
+    ".AAC..DC..ABAkDAA.....",
+    ".AA...DCC..BBkkAAC....",
+    ".ABB...CCC.ABBkDAAA...",
+    "..BAB......AABA......."
+   ],
+   "width": 22,
+   "height": 16
+  }
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "note": "Oso (estilo v2): replica simplificada de la imagen de Neku. '.' transparente.",
+ "sprites": {
+  "oso": {
+   "palette": {
+    "B": "#7e5233",
+    "C": "#4a2d27",
+    "D": "#22191c",
+    "E": "#65422e",
+    "F": "#946531",
+    "k": "#0a0a0e"
+   },
+   "rows": [
+    "...........DBBC.......",
+    "......CCCCDBBBBB......",
+    "....CCBBBDBEEEBDFDDE..",
+    "...CBBBBECEEEEDEDBFC..",
+    "..CBEEBEEEEEEECDBBBBB.",
+    ".BEEEEEEEEEEECCBBBDBD.",
+    "EDEECEEEECBBECDCBBBFF.",
+    "CDEECCEECBBBBCDCCBFFDD",
+    ".DEEEDCEDBBBBCCDCCEFBD",
+    ".DEEEEDCDCBBBCCCCDDD..",
+    "..CEEEDCDCBBCCCDD.....",
+    "..CCEEDCDCBBCDDDC.....",
+    ".CCCCD.DDCCBC.DCC.....",
+    ".CCCD..DDkCBC.DCCE....",
+    ".CCCD..DDDCCC..DCCE...",
+    ".CCEEC....DCEE..DCCE.."
+   ],
+   "width": 22,
+   "height": 16
+  }
+ }
+}
