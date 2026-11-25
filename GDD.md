@@ -202,7 +202,7 @@ Pixel art muy simple sobre fondo negro, sin contornos, con colores planos y satu
 
 **Dirección de arte**
 - Fondo negro puro (#000000) siempre. Sin contornos: la forma la dan los bloques de color. [Decidido]
-- **Estilo v2 [Decidido por Neku].** Se adopta como estilo de referencia el enano de `art/enano.json` (imagen original en `reference/enano_referencia.jpg`): pixel art de unos 18×18 px, sin contorno, con 2–3 tonos por material (barba naranja, acero gris, cuero marrón, tela verde oscuro) en vez de colores totalmente planos. Mantiene la barba/silueta ancha como rasgo dominante de la raza. Las tropas de `sprites.json` y las bestias se rehacen con este estilo más adelante.
+- **Estilo v2 [Decidido por Neku].** Se adopta como estilo de referencia el enano de `art/concepto_1/enano.json` (imagen original en `reference/concepto_1/enano_referencia.jpg`; las demás razas y bestias del concepto 1 están en `art/concepto_1/`): pixel art de unos 18×18 px, sin contorno, con 2–3 tonos por material (barba naranja, acero gris, cuero marrón, tela verde oscuro) en vez de colores totalmente planos. Mantiene la barba/silueta ancha como rasgo dominante de la raza. Las tropas de `sprites.json` y las bestias se rehacen con este estilo más adelante.
 - Siluetas gordas, cabeza grande, ojos como huecos negros. Se leen aunque estén apiladas. [Decidido]
 - **Un color dominante por raza** para distinguir bandos en masa. [Decidido]
 - Cada raza tiene silueta propia: goblin pequeño y orejón, orco grande con colmillos, enano bajo y barbudo, elfo alto y flaco. [Decidido]
